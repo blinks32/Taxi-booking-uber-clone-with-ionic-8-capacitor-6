@@ -2,6 +2,10 @@
 You Will Need The Driver App, to successfully run the projects
 The Project is not fully complete, so please dont forget to point an issue.
 
+[![continuousphp](https://img.shields.io/continuousphp/git-hub/doctrine/dbal/master.svg)]()
+[![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
+[![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
+
 ![](https://media.giphy.com/media/l1J9PS0TT3NdHIR32/giphy.gif)
 
 #### You could buy me a bit of happiness, for going through it all. And I will Email You the Driver App.
