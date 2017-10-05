@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'Humanst';
+  src: url('../assets/fonts/roboto-bold.woff2') format('woff2'), url('../assets/fonts/roboto-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: bold;
+  color: color($colors, dark, base);
+}
+
+.no-scroll .scroll-content{
+  overflow: hidden;
+  
+}
+
+ion-navbar{
+  border-bottom: 1.5px solid color($colors, nav-border-bottom, base);
+}
+
+button{
+  box-shadow: none;
+  border-radius: 4px;
+}
+
+.button{
+  box-shadow: none;
+  border-radius: 4px;
+}
+
+
+.profile-pic{
+  width: 4em auto;
+  height: 4em auto;
+  border-radius: 50px;
+ }
+
+ ion-input{
+  border-radius: 4px;
+  border: 1px solid color($colors, nav-border-bottom, base);
+ }
+
+ ion-searchbar{
+  box-shadow: none;
+  border-radius: 4px;
+ }
+
+ .main{
+   ion-item{
+    height: 100px; 
+    border-bottom: 1.5px solid color($colors, nav-border-bottom, base); 
+    padding: 0px
+   }
+   .profile-pic{
+     border: 1.3px solid color($colors, nav-border-bottom, base);
+   }
+ }
+
+ 

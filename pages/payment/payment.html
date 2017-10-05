@@ -1,0 +1,37 @@
+<!--
+  Generated template for the PaymentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar color="nav-color">
+    <ion-title>payment</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="no-scroll" padding>
+    <ion-list radio-group [(ngModel)]="paymentType">
+        <ion-item color="gery">
+          <ion-label >
+              <ion-icon padding name="cash">
+              </ion-icon>
+              Cash
+            </ion-label>
+          <ion-radio color="light" value="cash" checked (click)="updatePayment(1)"></ion-radio>
+        </ion-item>
+        <ion-item-divider text-center>
+           For Easier Payment, Use Card.
+          </ion-item-divider>
+        <ion-item color="primary">
+          <ion-label [hidden]="ph.card != null"> <ion-icon  padding name="card">
+          </ion-icon> Add Card </ion-label>
+          <ion-label [hidden]="ph.card == null" > <ion-icon  padding name="card">
+          </ion-icon> {{cardnumber}} </ion-label>
+          <ion-radio color="light" value="card" (click)="gotoCard()" ></ion-radio>
+        </ion-item>
+      </ion-list>
+</ion-content>

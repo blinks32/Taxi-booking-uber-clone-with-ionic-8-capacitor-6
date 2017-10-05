@@ -1,0 +1,415 @@
+page-home {
+
+  ion-header{
+    z-index: 1;
+  }
+ 
+  ion-content {
+
+
+    @keyframes left_right {
+      0%   {left: 75%;}
+     
+      50% {left: 80%;}
+    
+      100% {left: 75%;}
+  }
+
+  @keyframes wiki {
+    from {
+      opacity: 0;
+    }
+    
+    to {
+      opacity: 1;
+    }
+}
+
+
+@keyframes bump {
+  from {
+    top:100%
+  }
+  
+  to {
+    top:82%;
+  }
+}
+
+    
+    
+    [noScroll] {
+      overflow: hidden;
+    }
+
+    .bars{
+     margin-top: 15%;
+     
+      
+    .bars-locate {
+      height: 50px;
+      width: 90%;
+      background: color($colors, bar-color, base);
+      position: relative;
+      margin: -12% 0 0 -50px;
+      margin-left: 5%;
+      top: 10%;
+      z-index: 3;
+      border: 1px solid color($colors, nav-border-bottom, base);
+      border-radius: 4px;
+      overflow:hidden;
+      line-height:20px;
+      font-size: 1.2em;
+      text-align: center;
+
+      ion-spinner{
+        position: fixed;
+        font-size: 1.6em;
+        margin-left: 50%;
+        margin-top: -0.9%;
+      }
+  }
+
+  .bars-destinate {
+    height: 50px;
+    width: 90%;
+    background: color($colors, bar-color, base);
+    margin: 3% 0 0 -50px;
+    margin-left: 5%;
+    z-index: 1;
+    border: 1px solid color($colors, nav-border-bottom, base);
+    overflow:hidden;
+    border-radius: 4px;
+    line-height:20px;
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+    }
+
+  .reset {
+    height: 5%;
+    width: 10%;
+    background: color($colors, bar-color, base);
+    position: absolute;
+    margin-left: 85%;
+    top: 12%;
+    margin-top: 0%;
+    z-index: 1;
+    border: 1px solid color($colors, nav-border-bottom, base);
+    border-radius: 4px;
+    font-size: 1.5em;
+    text-align: center;
+
+    ion-icon{
+      margin-top: 4%;
+    }
+  }
+
+
+  
+
+
+  .bars-gps {
+    height: 50px;
+    width: 90%;
+    background: color($colors, secondary, base);
+    position: absolute;
+    margin: -50px 0 0 -50px;
+    margin-left: 5%;
+    top: 20%;
+    z-index: 1;
+    border: 1px solid color($colors, primary, base);
+    overflow:hidden;
+    border-radius: 4px;
+    line-height:50px;
+    font-size: 1.2em;
+    text-align: center;
+    color: color($colors, primary, base);
+  }
+
+  .bars-position {
+    height: 50px;
+    width: 20%;
+    background: color($colors, secondary, base);
+    margin: -50px 0 0 -50px;
+    margin-left: 5%;
+    top: 20%;
+    z-index: 1;
+    border: 1px solid color($colors, danger, base);
+    overflow:hidden;
+    border-radius: 4px;
+    line-height:50px;
+    font-size: 1.2em;
+    text-align: center;
+    color: color($colors, danger, base);
+  }
+
+    // }
+
+    .centerMarker {
+      top: 39.5%;
+      z-index: 1;
+      position: absolute;
+      margin-left: 42%;
+      margin-top: -34px;
+      right: 43%;
+
+      .circular{
+        height: 40%;
+        width: 70%;
+        background: color($colors, primary, base);
+        position: absolute;
+        top: 8%;
+        left: 15.5%;
+        z-index: 1;
+        border-radius: 50px;
+        border: 1.5px solid color($colors, secondary, base);
+
+        h3{
+          color: white;
+          font-size: 1.0em;
+         
+          text-align: center;
+          margin-top: 2.8px;
+        
+        }
+  
+        p{
+          color: white;
+          font-size: 0.9em;
+         
+          text-align: center;
+          margin-top: -13px;
+        
+        }
+      
+      }
+
+      
+
+     
+    }
+
+   
+
+      .bar {
+        height: 8%;
+        width: 90%;
+        background: color($colors, primary, base);
+        position: fixed;
+        top: 41%;
+        margin-top: -4%;
+        margin-left: 5%;
+        z-index: 1;
+        border-radius: 4px;
+        // line-height: 20px;
+        font-size: 1.4em;
+        text-align: center;
+        color: white;
+        animation-direction: alternate;
+        animation-name: wiki;
+        animation-duration: 0.3s;
+        animation-iteration-count: 1;
+
+        .icon{
+          position: absolute;
+          font-size: 1.8em;
+          padding: 0px;
+          top: 20%;
+          margin-left: 10%;
+          margin-top: -0.9%;
+          animation-name: left_right;
+          animation-duration: 0.5s;
+          animation-iteration-count: infinite;
+        }
+        
+    }
+
+    
+
+    
+    
+    
+           .scroll {
+             height: 100%
+           }
+      
+           #map {
+             width: 100%;
+             height: 100%;
+           }
+   
+         
+   
+
+    .bottom-bar {
+      height: 150px;
+      width: 100%;
+      background: #FFFFFF;
+      position: absolute;
+      margin: -50px 0 0 -50px;
+      margin-left: 0%;
+      bottom: 0%;
+      z-index: 1;
+      border-top: 1px solid color($colors, nav-border-bottom, base);
+      animation-direction: alternate;
+      animation-name: bump;
+      animation-duration: 0.3s;
+      animation-iteration-count: 1;
+    
+      button {
+        bottom: -106px;
+        height: 30px;
+        text-align: center;
+      }
+      
+      .gutton {
+         bottom: -7.5px;
+         border-radius: 4px;
+         width: 96%;
+         margin-left: 2%;
+        }
+
+      .text{
+        padding-bottom: 0px;
+        font-size: 1.3em;
+      }
+    }
+
+
+
+    .bottom-bar2 {
+      height: 100px;
+      width: 100%;
+      background: #FFFFFF;
+      position: absolute;
+      margin: -50px 0 0 -50px;
+      margin-left: 0%;
+      bottom: 0%;
+      z-index: 1;
+      border-top: 1px solid color($colors, nav-border-bottom, base);
+      animation-direction: alternate;
+      animation-name: bump;
+      animation-duration: 0.3s;
+      animation-iteration-count: 1;
+
+      .btn_cancel{
+        
+      ion-icon{
+        font-size: 2em;
+        top: 10px;
+      }
+    }
+    
+      button {
+        bottom: -106px;
+        height: 32px;
+        text-align: center;
+      }
+
+      .gutton {
+        bottom: -7.5px;
+        border-radius: 4px;
+        width: 96%;
+        margin-left: 2%;
+       }
+
+      .text{
+        padding-bottom: 0px;
+        font-size: 1.4em;
+
+        ion-spinner{
+          top: 10px;
+        }
+      }
+    }
+
+
+  .bottom3-container{
+    margin-top: auto;
+    .toggle-container{
+      height: 52px;
+      width: 40%;
+      background: color($colors, secondary, base);
+      top: 55%;
+      left: 80%;
+      position: fixed;
+      z-index: 3;
+      border: 1px solid color($colors, nav-border-bottom, base);
+      border-radius: 50px;
+      font-size: 2em;
+      text-align: center;
+      color: color($colors, deep, base);
+      
+
+      ion-icon{
+        margin-left: -60%;
+        margin-top: 1.6px;
+      }
+     
+    }
+
+    
+    .bottom-bar3 {
+      height: 100px auto;
+      width: 100%;
+      background: rgb(255, 255, 255);
+      position: absolute;
+      margin: -50px 0 0 -50px;
+      margin-left: 0%;
+      bottom: 0%;
+      z-index: 1;
+      border-top: 1px solid color($colors, nav-border-bottom, base);
+      animation-direction: alternate;
+      animation-name: bump;
+      animation-duration: 0.3s;
+      animation-iteration-count: 1;
+
+      .profile-pic{
+        width: 5em;
+        height: 5em;
+        border: 1px solid #3E3C3C;
+        border-radius: 50px;
+       }
+
+      
+
+       .logos{
+         padding: 0px;
+         ion-icon{
+          font-size: 1.1em;
+         }
+       }
+    
+    
+      .text{
+        padding: 0px;
+        font-size: 1.4em;
+        margin-top: 6%;
+      }
+
+      .top-buttons{
+        // border: 1px solid color($colors, nav-border-bottom, base);
+        border-radius: 0px;
+        margin-bottom: 40px;
+        color: color($colors, deep, base);
+        animation-name: bump;
+        animation-duration: 0.3s;
+        animation-iteration-count: 1;
+        ion-icon{
+          font-size: 2.3em;
+         
+        }
+      }
+
+      ion-icon{
+        font-size: 2.3em;
+      }
+    }
+
+  }
+}
+    
+  }
+

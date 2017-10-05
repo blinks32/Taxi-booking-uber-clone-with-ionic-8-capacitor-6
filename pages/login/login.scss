@@ -1,0 +1,100 @@
+page-login {
+  ion-content{
+    width: 100%;
+    background-size: 100% 100%;
+    background: linear-gradient(color($colors, toper, base), color($colors, lighters, base), color($colors, doper, base)) , url($myUrl)no-repeat center center fixed;
+    overflow: overflow-y auto;
+    background-position: center center;
+
+
+  @keyframes wiki {
+    from {
+      opacity: 0;
+    }
+    
+    to {
+      opacity: 1;
+    }
+}
+  
+  form {
+    margin-bottom: 26px;
+    height: 200px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 4px;
+    margin-top: 20px;
+    animation-direction: alternate;
+    animation-name: wiki;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    button {
+      margin-top: 20px !important;
+    }
+    .button{
+      border: 1px solid color($colors, primary, base);
+      padding: 10px;
+      background: color($colors, primary, base);
+      color: color($colors, light, base);
+    }
+  }
+
+  p {
+    font-size: 0.8em;
+    color: #d2d2d2;
+  }
+
+  ion-label{
+    text-align: center;
+  }
+
+  ion-input {
+    padding: 5px;
+  }
+
+  .invalid {
+    border: 1px solid #FF6153;
+  }
+
+  .error-message .item-inner {
+    border-bottom: 0 !important;
+  }
+
+  ion-item{
+    border-radius: 4px;
+  }
+
+  .button{
+    // border: 1px solid color($colors, primary, base);
+    background: white;
+    height: 50px ;
+    color: color($colors, primary, base);
+    animation-direction: alternate;
+    animation-name: wiki;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+  }
+
+  .terms{
+    margin-top: 40px;
+    color: color($colors, light, base);
+    text-align: center;
+  }
+
+  .logo-text{
+    color: color($colors, light, base);
+    text-align: center;
+    font-size: 1.4em;
+  }
+
+  .o_section{
+    margin-top: 100%;
+    animation-direction: alternate;
+    animation-name: wiki;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+  }
+
+}
+
+}
