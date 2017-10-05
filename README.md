@@ -17,6 +17,7 @@ The Project is not fully complete, so please dont forget to point an issue.
 2. Firebase Realtime
 3. Onesignal
 4. Paystack
+5. Lazy loading
 
 
 ## How It Works
