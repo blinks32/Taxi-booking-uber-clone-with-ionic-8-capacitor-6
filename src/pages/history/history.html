@@ -1,0 +1,18 @@
+<ion-header no-border>
+  <ion-navbar color="nav-color">
+    <ion-title>History</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list no-lines>
+    <ion-item *ngFor="let event of eventList" (click)="goToEventDetail(event.id)">
+      <h2>Driver Name => {{event?.name}}</h2>
+      <h3>Price => <strong>NGN{{event?.price}}</strong></h3>
+      <h3>Date => <strong>{{event?.date}}</strong></h3>
+      <h3>Location => <strong>{{event?.location}}</strong></h3>
+      <h3>Destination => <strong>{{event?.destination}}</strong></h3>
+    </ion-item>
+  </ion-list>
+</ion-content>

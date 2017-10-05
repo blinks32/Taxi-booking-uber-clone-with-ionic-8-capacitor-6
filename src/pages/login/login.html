@@ -1,0 +1,88 @@
+<!-- <ion-header no-border>
+  <ion-navbar *navbar hideBackButton="true" color="nav-color">
+    <ion-title text-center>
+      Taxihub
+    </ion-title>
+  </ion-navbar>
+</ion-header> -->
+
+<ion-content padding class="no-scroll">
+    <div text-center>
+       <h1 class='logo-text'> TAXIHUB</h1>
+       <p class='logo-text'> Fast And Convenient</p>
+      </div>
+
+  
+
+    <button *ngIf="initState" color='light' ion-button block  (click)="loginViaFacebook()">
+          Login With Facebook
+    </button>
+
+  
+      
+  <form  *ngIf="initState" [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+
+      <ion-label color='primary' stacked>Email</ion-label>
+      <ion-input  formControlName="email" type="email" placeholder="username@domain.com" 
+        [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-input>
+    
+ 
+   
+    
+      <ion-label color='primary' stacked>Password</ion-label>
+      <ion-input  formControlName="password" type="password" placeholder="password" 
+        [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
+   
+  
+
+   
+    <button ion-button block type="submit" [disabled]="!loginForm.valid">
+      Login
+    </button>
+
+   
+  </form>
+   
+  
+    <button *ngIf="initState" color='light'ion-button block clear (click)="goToSignup()">
+      Create a new account
+    </button>
+
+    <button *ngIf="initState" color='light' ion-button block clear (click)="goToResetPassword()">
+      I forgot my password
+    </button>
+
+
+
+        <!-- Login To App Section Can Be Found Below -->
+
+   <div class='o_section'>
+
+    <button *ngIf="!initState" color='light' ion-button block  (click)="loginViaFacebook()">
+        Login With Facebook
+    </button>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <button *ngIf="!initState" color='light'ion-button block clear (click)="initState = true">
+                Login
+              </button>
+        </ion-col>
+        <ion-col>
+            <button *ngIf="!initState" color='light'ion-button block clear (click)="goToSignup()">
+                Signup
+              </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+   </div>
+
+     
+    <div class='terms'>
+        Our Terms And Service
+    </div>
+
+
+</ion-content>

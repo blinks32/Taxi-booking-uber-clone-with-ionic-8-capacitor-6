@@ -1,0 +1,41 @@
+<ion-menu [content]="content" id="menu1">
+  
+  
+    <ion-content class="main">
+
+     <ion-item color="light" *ngIf="ph.user" menuClose (click)="gotoProfile()"> 
+     <ion-grid>
+     <ion-row>
+      <ion-col padding *ngIf="ph.user.photoURL">
+          <img class="profile-pic" [src]="ph.user.photoURL"/>
+      </ion-col>
+      <ion-col padding *ngIf="!ph.user.photoURL">
+            <img class="profile-pic" src="data:image/png;base64,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"/>
+        </ion-col>
+      <ion-col padding [ngStyle]="{'margin': 10 + 'px', 'font-size': 0.9 + 'em' }">
+          <div *ngIf="ph.user.displayName" class='left-text'>
+              {{ ph.user.displayName }}
+          </div>
+          <div *ngIf="!ph.user.displayName" class='left-text'>
+                {{ ph.user.email }}
+          </div>
+          <div class='left-text'>
+                {{ ph.phone }}
+                <ion-icon color='deep' name="create" [ngStyle]="{'margin': 10 + 'px'}"></ion-icon>
+          </div>
+         </ion-col>
+     </ion-row>
+     </ion-grid>
+     </ion-item>
+  
+      <ion-list  no-lines>
+        <button [ngStyle]="{'height': 55 + 'px'}" menuClose icon-start ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon color='deep' name="{{p.icon}}" [ngStyle]="{'margin': 10 + 'px'}"></ion-icon>
+          {{p.title}}
+        </button>
+      </ion-list>
+    </ion-content>
+  
+  </ion-menu>
+
+<ion-nav id="nav" [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

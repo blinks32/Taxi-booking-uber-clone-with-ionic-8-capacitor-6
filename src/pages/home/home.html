@@ -1,0 +1,214 @@
+<ion-header  no-border>
+  <ion-navbar color="nav-color">
+    <button [hidden]="pop.onRequest" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title [ngStyle]="{'font-size': 1.32 + 'em', 'text-align': 'center'}" [hidden]="!pop.onRequest" id="header" >Please Wait..</ion-title>
+    <ion-title [hidden]="pop.onRequest">
+     TAXIHUB 
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="no-scroll">
+   
+    <div id="map">
+      
+      
+        <div class="bars">
+            
+             <button [hidden]="!cMap.onLocationbarHide" id="location" ion-item class="bars-locate" icon-start (click)="showAddressModal(1)" >
+                 <ion-spinner name="crescent"></ion-spinner>
+                 Waiting For Location
+               </button>
+               
+       
+               <div [hidden]="!cMap.onGpsEnabled" class="bars-gps">
+                   <ion-icon name="navigate"></ion-icon>
+                   For Better Tracking Enable GPS
+               </div>
+       
+               <button [hidden]="!cMap.onDestinatiobarHide" id="destination" ion-item class="bars-destinate" (click)="showAddressModal(2)">
+                   Set Destination
+                 </button>
+       
+                 <div [hidden]="!cMap.hasRequested" class="bars-position">
+                   <ion-icon name="navigate"></ion-icon>
+               </div>
+       
+               <!-- <div [hidden]="cMap.hasRequested" class="reset">
+                   <ion-icon name="navigate"></ion-icon>
+               </div> -->
+       
+          </div>
+  
+   <div class="centerMarker" [hidden]="cMap.onPointerHide">
+      <img src='data:image/png;base64,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'/>
+      <div class="circular">
+        <h3 id='timetocar' ></h3>
+        <p id='timecar'></p>
+       </div>
+  </div> 
+
+  
+    
+  <!-- <div> -->
+ 
+      <button no-lines class="bar" id='onbar' ion-item (click)="pickLocation()">
+          Set Pickup Location
+         <ion-icon color='light' class="icon" name="arrow-dropright"></ion-icon>
+     </button>
+   
+  <!-- </div> -->
+ 
+ 
+
+  <div  id='bar2' class="bottom-bar">
+
+     <div class="request-for-ride">
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <button *ngIf="ph.paymentType == 1" [ngStyle]="{'bottom': 0 + 'px'}" icon-start ion-item color="primary" (click)="gotoPayment()">
+                 <ion-icon name="cash"></ion-icon>
+                 Cash
+               </button>
+               <button *ngIf="ph.paymentType == 2" [ngStyle]="{'bottom': 0 + 'px'}" icon-start ion-item color="primary" (click)="gotoPayment()">
+                 <ion-icon name="card"></ion-icon>
+                 Card
+               </button>
+                <button *ngIf="ph.paymentType != 1 && ph.paymentType != 2" [ngStyle]="{'bottom': 0 + 'px'}" icon-start ion-item color="primary" (click)="gotoPayment()">
+                  <ion-icon name="cash"></ion-icon>
+                  <ion-icon name="create"></ion-icon>
+                  Cash
+                </button>
+          </ion-col>
+          <ion-col>
+              <button [ngStyle]="{'bottom': 0 + 'px'}" icon-start ion-item color="primary" (click)="estimate()">
+                 <ion-icon name="calculator"></ion-icon>
+                 Estimate
+               </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      <div class="text" text-center>
+         Taxihub Charges NGN 55 Per Km
+      </div>
+
+      <button class="gutton" icon-start ion-item color="primary" (click)="StartListeningForChanges()">
+          <ion-icon name="car"></ion-icon>
+          Request A Ride
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div *ngIf="cMap.onbar2" class="bottom-bar2">
+
+              
+                      <div class="text" text-center>
+                          <ion-spinner name="crescent"></ion-spinner>
+                          Finding A Driver
+                       </div>
+                 
+              
+              <button class="gutton" ion-item color="primary" (click)="cancelRequest()">
+                  Cancel Request
+               </button>
+            </div>
+
+           
+
+        <div class="bottom3-container">
+
+            <button class="toggle-container" icon-start ion-item [hidden]="!cMap.toggleBtn" (click)="toggleMoreBtn()">
+                    <ion-icon [hidden]="toggleMore" name="arrow-back"></ion-icon>
+                    <ion-icon [hidden]="!toggleMore" name="arrow-forward"></ion-icon>
+               </button>
+
+            <div *ngIf="cMap.onbar3" class="bottom-bar3">
+                
+                        
+                           <div *ngIf="!toggleMore" class="top-buttons" text-center>
+                              <ion-grid>
+                                <ion-row>
+                                  <ion-col>
+                                      <ion-icon name="call" (click)="callDriver()"></ion-icon>
+                                  </ion-col>
+                                  <ion-col>
+                                      <ion-icon name="mail" (click)="sendMessage()" ></ion-icon>
+                                  </ion-col>
+                                  <ion-col>
+                                      <ion-icon name="close" (click)="cancelRequest()"></ion-icon>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-grid>
+                           </div>
+                        
+
+                           <ion-grid>
+                              <ion-row>
+                                <ion-col>
+                                    <img class="profile-pic" [src]="picture"/>
+                                </ion-col>
+                                <ion-col>
+                                <div class="text">
+                                    {{name}}
+                                 </div>
+                                </ion-col>
+                                 <ion-col>
+                                  
+                                    <ion-icon [ngStyle]="{'margin-top': 17 + 'px', 'margin-left': 20 + 'px', 'font-size': 2 + 'em'}" name="star">
+                                    </ion-icon>
+                                    {{rating}}|5
+                                
+                                </ion-col>
+                              </ion-row>
+                            </ion-grid>
+                              
+                           <div class="logos">
+                            <ion-grid>
+                                <ion-row>
+                                  <ion-col>
+                                    
+                                      <ion-icon name="car">
+                                      </ion-icon>
+                                      {{carType}}
+                                   
+                                  </ion-col>
+                                  
+                                  <ion-col>
+                                     
+                                      <ion-icon name="contacts">
+                                      
+                                      </ion-icon>
+                                      {{seat}}
+                                    
+                                  </ion-col>
+                                  <ion-col>
+                                    
+                                      <ion-icon name="barcode">
+                                     
+                                      </ion-icon>
+                                      {{plate}}
+                                     
+                                  </ion-col>
+                                </ion-row>
+                              </ion-grid>
+
+                           </div>
+                             
+                            </div>
+       
+        </div>    
+                          
+      </div> 
+
+    
+
+</ion-content>

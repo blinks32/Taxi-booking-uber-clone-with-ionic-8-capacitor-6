@@ -1,0 +1,93 @@
+page-login-entrance {
+    ion-content{
+        
+    #custom-overlay {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;  
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        background-size: cover;
+        background: linear-gradient(color($colors, toper, base), color($colors, lighters, base), color($colors, doper, base)) , url($myUrl)no-repeat center center fixed;
+        overflow: overflow-y auto;
+        -webkit-animation: zoom-In 1.4s reverse 1.8;
+        -moz-animation: zoom-In 1.4s reverse 1.8;
+         -ms-animation: zoom-In 1.4s reverse 1.8;
+          -o-animation: zoom-In 1.4s reverse 1.8;
+             animation: zoom-In 1.4s reverse 1.8;
+      }
+
+      #taxi-logo {
+        text-align: center;
+        position: fixed;
+        top: 130px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        color: #FFFFFF;
+      }
+      
+      #custom-overlay img {
+        display: block;
+       // background: linear-gradient(color($colors, toper, base), color($colors, lighters, base), color($colors, doper, base));
+        margin: 0 auto;
+        width: 50%;
+        height: auto;
+      
+      }
+      
+      .custom-overlay  {
+      
+      }
+      
+      @-webkit-keyframes zoom-In {
+        from {
+          -webkit-transform: scale(2.3);
+        }
+        to {
+          -webkit-transform: scale(1.8);
+        }
+      }
+      
+      @-moz-keyframes zoom-In {
+        from {
+          -moz-transform: scale(2.3);
+        }
+        to {
+          -moz-transform: scale(1.8);
+        }
+      }
+      
+      @-ms-keyframes zoom-In {
+        from {
+          -ms-transform: scale(2.3);
+        }
+        to {
+          -ms-transform: scale(1.8);
+        }
+      }
+      
+      @-o-keyframes zoom-In {
+        from {
+          -o-transform: scale(2.3);
+        }
+        to {
+          -o-transform: scale(1.8);
+        }
+      }
+      
+      @keyframes zoom-In {
+        from {
+          transform: scale(2.3);
+        }
+        to {
+          transform: scale(1.8);
+        }
+      }
+}
+}

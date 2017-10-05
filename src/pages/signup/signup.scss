@@ -1,0 +1,31 @@
+page-signup {
+  ion-content{
+    background-size: cover;
+    background: linear-gradient(color($colors, toper, base), color($colors, lighters, base), color($colors, doper, base)) , url($myUrl)no-repeat center center fixed;
+    overflow: overflow-y auto;
+  form {
+    margin-bottom: 26px;
+    height: 200px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 4px;
+    margin-top: 20px;
+    button { margin-top: 20px !important; }
+  }
+
+  p {
+    font-size: 0.8em;
+    color: #d2d2d2;
+  }
+
+  ion-label{
+    text-align: center;
+  }
+
+  ion-input { padding: 5px; }
+
+  .invalid { border: 1px solid #FF6153; }
+
+  .error-message .item-inner { border-bottom: 0 !important; }
+}
+}

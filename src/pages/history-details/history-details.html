@@ -1,0 +1,24 @@
+<ion-header no-border>
+  <ion-navbar color="nav-color">
+    <ion-title>Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="no-scroll">
+  <ion-row padding>
+  </ion-row>
+  <ion-card>
+    <ion-card-header>
+      {{currentEvent?.name}}
+    </ion-card-header>
+    <ion-card-content>
+        <p>Price: <strong>${{currentEvent?.price}}</strong></p>
+        <p>Date: <strong>{{currentEvent?.date}}</strong></p>
+        <p>Location: <strong>${{currentEvent?.location}}</strong></p>
+        <p>Destination: <strong>{{currentEvent?.destination}}</strong></p>
+    </ion-card-content>
+  </ion-card>
+
+ 
+
+</ion-content>
