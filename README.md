@@ -12,6 +12,13 @@ The Project is not fully complete, so please dont forget to point an issue.
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A8YE92K9QM7NA)
 
+## Features
+1. Google Maps Cordova 
+2. Firebase Realtime
+3. Onesignal
+4. Paystack
+
+
 ## How It Works
 
 
