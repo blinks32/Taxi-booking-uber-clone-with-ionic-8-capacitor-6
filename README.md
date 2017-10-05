@@ -1,2 +1,20 @@
-# taxi-booking-app-built-with-ionic3-
-This is a complete ride booking app built with ionic3, It uses firebase as realtime database and onesignal as notification provider.
+Ionic App Base
+=====================
+
+This is the base template for Ionic starter apps.
+
+## Using this project
+
+Install the latest Ionic CLI:
+
+```bash
+$ npm install -g ionic
+```
+
+Then run:
+
+```bash
+$ ionic start myApp
+```
+
+More info on this can be found on the Ionic [Getting Started](http://ionicframework.com/docs/v2/getting-started/) page.
