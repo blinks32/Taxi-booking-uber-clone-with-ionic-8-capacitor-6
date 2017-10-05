@@ -1,5 +1,6 @@
 ### Note: 
 You Will Need The Driver App, to successfully run the projects
+The Project is not fully complete, so please dont forget to point an issue.
 
 ![](https://media.giphy.com/media/l1J9PS0TT3NdHIR32/giphy.gif)
 
