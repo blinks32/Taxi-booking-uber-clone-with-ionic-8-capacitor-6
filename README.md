@@ -1,6 +1,9 @@
 ### Note: 
-You Will Need The Driver App, to successfully run the projects
-The Project is not fully complete, so please dont forget to point an issue.
+You Will Need The Driver App to successfully run the projects. 
+The Project is not fully completed, so please don't forget to point an issue.
+
+### You will need to run the project on a mobile device to view the map.
+
 
 [![continuousphp](https://img.shields.io/continuousphp/git-hub/doctrine/dbal/master.svg)]()
 [![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
