@@ -4,8 +4,8 @@ The Project is not fully completed, so please don't forget to point an issue.
 
 ### You will need to run the project on a mobile device to view the map.
 
+### See Full Tutorial [HERE]()
 
-[![continuousphp](https://img.shields.io/continuousphp/git-hub/doctrine/dbal/master.svg)]()
 [![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
 [![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
 
@@ -20,7 +20,6 @@ The Project is not fully completed, so please don't forget to point an issue.
 2. Firebase Realtime
 3. Onesignal
 4. Paystack
-5. Lazy loading
 
 
 ## How It Works
