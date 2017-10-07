@@ -16,7 +16,7 @@
         <allow-intent href="market:*" />
         <preference name="android-minSdkVersion" value="16" />
         <config-file parent="application" target="AndroidManifest.xml">
-            <meta-data android:name="co.paystack.android.PublicKey" android:value="pk_test_2a35c9172f2d6e61e31909874926adbc06c486ca" />
+            <meta-data android:name="co.paystack.android.PublicKey" android:value="YOUR TEXT KEY" />
         </config-file>
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -82,12 +82,12 @@
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
-        <variable name="APP_ID" value="217727278735874" />
-        <variable name="APP_NAME" value="Taxi" />
+        <variable name="APP_ID" value="YOURAPp_ID" />
+        <variable name="APP_NAME" value="APPNAME" />
     </plugin>
     <plugin name="cordova-plugin-googlemaps" spec="^2.0.6">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyC2VPPqUJdOaeOW8VpNA3Y1iswP_uJ_wrY" />
-        <variable name="API_KEY_FOR_IOS" value="AIzaSyC2VPPqUJdOaeOW8VpNA3Y1iswP_uJ_wrY" />
+        <variable name="API_KEY_FOR_ANDROID" value="YOUR GOOGLE KEY" />
+        <variable name="API_KEY_FOR_IOS" value="YOUR GOOGLE KEY" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
     <plugin name="cordova-plugin-mauron85-background-geolocation" spec="^2.2.5" />
