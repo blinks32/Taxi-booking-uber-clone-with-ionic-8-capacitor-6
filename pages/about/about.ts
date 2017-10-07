@@ -22,14 +22,14 @@ export class AboutPage {
   }
 
   gotoSite(){
-    const browser = this.iab.create('https://taxihub.com.ng/');
+    const browser = this.iab.create('https://chinedu-website.firebaseapp.com');
     // this.browsertab.openUrl('https://taxihub.com.ng/').then(suc=>{
     //   console.log('hurray!! it works')
     // })
   }
 
   gotoSite2(){
-    this.browsertab.openUrl('https://chineduetoh.com/')
+    this.browsertab.openUrl('https://chinedu-website.firebaseapp.com')
   }
 
 }
