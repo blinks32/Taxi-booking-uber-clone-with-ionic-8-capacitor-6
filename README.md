@@ -13,7 +13,7 @@ The Project is not fully completed, so please don't forget to point an issue.
 
 #### You could buy me a bit of happiness, for going through it all. And I will Email You the Driver App.
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A8YE92K9QM7NA)
+[![paypal](https://gum.co/LsYmS)
 
 ## Features
 1. Google Maps Cordova 
