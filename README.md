@@ -4,7 +4,7 @@ The Project is not fully completed, so please don't forget to point an issue.
 
 ### You will need to run the project on a mobile device to view the map.
 
-### See Full Tutorial [HERE](https://chinedu-website.firebaseapp.com/#/home)
+### Please Contact Me For Your Projects [HERE](https://chinedu-website.firebaseapp.com/#/contact)
 
 [![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
 [![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
@@ -16,9 +16,9 @@ The Project is not fully completed, so please don't forget to point an issue.
 ### Pay With [gumroad](https://gum.co/LsYmS)
 
 ## Features
-1. Google Maps Cordova 
-2. Firebase Realtime
-3. Onesignal
+1. Google Maps SDK Cordova 
+2. Firebase Realtime DB
+3. Onesignal(Google Cloud Messaging)
 4. Paystack
 
 
@@ -27,11 +27,11 @@ The Project is not fully completed, so please don't forget to point an issue.
 
 ### Start The App
 
-For This Project, I created Two Different Apps. The Client App and The Driver App. The Client App Worked By Creating An Account, Adding A Phone Number Then Your Location Is Automatically Selected, But You Could Point The Marker Elsewhere To Choose Another Location.
+For This Project, I created Two Different Apps. The Client App and The Driver App. After creating An Account, Adding A Phone Number, Your Location Is Automatically detected via the google maps geolocation, But You Could Point The Marker Elsewhere To Choose Another Location.
 
 ### Request A Taxi
 
-When A User Books A ride, Then User Details Are Sent To The Database With The Notification Id Of The First Driver Available, Then After 60 seconds And No reply, Then it is shifted To Another driver.
+When A User Books A ride, Then User's Details Are Sent To The Database With The Notification Id Of The First Driver Available, Then After 60 seconds And No reply, Then it is shifted To Another driver.
 
 ### Get Accepted By A Driver
 
@@ -45,7 +45,7 @@ On Completion Of the ride your payment reciept is shown to you, then you can che
 
 ## Using this project
 
-All plugins reqiured for this project has already been added.As of `ionic3.9.2`
+All plugins reqiured for this project have already been added. As of `ionic3.9.2`
 
 Install the latest Ionic CLI:
 
