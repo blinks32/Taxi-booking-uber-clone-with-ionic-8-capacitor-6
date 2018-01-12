@@ -1,11 +1,7 @@
-### Note: 
-You Will Need The Driver App to successfully run the projects. 
-The Project is not fully completed, so please don't forget to point an issue.
+### This project is not complete, its just a part of the actual passenger app.
+### Please Try Out the entire project [Here](https://gum.co/LsYmS) for only a few bucks. This includes passenger app, driver app and web admin dashboard.
 
 ### Sample Android [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
-
-
-### You will need to run the project on a mobile device to view the map.
 
 ### Please Contact Me For Your Projects [HERE](https://chinedu-website.firebaseapp.com/#/contact)
 
@@ -14,9 +10,6 @@ The Project is not fully completed, so please don't forget to point an issue.
 
 ![](https://media.giphy.com/media/l1J9PS0TT3NdHIR32/giphy.gif)
 
-#### You could buy me a bit of happiness, for going through it all. And I will Email You the Driver App.
-
-### Pay With [gumroad](https://gum.co/LsYmS)
 
 ## Features
 1. Google Maps SDK Cordova 
