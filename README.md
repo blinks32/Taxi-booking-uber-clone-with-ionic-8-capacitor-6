@@ -10,6 +10,14 @@
 
 ![](https://media.giphy.com/media/l1J9PS0TT3NdHIR32/giphy.gif)
 
+![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_1.png)
+![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_2.png)
+![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_3.png)
+![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_4.png)
+![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_5.png)
+![](https://static-2.gumroad.com/res/gumroad/6181776888084/asset_previews/f8174fd18d62903aad2d0b147c16164a/retina/Untitled.jpeg)
+
+
 
 ## Features
 1. Google Maps SDK Cordova 
@@ -38,19 +46,18 @@ Once You Get A Driver Then Your Phone Vibrates And The Credentials Of The Driver
 On Completion Of the ride your payment reciept is shown to you, then you can check out and rate your ride and then, you are ready for another booking.
 
 
+## This project is a complete clone of Uber , which is a taxi booking App . This sale comes with 100% Source code for User app , Driver App.
 
-## Using this project
+## Features in this app
 
-All plugins reqiured for this project have already been added. As of `ionic3.9.2`
+Intro splash screen to give appealing look to the app. Google api integration for autocomplete. Plotting of places to google map with distance and minutes calculation between routes. One step and easy booking process. Integration with Stripe Payment gateway. Option to set cab types with rates from backend Firebase . Stylish animation between views with Facebook style slide menu. Display all booking with scroll to load and clean UI. Enable Auto refresh when driver accept job on driver arrival, journey begin , journey completed / dropped etc. Support Push messages for all the status as well. Live tracking Driver who are assigned for your booking. Option to Cancel the Job till driver is not assigned. Rate card screen. User can rate driver after completion of Ride , ALSO driver can rate user as well. 100% ionic 3 Project and shipped with full source code.
 
-Install the latest Ionic CLI:
+## Driver App Feature 
 
-```bash
-$ npm install -g ionic
-```
+3 Step registration form with all required field capture and validation done to make app ready to go live .. Facebook style sliding menu .. Option to set status available and unavailable ... Support Firebase Realtime for tracking Driver . Support FCM notification Interface when new booking is arrived and Phone will start beeping . Node.js Auto assigning of Driver for Jobs on the basis of availability of Driver avaibality , car type and nearest available driver using Robust Spatial GEO Queries .. Support Push messages to driver if app is in background. .. Calculating Tariff on the basis of Miles + Minutes require to travel . .
 
-Then run:
+## Features in Web admin: 
 
-```bash
-ionic serve
-```
+Clean and Easy to understand Dashboard which display all relevant statistics.
+
+View Realtime driver and passenger activity on map. View all Driver’s .. View all User’s .. View Flagged Driver and Option to block them.. View Flagged User and Option to block users.. Option to view all users.. Set Prices for Car types .. Set Currencies .. And much more …
