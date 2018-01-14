@@ -8,13 +8,7 @@
 [![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
 [![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
 
-![](https://media.giphy.com/media/l1J9PS0TT3NdHIR32/giphy.gif)
 
-![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_1.png)
-![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_2.png)
-![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_3.png)
-![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_4.png)
-![](https://s3.amazonaws.com/ionic-marketplace/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-/screenshot_5.png)
 ![](https://static-2.gumroad.com/res/gumroad/6181776888084/asset_previews/f8174fd18d62903aad2d0b147c16164a/retina/Untitled.jpeg)
 
 
