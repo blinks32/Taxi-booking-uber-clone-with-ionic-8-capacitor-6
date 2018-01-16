@@ -1,4 +1,3 @@
-### This version is not complete, its just a part of the actual passenger app.
 ### Please Buy the entire project [Here](https://gum.co/LsYmS) for only a few bucks. This includes passenger app, driver app and web admin dashboard.
 
 ### Sample Android [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
