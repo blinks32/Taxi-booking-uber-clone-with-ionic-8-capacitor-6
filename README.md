@@ -1,4 +1,4 @@
-### Please Buy the entire project [Here](https://gum.co/LsYmS) for only a few bucks. This includes passenger app, driver app and web admin dashboard.
+### Please Buy the entire project [Here](https://market.ionicframework.com/starters/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-) for only a few bucks. This includes passenger app, driver app and web admin dashboard.
 
 ### Sample Android [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
 
