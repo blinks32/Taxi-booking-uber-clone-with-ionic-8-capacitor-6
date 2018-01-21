@@ -1,12 +1,10 @@
-### Please Buy the entire project [Here](https://market.ionicframework.com/starters/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-) for only a few bucks. This includes passenger app, driver app and web admin dashboard.
+### Buy the entire project [HERE](https://market.ionicframework.com/starters/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-) for only a few bucks. This includes passenger app, driver app and web admin dashboard.
 
 ### Sample Android [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
 
-### Sample Video [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
+### Sample Video [HERE](https://www.youtube.com/watch?v=LFlCkfd9SFw)
 
-### Ionic view [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
-
-### Please Contact Me For Your Projects [HERE](https://chinedu-website.firebaseapp.com/#/contact)
+### Contact Me For Your Projects [HERE](https://chinedu-website.firebaseapp.com/#/contact)
 
 [![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
 [![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
