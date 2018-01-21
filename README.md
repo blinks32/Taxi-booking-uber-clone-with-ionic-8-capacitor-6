@@ -2,15 +2,36 @@
 
 ### Sample Android [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
 
+### Sample Video [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
+
+### Ionic view [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
+
 ### Please Contact Me For Your Projects [HERE](https://chinedu-website.firebaseapp.com/#/contact)
 
 [![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
 [![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
 
+#### User App
 
 ![](https://static-2.gumroad.com/res/gumroad/6181776888084/asset_previews/f8174fd18d62903aad2d0b147c16164a/retina/Untitled.jpeg)
 
 ![layer_1](https://user-images.githubusercontent.com/7928001/35192518-932d82d6-fe94-11e7-9240-11a54be2abc6.png)
+
+![layer_2](https://user-images.githubusercontent.com/7928001/35192534-c9287076-fe94-11e7-9ce3-0c4c6881e9c0.png)
+
+![layer_3](https://user-images.githubusercontent.com/7928001/35192542-e13d6748-fe94-11e7-8270-426c9b66ae72.png)
+
+![layer_4](https://user-images.githubusercontent.com/7928001/35192545-ef5cbce8-fe94-11e7-8536-25e6eed64521.png)
+
+#### Driver App
+
+![layer_5](https://user-images.githubusercontent.com/7928001/35192555-11177bac-fe95-11e7-9eb9-974244d5cef0.png)
+
+![layer_6](https://user-images.githubusercontent.com/7928001/35192560-2673ecc4-fe95-11e7-83e9-e34c6e8898f6.png)
+
+
+#### Web Admin
+
 
 
 
