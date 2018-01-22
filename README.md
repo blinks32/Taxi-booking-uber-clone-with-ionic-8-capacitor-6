@@ -14,7 +14,7 @@
 
 ### Sample Video [HERE](https://www.youtube.com/watch?v=LFlCkfd9SFw)
 
-### Contact Me For Your Projects [HERE](https://chinedu-website.firebaseapp.com/#/contact)
+### Contact Me To Set It Up or Include a missing feature [HERE](https://chinedu-website.firebaseapp.com/#/contact)
 
 ![](https://static-2.gumroad.com/res/gumroad/6181776888084/asset_previews/f8174fd18d62903aad2d0b147c16164a/retina/Untitled.jpeg)
 
