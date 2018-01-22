@@ -1,4 +1,11 @@
-### Buy the entire project [HERE](https://market.ionicframework.com/starters/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-) for only a few bucks. This includes passenger app, driver app and web admin dashboard.
+### Get the entire project [HERE](https://market.ionicframework.com/starters/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-) . This includes passenger app, driver app and web admin dashboard.
+
+### *With Firebase serveless cloud realtime database.
+### *Stripe Payment included.
+### *Neat App Design.
+### *Excellent Notification System.
+### *Driver Tracking. etc.
+
 
 [![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
 [![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
