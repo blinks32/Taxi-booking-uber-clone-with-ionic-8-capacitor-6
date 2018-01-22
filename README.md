@@ -1,18 +1,17 @@
 ### Buy the entire project [HERE](https://market.ionicframework.com/starters/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-) for only a few bucks. This includes passenger app, driver app and web admin dashboard.
 
+[![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
+[![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
+
 ### Sample Android [HERE](https://play.google.com/store/apps/details?id=com.taxihubnigeria.android)
 
 ### Sample Video [HERE](https://www.youtube.com/watch?v=LFlCkfd9SFw)
 
 ### Contact Me For Your Projects [HERE](https://chinedu-website.firebaseapp.com/#/contact)
 
-[![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
-[![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
-
 
 
 ### User App
-
 ![](https://static-2.gumroad.com/res/gumroad/6181776888084/asset_previews/f8174fd18d62903aad2d0b147c16164a/retina/Untitled.jpeg)
 
 ![layer_1](https://user-images.githubusercontent.com/7928001/35192518-932d82d6-fe94-11e7-9240-11a54be2abc6.png)
@@ -23,17 +22,14 @@
 
 ![layer_4](https://user-images.githubusercontent.com/7928001/35192545-ef5cbce8-fe94-11e7-8536-25e6eed64521.png)
 
-### Driver App
 
+### Driver App
 ![layer_5](https://user-images.githubusercontent.com/7928001/35192555-11177bac-fe95-11e7-9eb9-974244d5cef0.png)
 
 ![layer_6](https://user-images.githubusercontent.com/7928001/35192560-2673ecc4-fe95-11e7-83e9-e34c6e8898f6.png)
 
 
-
-
 ### Web Admin
-
 ![download 2](https://user-images.githubusercontent.com/7928001/35230751-38c625ec-ff97-11e7-865e-236aa0ee8723.png)
 
 ![download 1](https://user-images.githubusercontent.com/7928001/35230783-561d37a2-ff97-11e7-9335-fe5e7f843407.png)
