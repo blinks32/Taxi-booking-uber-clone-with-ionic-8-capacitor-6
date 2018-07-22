@@ -1,8 +1,6 @@
 
 
 
-### Get the New project [HERE](https://market.ionicframework.com/starters/complete-taxi-booking-app-with-ionic-3-upgradeable-to-4-uber-clone-with-firebase-realtime-and-angular-5-the-project-includes-a-user-driver-and-web-admin-) .This includes passenger app, driver app and web admin dashboard.
-
 
 
 # Complete-taxi-booking-app-with-ionic-3-upgradeable-to-4-with-firebase-realtime-and-Uber-UI
@@ -10,6 +8,10 @@
 
 
 ## Full Support For Android and IOS
+
+
+### Get the New project [HERE](https://market.ionicframework.com/starters/complete-taxi-booking-app-with-ionic-3-upgradeable-to-4-uber-clone-with-firebase-realtime-and-angular-5-the-project-includes-a-user-driver-and-web-admin-) .This includes passenger app, driver app and web admin dashboard.
+
 
 ### Visit [My Website](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/) to learn more.
 
