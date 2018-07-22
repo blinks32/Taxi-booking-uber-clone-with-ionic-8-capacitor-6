@@ -1,11 +1,141 @@
-### Get the entire project [HERE](https://market.ionicframework.com/starters/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-) . This includes passenger app, driver app and web admin dashboard.
+
+
+
+### Get the New project [HERE](https://market.ionicframework.com/starters/complete-taxi-booking-app-with-ionic-3-upgradeable-to-4-uber-clone-with-firebase-realtime-and-angular-5-the-project-includes-a-user-driver-and-web-admin-) .This includes passenger app, driver app and web admin dashboard.
+
+
+
+# Complete-taxi-booking-app-with-ionic-3-upgradeable-to-4-with-firebase-realtime-and-Uber-UI
+
+
+
+## Full Support For Android and IOS
+
+### Visit [My Website](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/) to learn more.
+
+### [Watch Demo](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/)
+
+### Email playstudio86@gmail.com for more inquiries.
+
+### Skype chndth@live.com
+
+### +23409027504466
+
+
+#### => This project is upgradeable to ionic 4
+
+
+#### => I provide Support for a period of 6 months after purchase. So you are not left out, in case you want updates and new features.
+
+
+
+
+![user](https://user-images.githubusercontent.com/7928001/43045102-5155113a-8daa-11e8-8a41-ac03f426d75a.png)
+## The Features present in the User app includes;
+
+
+* Ridesharing 
+
+* Ride Scheduling 
+
+* Promo code 
+
+* Chat System 
+
+* Android 7 and above 
+
+* Future Support For Ionic 4 and Capacitor 
+
+* Phone Number verification 
+
+* Theme of your choice. 
+
+* Multi-Language Support. 
+
+* Uber Style UI 
+
+
+
+![driver](https://user-images.githubusercontent.com/7928001/43045101-50fb6536-8daa-11e8-82a3-c97adc8c6949.png)
+## For the Driver App, these are the features present;
+
+
+* 3 Step registration form with all required field capture and validation done to make app ready to go live. 
+
+* Facebook style sliding menu 
+
+* Option to set status available and unavailable. 
+
+* Support Firebase Real-time for tracking Driver. 
+
+* Support Onesignal notification, when new booking is arrived and Phone will start beeping. 
+
+* Node.js Auto assigning of Driver for Jobs on the basis of availability of Driver visibility. 
+
+* car type and nearest available driver using Robust Spatial GEO Queries. 
+
+* Support Push messages to driver if app is in background. 
+
+* Calculating Tariff on the basis of Miles + Minutes required to travel. 
+
+* Multi-Language Support.
+
+
+
+![admin](https://user-images.githubusercontent.com/7928001/43045100-509e8bd6-8daa-11e8-9363-6a2ada756e4e.png)
+ ## The Web Admin is where the users and drivers are managed;
+
+* Built with Angular 5 upgradeable to 6
+
+* Clean and Easy to understand Dashboard which display all relevant statistics. 
+
+* View Real-time driver and passenger activity on map. 
+
+* View all Drivers. View all Users. View Flagged Driver and Option to block them. 
+
+* View Flagged User and Option to block users. Option to view all users. 
+
+* Set Prices for Car types. Set Currencies.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------OR----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Get the old project [HERE](https://market.ionicframework.com/starters/taxi-booking-app-similar-to-uber-and-taxify-contains-user-app-driver-app-and-a-web-admin-)
+
 
 ### *With Firebase serveless cloud realtime database.
 ### *Stripe Payment included.
 ### *Neat App Design.
 ### *Excellent Notification System.
 ### *Driver Tracking. etc.
-
 
 [![Dockbit](https://img.shields.io/dockbit/DockbitStatus/health.svg?token=TvavttxFHJ4qhnKstDxrvBXM)]()
 [![npm (scoped)](https://img.shields.io/npm/v/@cycle/core.svg)]()
