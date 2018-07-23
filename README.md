@@ -29,7 +29,17 @@
 
 #### => I provide Support for a period of 6 months after purchase. So you are not left out, in case you want updates and new features.
 
+## Kick Off Your Business. Without Much Delay. And Benefit from regular updates.
 
+
+## Customers
+
+## RoadRacers inc.
+
+![drawable-hdpi-icon](https://user-images.githubusercontent.com/7928001/43061567-ae721f0e-8e4d-11e8-8a89-4b92088a48d8.png)
+
+### [ios](https://itunes.apple.com/gb/app/roadracers/id1388234026?mt=8)
+### [android](https://play.google.com/store/apps/details?id=com.roadracers.user)
 
 
 ![user](https://user-images.githubusercontent.com/7928001/43045102-5155113a-8daa-11e8-8a41-ac03f426d75a.png)
