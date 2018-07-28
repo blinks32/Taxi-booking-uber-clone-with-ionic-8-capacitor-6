@@ -32,14 +32,6 @@
 ### Kick Off Your Business. Without Much Delay. And Benefit from regular updates.
 
 
-## Customers
-
-
-### RoadRacers inc.
-![drawable-hdpi-icon](https://user-images.githubusercontent.com/7928001/43061567-ae721f0e-8e4d-11e8-8a89-4b92088a48d8.png)
-### [ios](https://itunes.apple.com/gb/app/roadracers/id1388234026?mt=8)
-### [android](https://play.google.com/store/apps/details?id=com.roadracers.user)
-### [website](https://itunes.apple.com/gb/app/roadracers/id1388234026?mt=8)
 
 ## Features;
 
