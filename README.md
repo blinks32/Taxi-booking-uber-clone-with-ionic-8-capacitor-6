@@ -3,10 +3,10 @@
 ## Full Support For Android and IOS
 
 
-### Get it now [HERE](https://market.ionicframework.com/starters/complete-taxi-booking-app-with-ionic-3-upgradeable-to-4-with-firebase-realtime).This includes passenger app, driver app and web admin dashboard.
+### This includes passenger app, driver app and web admin dashboard.
 
 
-### :computer: Visit [My Website](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/) to learn more.
+### :computer: Visit [Here](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/) to learn more.
 
 ### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
 
