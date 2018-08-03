@@ -10,7 +10,7 @@
 
 ### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
 
-### Full [DEMO](https://play.google.com/store/apps/details?id=com.roadracers.user)
+### Full [DEMO](https://drive.google.com/drive/u/1/folders/1vGgvEFDAV1ECAs07xLLJvXmYG9PoLNyh)
 
 ### :email: Email playstudio86@gmail.com for more inquiries.
 
