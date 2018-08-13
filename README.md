@@ -1,7 +1,7 @@
-# Complete-taxi-booking-app-with-ionic-3-upgradeable-to-4-with-firebase-realtime-and-Uber-UI
+
+## This is just a sample and may not work. Please purchase the full source code
 
 ## Full Support For Android and IOS
-
 
 ### This includes passenger app, driver app and web admin dashboard.
 
