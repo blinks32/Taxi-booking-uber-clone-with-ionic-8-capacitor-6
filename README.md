@@ -1,5 +1,5 @@
 
-## This is just a sample and may not work. Please purchase the full source code
+## This is just a sample and may not work. Please purchase the full source code only $70
 
 ## Full Support For Android and IOS
 
