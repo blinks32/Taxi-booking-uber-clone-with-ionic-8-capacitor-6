@@ -1,7 +1,7 @@
 
-## This is just a sample and may not work. Please purchase the full source code only $70
+## This is just a sample, Please purchase the full source code.
 
-## Full Support For Android and IOS
+## Full Support For Android and IOS.
 
 ### This includes passenger app, driver app and web admin dashboard.
 
