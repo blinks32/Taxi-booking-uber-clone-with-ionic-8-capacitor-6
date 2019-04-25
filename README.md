@@ -6,7 +6,7 @@
 ### This includes passenger app, driver app and web admin dashboard.
 
 
-### :computer: Visit [Here](https://market.ionicframework.com/starters/uber-style-taxi-booking-app-built-with-ionic-3-upgradeable-to-4-with-firebase-realtime) to learn more.
+### :computer: Visit [Here](https://market.ionicframework.com/starters/uber-style-taxi-booking-app-built-with-ionic-3-upgradeable-to-4-with-firebase-realtime-#) to learn more.
 
 ### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
 
