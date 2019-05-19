@@ -6,7 +6,7 @@
 ### This includes passenger app, driver app and web admin dashboard.
 
 
-### :computer: Visit [Here](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/) to learn more.
+### :computer: Visit [Here](https://market.ionicframework.com/starters/ionic-3-and-4-taxi-booking-app-similar-to-uber-and-taxify-contains-user-driver-and-web-admin-) to learn more.
 
 ### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
 
