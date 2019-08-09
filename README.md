@@ -5,14 +5,13 @@
 
 ### This includes passenger app, driver app and web admin dashboard.
 
-
-### :computer: Visit [Here](https://market.ionicframework.com/starters/uber-style-taxi-booking-app-built-with-ionic-3-upgradeable-to-4-with-firebase-realtime-) to learn more.
-
 ### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
 
-### Full [DEMO](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/)
+### Buy From Here [DEMO](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/)
 
 ### :email: Email playstudio86@gmail.com for more inquiries.
+
+##  View In Market [Here](https://market.ionicframework.com/starters/firebase-uber-style-ionic-3-and-4-complete-source-code-with-user-driver-and-web-admin-).
 
 ### Skype chndth@live.com
 
