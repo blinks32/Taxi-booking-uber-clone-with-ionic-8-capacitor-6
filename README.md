@@ -1,6 +1,4 @@
 
-## This is just a sample, Please purchase the full source code.
-
 ## Full Support For Android and IOS.
 
 ### This includes passenger app, driver app and web admin dashboard.
@@ -11,36 +9,33 @@
 
 ### :email: Email playstudio86@gmail.com for more inquiries.
 
-##  View In Market [Here](https://market.ionicframework.com/starters/firebase-uber-style-ionic-3-and-4-complete-source-code-with-user-driver-and-web-admin-).
-
 ### Skype chndth@live.com
 
 ### :phone: +23407089930308
-
-
-#### => This project is upgradeable to ionic 4
 
 
 ### Kick Off Your Business. Without Much Delay. And Benefit from regular updates.
 
 
 
-## Features;
+# Features;
+![new_admin](https://user-images.githubusercontent.com/7928001/65433128-5a777080-de14-11e9-8ff6-7538081cefa1.png)
 
 
-![user](https://user-images.githubusercontent.com/7928001/43045102-5155113a-8daa-11e8-8a41-ac03f426d75a.png)
-## The Features present in the User app includes;
+
+# The Features present in the User app includes;
+![new_7](https://user-images.githubusercontent.com/7928001/65433281-a1656600-de14-11e9-825a-df8ce8a279f3.png)
 
 
-* Ride Scheduling 
 
-* Promo code and referals
+
+* Promo code
 
 * Chat System 
 
 * Android 7+
 
-* Support For Ionic 4 and Capacitor (coming soon)
+* Ionic 4 and Capacitor
 
 * Phone Number verification 
 
@@ -52,9 +47,8 @@
 
 
 
-![driver](https://user-images.githubusercontent.com/7928001/43045101-50fb6536-8daa-11e8-82a3-c97adc8c6949.png)
-## For the Driver App, these are the features present;
-
+# For the Driver App, these are the features present;
+![new_10](https://user-images.githubusercontent.com/7928001/65433719-70396580-de15-11e9-8ec6-0e99adc27e70.png)
 
 * 3 Step registration form with all required field capture and validation done to make app ready to go live. 
 
@@ -76,11 +70,11 @@
 
 
 
-![screenshot 15](https://user-images.githubusercontent.com/7928001/48484569-bcd80b80-e816-11e8-90c1-4735143647c5.png)
 
- ## The Web Admin is where the users and drivers are managed;
+ # The Web Admin
+![Screenshot (17)](https://user-images.githubusercontent.com/7928001/65433431-e7222e80-de14-11e9-9a4a-1d72001e8dfe.png)
 
-* Built with Angular 5+
+* Built with Angular 7+
 
 * Clean and Easy to understand Dashboard which display all relevant statistics. 
 
