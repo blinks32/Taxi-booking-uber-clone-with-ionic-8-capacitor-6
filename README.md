@@ -5,7 +5,7 @@
 
 ### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
 
-### Buy From Here [DEMO](https://taxi-booking-uber-clone-ionic3.firebaseapp.com/#/)
+### Buy From Here [DEMO](https://market.ionicframework.com/starters/ionic-4-ridesharing-app-)
 
 ### :email: Email playstudio86@gmail.com for more inquiries.
 
