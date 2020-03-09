@@ -34,7 +34,7 @@
         "@ionic-native/status-bar": "3.12.1",
         "@ionic-native/vibration": "^4.2.1",
         "@ionic/storage": "2.0.1",
-        "angular": "^1.6.5",
+        "angular": "^1.7.9",
         "call-number": "git+https://github.com/Rohfosho/CordovaCallNumberPlugin.git",
         "cordova-android": "^6.2.3",
         "cordova-android-support-gradle-release": "0.0.2",
