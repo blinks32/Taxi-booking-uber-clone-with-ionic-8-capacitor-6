@@ -8,11 +8,11 @@ This is a complete ride booking app built with ionic 5 Convertable To Ionic Reac
 
 ## This Github Project Only Contains A Portion Of The Code.
 
-To get the code please visit this site below
+To get the code please visit [Here](http://www.dropwizard.io/1.0.2/docs/)
 
-### Prerequisites
+### Features of This projecy
 
-What things you need to install the software and how to install them
+These are Fet
 
 ```
 Give examples
