@@ -121,6 +121,8 @@ export class HomePage {
     public pop: PopUpService, public ph: ProfileService, public navCtrl: NavController, public router: Router,
     public eventProvider: EventService) {
 
+
+    //Get OR create notification Id for Onesignal.
     this.platform.ready().then(() => {
       if (!this.platform.is('cordova')) {
 
@@ -139,6 +141,7 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
+    //Setup BAckButton
     this.subscription = this.platform.backButton.subscribe(() => {
       // tslint:disable-next-line: no-string-literal
       navigator['app'].exitApp();
@@ -146,23 +149,27 @@ export class HomePage {
 
   }
   ionViewWillLeave() {
+    //Unsubscribe Back Button
     this.subscription.unsubscribe();
   }
 
 
   async ngOnInit() {
-
+   
     this.subscription = this.platform.backButton.subscribe(() => {
       // tslint:disable-next-line: no-string-literal
       navigator['app'].exitApp();
     });
 
+    // Start Map
     await this.cMap.loadMap();
 
+    //Check If Location has been fetched by GPS
     this.WaitForGeolocation();
 
 
 
+     //Check If rider has a card or will use only cash
     if (this.ph.card != null) {
       // tslint:disable-next-line: prefer-const
       let mainStr = this.ph.card || '2345678765445678',
@@ -179,6 +186,7 @@ export class HomePage {
   }
 
   remove(): void {
+    //Logout the Rider
     this.authProvider.logoutUser().then(() => {
       this.navCtrl.navigateRoot('login');
     });
@@ -186,6 +194,7 @@ export class HomePage {
 
 
   toggleMoreSection() {
+    //Om click Shows tne destination bar, so you can inout your destination
     console.log('checked here');
     this.cMap.selected_destination_bar = true;
     this.canSwoop = false;
@@ -195,6 +204,7 @@ export class HomePage {
     }
   }
   doNow() {
+   // Clear the destination input if it has a value already
     console.log('checked here too');
     this.pop.presentLoader('');
     timer(1000).subscribe(() => {
@@ -215,6 +225,7 @@ export class HomePage {
 
 
   ReturnHome() {
+    //Clear Activites to return to MainHome
     this.cMap.selected_destination_bar = false;
     this.cMap.map.setClickable(true);
     this.cMap.showDone = false;
@@ -239,6 +250,7 @@ export class HomePage {
 
 
   StartTracker() {
+    //Start checking For User locationand update the marker based on the USer position
     console.log('start tracking..........');
     this.watchPositionSubscription = navigator.geolocation;
     this.mapTracker = this.watchPositionSubscription.watchPosition((position) => {
@@ -310,7 +322,7 @@ export class HomePage {
 
   async showAddressModal(selectedBar) {
 
-
+  
     const modal = await this.modalCtrl.create({
       component: AutocompletePage,
       componentProps: { item: this.items }
@@ -394,7 +406,7 @@ export class HomePage {
     console.log(this.cMap.car_notificationIds);
     if (this.cMap.car_notificationIds.length === 0) {
       this.cMap.isBooking = false;
-      this.Close();
+      //this.Close();
 
     } else {
       if (!data) {
@@ -613,7 +625,7 @@ export class HomePage {
   /// The Book Now button onclick=>Create and push the users information to the database.
   RequestForRide() {
     this.bookStarted = true;
-    this.hideFunctions();
+   // this.hideFunctions();
     this.returningUser = false;
     this.cMap.hasCompleted = false;
     let image = this.ph.id.photoURL;
@@ -668,13 +680,13 @@ export class HomePage {
     if (this.cMap.car_notificationIds.length <= this.refreshedTimes) {
       console.log('No More Drivers Close To You At The Moment');
       this.cMap.isBooking = false;
-      this.Close();
+    //  this.Close();
     } else {
       this.createUserInformation(name, image, this.lat, this.lng, this.myGcode.locationName, pay,
         ratingValue, ratingText, this.refreshedTimes);
     }
 
-    this.startListeningForResponse();
+  //  this.startListeningForResponse();
 
   }
 
@@ -741,7 +753,7 @@ export class HomePage {
 
         }).then(suc => {
           this.cMap.map.clear();
-          this.CreatePushNotification(this.cMap.car_notificationIds[this.refreshedTimes]);
+         // this.CreatePushNotification(this.cMap.car_notificationIds[this.refreshedTimes]);
 
         });
 
@@ -753,679 +765,6 @@ export class HomePage {
 
 
   }
-
-
-  CloseLooper() {
-    this.PerformActionOnCancel();
-  }
-
-
-  Close() {
-    this.pop.clearAll(this.uid, true);
-    this.ReturnHome();
-    this.cMap.hasCompleted = true;
-    this.pop.hasCleared = true;
-    this.cMap.onbar2 = false;
-    this.refreshedTimes = -1;
-    this.pop.presentToast('No Response From Drivers.');
-    this.PerformActionOnCancel();
-    this.StartTracker();
-    this.eventProvider.getChatList(this.uid).off('child_added');
-    this.act.getActiveProfile(this.uid).off('child_changed');
-    this.act.getActiveProfile(this.uid).off('child_removed');
-    this.platform.backButton.subscribe(() => {
-      // tslint:disable-next-line: no-string-literal
-      navigator['app'].exitApp();
-    });
-  }
-
-
-
-  CreatePushNotification(id) {
-
-    console.log('This id the notification' + id);
-    // tslint:disable-next-line: variable-name
-    const current_id = id[2];
-    // this.poolState = true;
-    console.log(current_id);
-    if (this.platform.is('cordova') && !this.platform.is('desktop')) {
-      this.OneSignal.sendPush(current_id);
-    }
-
-    console.log(this.cMap.car_notificationIds.length);
-
-
-    this.myTimer = timer(20000).subscribe(() => {
-      if (!this.driver_connected) {
-        console.log('No Driver Found Yet');
-        this.eventProvider.getChatList(this.uid).off('child_added');
-
-        this.act.getActiveProfile(this.uid).off('child_changed');
-        this.act.getActiveProfile(this.uid).off('child_removed');
-        this.pop.driverEnded = false;
-        this.act.getActivityProfile(id[2]).remove().then(() => {
-
-          this.RequestForRide();
-
-        });
-      } else {
-        this.cMap.marker = null;
-        this.myTimer.unsubscribe();
-        console.log('Driver Found');
-        this.refreshedTimes = -1;
-        this.cMap.isBooking = true;
-        this.pop.driverEnded = true;
-        this.CloseLooper();
-      }
-    });
-
-
-    console.log('create push');
-    this.canCancel = true;
-
-  }
-
-
-  // call the driver now
-  callDriver() {
-    this.call.callNumber(this.number, true);
-  }
-  // Send a message to the driver
-
-  async Send() {
-    const modal = await this.modalCtrl.create({
-      component: ChatPage,
-    });
-    modal.present();
-    modal.onDidDismiss()
-      .then(() => {
-        this.notification = false;
-      });
-  }
-
-
-
-
-  // tslint:disable-next-line: align
-  startListeningForResponse() {
-    console.log(this.uid);
-
-    this.platform.backButton.subscribe(() => this.pop.presentToast(this.lp.translate()[0].cantexit));
-
-
-
-    this.eventProvider.getChatList(this.uid).on('child_added', snapshot => {
-      this.eventProvider.getChatList(this.uid).on('child_added', fs => {
-        if (snapshot.val().Driver_Message) {
-          this.notification = true;
-          this.pop.presentToast('New Message From Driver');
-          this.vibration.vibrate(1000);
-          this.eventProvider.getChatList(this.uid).off('child_added');
-        }
-
-      });
-    });
-
-    this.act.getActiveProfile(this.uid).on('child_changed', customerSnapshot => {
-
-
-
-
-      // tslint:disable-next-line: no-shadowed-variable
-      this.act.getActiveProfile(this.uid).once('value', customerSnapshot => {
-        const activity = customerSnapshot.val().client;
-        console.log('valeud');
-        this.cMap.D_lat = customerSnapshot.val().client.Driver_location[0];
-        this.cMap.D_lng = customerSnapshot.val().client.Driver_location[1];
-
-        this.number = customerSnapshot.val().client.Driver_number;
-        if (activity.Driver_location != null) {
-          if (this.myTimer) {
-            this.myTimer.unsubscribe();
-          }
-          this.driver_connected = true;
-          this.PerformActionOnAdd(activity);
-          console.log('children added child' + customerSnapshot.val());
-
-        }
-        this.act.getActiveProfile(this.uid).off('value');
-      });
-
-    });
-
-
-
-
-    this.act.getActiveProfile(this.uid).on('child_removed', customerSnapshot => {
-      // tslint:disable-next-line: no-shadowed-variable
-      this.act.getActiveProfile(this.uid).once('value', customerSnapshot => {
-        console.log('project to be cleared' + customerSnapshot.val());
-
-        if (this.pop.driverEnded) {
-          this.pop.showPimp('Driver Ended The Trip');
-          this.pop.hasCleared = true;
-          this.PerformActionOnCancel();
-        } else {
-          console.log('ended but not by the driver.');
-        }
-
-        this.act.getActiveProfile(this.uid).off('value');
-      });
-    });
-
-  }
-  PerformActionOnCancel() {
-    console.log('Cancel everything called.................,,,./,/,/.,/');
-    this.startedNavigation = false;
-    this.driver_connected = false;
-    this.canCancel = false;
-
-    this.cMap.car_notificationIds.length = 0;
-
-
-    this.dProvider.isDriver = false;
-    this.isChecking = false;
-    this.cMap.marker = null;
-    if (this.platform.is('cordova')) {
-      this.cMap.map.clear().then(() => {
-        if (this.cMap.Line) {
-          this.cMap.Line.remove();
-        } else {
-          console.log('restart called');
-        }
-
-        this.BeginTracker();
-      });
-    } else {
-      this.cMap.Restart();
-      this.cMap.map.setClickable(true);
-    }
-
-    this.cMap.hasRequested = false;
-    this.cMap.onbar3 = false;
-    this.cMap.toggleBtn = false;
-    this.cMap.onPointerHide = false;
-    this.cMap.isBooking = false;
-    this.pop.allowed = true;
-    this.pop.canDismiss = true;
-
-    this.cMap.isDestination = false;
-    this.cMap.selected_destination_bar = false;
-    this.cMap.isLocationChange = false;
-
-    this.dProvider.price = null;
-    this.droppedoff = true;
-    this.pickedup = true;
-    this.hasPaid = true;
-    this.driverFound = true;
-    this.cMap.showDone = false;
-    this.pop.onRequest = false;
-    this.canShowBars = true;
-    this.toggleMore = true;
-    this.cMap.isNavigate = false;
-
-    this.connect_change = true;
-
-    this.hidelocator = false;
-
-    this.bookStarted = false;
-
-    this.platform.backButton.subscribe(() => {
-      // tslint:disable-next-line: no-string-literal
-      navigator['app'].exitApp();
-    });
-  }
-  BeginTracker() {
-    this.cMap.Restart();
-    const m = timer(2000).subscribe(() => {
-      if (this.cMap.hasShown) {
-        this.StartTracker();
-        this.canEnd = true;
-      } else {
-        this.BeginTracker();
-      }
-
-    });
-
-    this.cMap.map.setClickable(true);
-  }
-
-
-
-  // clear the booking request
-  cancelRequest() {
-
-    this.ClosePoolRequest();
-
-  }
-
-  ClosePoolRequest() {
-    this.showAlertComplex(this.lp.translate()[0].whycancel, this.lp.translate()[0].chose);
-  }
-
-
-  async showAlertComplex(title, message) {
-    const alert = await this.alert.create({
-      header: title,
-      // tslint:disable-next-line: object-literal-shorthand
-      message: message,
-      inputs: [
-        {
-          name: 'long',
-          label: this.lp.translate()[0].longpick,
-          type: 'checkbox',
-          value: 'true',
-          checked: false
-        },
-        {
-          name: 'incorrect',
-          label: this.lp.translate()[0].incorrect,
-          type: 'checkbox',
-          value: 'false',
-          checked: false
-        }
-      ],
-      buttons: [
-        {
-          text: this.lp.translate()[0].reject,
-          role: 'cancel',
-          handler: () => {
-
-          }
-        },
-        {
-          text: this.lp.translate()[0].accept,
-          handler: (data) => {
-            this.Close();
-            console.log(data[0]);
-            let yu = 'none';
-            if (data[0] === 'false') {
-              yu = this.lp.translate()[0].incorrect;
-            } else {
-              yu = this.lp.translate()[0].longpick;
-            }
-            this.eventProvider.getChatList(this.uid).off('child_added');
-
-            this.act.getActiveProfile(this.uid).off('child_changed');
-            this.act.getActiveProfile(this.uid).off('child_removed');
-
-            const currentdate = new Date();
-            const datetime = currentdate.getDate() + '/'
-              + (currentdate.getMonth() + 1) + '/'
-              + currentdate.getFullYear() + ' @ '
-              + currentdate.getHours() + ':'
-              + currentdate.getMinutes() + ':'
-              + currentdate.getSeconds();
-
-            this.ph.Cancelled(this.name, datetime, this.myGcode.locationName, this.destiny, this.price, yu);
-
-            this.pop.driverEnded = false;
-            this.pop.hasCleared = true;
-            this.myTimer.unsubscribe();
-          }
-        }
-
-      ],
-      backdropDismiss: false
-    });
-    alert.present();
-  }
-
-
-
-  PerformActionOnAdd(activity) {
-
-    if (this.connect_change) {
-
-      console.log('connect now');
-      this.Onconnect(activity);
-      this.connect_change = false;
-    }
-
-    this.destiny = activity.Client_destinationName;
-
-    if (activity.Driver_location[0] != null && this.driverFound) {
-      console.log('Called this area..');
-
-      const driverPos = new google.maps.LatLng(activity.Driver_location[0], activity.Driver_location[1]);
-      let userPos;
-      userPos = new google.maps.LatLng(activity.Client_location[0], activity.Client_location[1]);
-      console.log('here-------------------------------------------------------');
-      this.dProvider.calcRoute(userPos, driverPos, true, false, activity.Client_destinationName);
-      console.log('Called this area..');
-      this.hidelocator = true;
-      this.driverFound = false;
-
-
-    }
-
-
-    if (activity.Client_PickedUp && this.pickedup) {
-      console.log('Picked user');
-      this.cMap.isDestination = true;
-
-      this.cMap.ClearDetection = true;
-      this.canShowBars = false;
-      this.toggleMore = false;
-
-      this.cMap.toggleBtn = false;
-
-      let lat;
-      let lng;
-      this.type = 'arrow-up';
-      this.myGcode.Reverse_Geocode(this.cMap.lat, this.cMap.lng, false);
-
-      this.pop.presentLoader('Ride Started');
-
-      if (this.platform.is('cordova') && !this.platform.is('desktop')) {
-        this.OneSignal.sendArrived(this.notify_ID);
-      }
-
-      console.log('now moving user to destination');
-
-      console.log(activity.Client_destinationName);
-
-      // tslint:disable-next-line: object-literal-key-quotes
-      this.geocoder.geocode({ 'address': activity.Client_destinationName }, (results, status) => {
-        console.log('Geocoding the destination called');
-        this.pop.hideLoader();
-        if (status === 'OK') {
-          const position = results[0].geometry.location;
-          lat = position.lat();
-          lng = position.lng();
-          const location = [
-            lat,
-            lng
-          ];
-
-        }
-
-        if (this.platform.is('cordova')) {
-          const urPos = new google.maps.LatLng(lat, lng);
-          const loc1 = [lat, lng];
-
-          const uLOC = new google.maps.LatLng(this.cMap.lat, this.cMap.lng);
-          const loc2 = [this.cMap.lat, this.cMap.lng];
-
-
-
-          this.cMap.map.clear().then(() => {
-            this.driverFound = false;
-            console.log('now moving user to destination');
-            this.pop.SmartLoader('');
-            this.cMap.setMarkersDestination(lat, lng, this.uid);
-            this.cMap.isPickedUp = false;
-            this.dProvider.calcDestRoute(this.name, uLOC, urPos, activity.Client_destinationName, this.uid);
-          });
-        } else {
-
-          const urPos = new google.maps.LatLng(lat, lng);
-          console.log('Calculate the route distance.');
-          const uLOC = new google.maps.LatLng(this.cMap.lat, this.cMap.lng);
-          this.dProvider.calcDestRoute(this.name, uLOC, urPos, activity.Client_destinationName, this.uid);
-          this.pop.hideLoader();
-
-        }
-
-
-
-
-
-      });
-
-      this.pickedup = false;
-
-    }
-
-
-
-    if (activity.Client_Dropped && this.droppedoff) {
-      document.getElementById('header').innerHTML = this.lp.translate()[0].end;
-      this.cMap.hasCompleted = true;
-      this.pop.presentSimpleLoader(this.lp.translate()[0].waiting);
-      this.ph.uid = this.uid;
-      this.Charged(activity);
-      console.log('Dropped user');
-      if (this.platform.is('cordova')) {
-        this.OneSignal.sendEnd(this.notify_ID);
-      }
-      this.droppedoff = false;
-    }
-
-
-
-    if (activity.Client_hasPaid && this.hasPaid || activity.Client_paidCash && this.hasPaid) {
-      console.log('Stuff has been Completed');
-
-      this.act.getActiveProfile(this.uid).off('child_changed');
-      this.act.getActiveProfile(this.uid).off('child_added');
-      this.act.getActiveProfile(this.uid).off('child_removed');
-      let navigationExtrasHome: NavigationExtras = {
-        queryParams: {
-          special: JSON.stringify({ eventId: activity.Driver_ID })
-        }
-      };
-      this.router.navigate(['rate'], navigationExtrasHome).then(() => {
-        this.hasPaid = false;
-        const currentdate = new Date();
-        const datetime = currentdate.getDate() + '/'
-          + (currentdate.getMonth() + 1) + '/'
-          + currentdate.getFullYear() + ' @ '
-          + currentdate.getHours() + ':'
-          + currentdate.getMinutes() + ':'
-          + currentdate.getSeconds();
-        let destiny;
-
-        destiny = activity.Client_destinationName;
-
-
-        // tslint:disable-next-line: no-trailing-whitespace
-        console.log(this.name, this.price, datetime, this.myGcode.locationName, activity.Client_destinationName,
-          activity.Driver_RateValue, activity.Driver_RateText);
-        this.ph.createHistory(this.name, this.price, datetime, this.myGcode.locationName, destiny).then(suc => {
-          this.ph.Completed(this.name, datetime, this.myGcode.locationName, destiny, this.price);
-          if (this.referal) {
-            if (this.referalID.replace(/[^A-Z,0-9]/gi, '').length === 4) {
-              console.log(this.price * 3 / 100);
-              this.ph.UpdateRefEarnings(this.price * 3 / 100).then(() => { });
-              console.log('Passenger Referal Paid' + this.referal);
-            } else {
-              this.ph.UpdateRefEarnings2(this.price * 3 / 100).then(() => { });
-              console.log('Driver Referal Paid' + this.referal);
-            }
-          }
-
-
-          console.log('cleared the db for client');
-          if (this.canEnd) {
-            this.CloseOnly();
-
-            this.PerformActionOnCancel();
-            this.canEnd = false;
-          }
-
-
-        });
-
-
-      });
-
-    }
-
-
-  }
-
-  CloseOnly() {
-    this.pop.hasCleared = true;
-    this.cMap.onbar2 = false;
-    this.refreshedTimes = -1;
-    this.platform.backButton.subscribe(() => {
-      // tslint:disable-next-line: no-string-literal
-      navigator['app'].exitApp();
-    });
-  }
-
-
-
-  ToggleChange_1() {
-    this.myGcode.locationChange = true;
-    this.cMap.onDestinatiobarHide = false;
-    this.cMap.map.setClickable(true);
-    this.cMap.showDone = true;
-    this.hidelocator = false;
-    this.pop.SmartLoader('');
-    this.cMap.isLocationChange = true;
-  }
-
-  ToggleChange_2() {
-    this.myGcode.locationChange = false;
-    this.cMap.onLocationbarHide = false;
-    this.cMap.map.setClickable(true);
-    this.cMap.showDone = true;
-    this.hidelocator = false;
-    this.pop.SmartLoader('');
-    this.cMap.isLocationChange = false;
-  }
-
-
-  // tslint:disable-next-line: variable-name
-  DriverFound(location, plate, carType, name, seat, locationName, rating, picture, number, userPos,
-    // tslint:disable-next-line: variable-name
-    client_lat, client_lng, review, driverID) {
-    this.location = location; this.plate = plate; this.carType = carType; this.name = name;
-    this.seat = seat; this.rating = rating; this.review = review; this.picture = picture;
-    this.name = name;
-    this.cMap.lat = client_lat;
-    this.cMap.lng = client_lng;
-
-    if (location) {
-      this.cMap.D_lat = location[0];
-      this.cMap.D_lng = location[1];
-    } else {
-
-      if (this.bookStarted) {
-        this.bookStarted = false;
-      }
-      this.pop.presentToast(this.lp.translate()[0].nodriver);
-    }
-
-
-    console.log('Driver has been Found');
-
-    if (this.platform.is('cordova')) {
-      this.watchPositionSubscription.clearWatch(this.mapTracker);
-      this.cMap.map.clear().then(() => {
-        this.pop.SmartLoader('');
-        this.cMap.setMarkers(location[0], location[1], this.uid);
-        this.cMap.isPickedUp = true;
-      });
-    }
-
-  }
-
-
-
-  hideFunctionsOnDriverFound() {
-    this.cMap.onbar2 = false;
-    this.cMap.onbar3 = true;
-
-    this.cMap.toggleBtn = true;
-    this.cMap.onPointerHide = true;
-  }
-
-
-
-
-
-  hideFunctions() {
-    this.hideNews = true;
-    this.cMap.hasbooked = true;
-
-    console.log('hidefuction Called');
-    this.cMap.shove = false;
-    /// hide and remove some properties on user request.
-    this.cMap.onbar2 = true;
-
-    this.cMap.norideavailable = false;
-    this.cMap.canShowchoiceTab = false;
-
-    this.cMap.map.setClickable(false);
-    document.getElementById('destination').innerHTML = this.lp.translate()[0].dest;
-    this.cMap.map.clear().then(() => {
-      this.cMap.map.setCameraZoom(6);
-    });
-    this.startedNavigation = true;
-    this.pop.onRequest = true;
-
-    this.dProvider.calculateBtn = false;
-
-
-    this.cMap.map.clear();
-  }
-
-
-
-  Onconnect(activity) {
-    this.pop.presentSimpleLoader(this.lp.translate()[0].driverfound);
-
-    if (this.platform.is('cordova')) {
-      this.vibration.vibrate(1000);
-    }
-
-    this.hideFunctionsOnDriverFound();
-    this.pop.uid = this.uid;
-    this.cMap.map.setClickable(true);
-    this.DriverFound(activity.Driver_location,
-      activity.Driver_plate,
-      activity.Driver_carType,
-      activity.Driver_name,
-      activity.Driver_seats,
-      activity.Driver_locationName,
-      activity.Driver_rating,
-      activity.Driver_picture,
-      activity.Driver_number,
-      activity.Client_locationName,
-      activity.Client_location[0],
-      activity.Client_location[1],
-      activity.Driver_rateText,
-      activity.Driver_RegNum
-    );
-    document.getElementById('destination').innerHTML = this.lp.translate()[0].dest;
-    this.storage.set(`currentUserId`, this.uid);
-
-
-  }
-
-
-
-  Charged(activity) {
-    if (this.platform.is('cordova')) {
-      this.cMap.map.setClickable(false);
-    }
-
-    this.price = activity.Client_price; // || activity.Pool_price;
-    const location = activity.Client_locationName; // || activity.Pool_locationName;
-    const destination = activity.Client_destinationName; // || activity.Pool_destinationName;
-
-    if (this.ph.card != null) {
-
-      if (this.settings.isStripe) {
-        this.stripe.ChargeCard(this.price, this.uid);
-      } else {
-        this.paystack.ChargeCard(this.ph.card, this.ph.month, this.ph.cvc, this.ph.year, this.price * 100, this.ph.email, this.uid);
-      }
-
-
-
-    } else {
-      this.act.getActivityProfile(this.uid).update({
-        Client_paidCash: true,
-      });
-      console.log('cashed used');
-    }
-
-  }
-
 
 
 
