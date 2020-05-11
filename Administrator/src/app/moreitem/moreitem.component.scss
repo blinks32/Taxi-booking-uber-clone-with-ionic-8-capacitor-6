@@ -1,0 +1,400 @@
+@import "~styles/base/_variables.scss";
+
+.container{
+  width: 100%;
+  height: 100%;
+  top: 0% !important;
+  position: fixed;
+  background: rgba(53, 53, 53, 0.562);
+}
+
+
+.form-style-8{
+    font-family: 'Open Sans Condensed', arial, sans;
+    width: 80%;
+    padding: 30px;
+    background: $myGrey-color;
+    left: 10%;
+    box-shadow: $shadow-value;
+    -moz-box-shadow: $shadow-value;
+    -webkit-box-shadow:  $shadow-value;
+    border-radius: 4px;
+    position: fixed;
+    z-index: 5;
+    top: 2% !important;
+  }
+  tr{
+    color: $deep-color;
+  }
+
+  .form-style-8 label{
+    color: $deep-color;
+  }
+
+  .drop-zone { border: dotted 3px lightgray; opacity: 0.5; color: #666; text-align: center }
+  .file-over { border: dotted 3px dodgerblue; }
+  .table { margin-top: 10px; }
+  .text-green { color: green }
+  .well drop-zone{ height: 100px;}
+
+  .form-style-8 h2{
+    background: $primary-color;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+  }
+  
+  .form-style-8 p{
+    background: $primary-color;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    margin: -30px -30px 30px -30px;
+  }
+  
+  
+  .form-style-8 button{
+    background: $primary-color;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 100;
+    padding: 20px;
+    border-radius: 4px;
+    border: none;
+    margin: 10px;
+    
+  }
+
+ .toptext{
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color:$deep-color;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 100;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+     
+    
+  }
+
+
+  
+ .toptext2{
+  text-transform: uppercase;
+  font-family: 'Open Sans Condensed', sans-serif;
+  color:$deep-color;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 100;
+  padding: 17px;
+  border-radius: 4px;
+  border: none;
+   
+  
+}
+  
+  .form-style-8 input[type="text"],
+  .form-style-8 input[type="date"],
+  .form-style-8 input[type="datetime"],
+  .form-style-8 input[type="email"],
+  .form-style-8 input[type="number"],
+  .form-style-8 input[type="search"],
+  .form-style-8 input[type="time"],
+  .form-style-8 input[type="url"],
+  .form-style-8 input[type="password"],
+  .form-style-8 textarea,
+  .form-style-8 select 
+  {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid $secondary-color;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 30px;
+  }
+  .form-style-8 textarea{
+    resize:none;
+    overflow: hidden;
+  }
+  .form-style-8 input[type="button"], 
+  .form-style-8 input[type="submit"],
+  .form-style-8 input[type="file"]{
+    -moz-box-shadow: inset 0px 1px 0px 0px $cloth-color;
+    -webkit-box-shadow: inset 0px 1px 0px 0px $cloth-color;
+    box-shadow: inset 0px 1px 0px 0px $cloth-color;
+    background-color: $mini-color;
+    border: 1px solid #27A0A0;
+    display: inline-block;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: auto;
+  }
+  .form-style-8 input[type="button"]:hover, 
+  .form-style-8 input[type="submit"]:hover{
+    background:linear-gradient(to bottom, $mini-color 5%, $cloth-color 100%);
+    background-color:$mini-color;
+  }
+
+
+
+.add_cont{
+    width: 45%;
+    height: auto;
+    text-align: center;
+    list-style: none;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: $border-radius;
+    background: $primary-color;
+    margin-left: 28%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    box-shadow: $shadow-value;
+
+    .material-icons{
+        width: 30%;
+        height: auto;
+        cursor: pointer;
+        margin: 3%;
+        border-radius: $border-radius;
+        border: 1px solid $light-color;
+        
+    }
+
+    .material-icons:hover{
+        width: 30%;
+        height: auto;
+        background: $secondary-color;
+        cursor: pointer;
+        border-radius: $border-radius;
+        border: 1px solid $light-color;
+        
+    }
+}
+
+
+
+
+.center{
+    text-align: center;
+    animation-name: fadeAnim;
+    animation-duration: 0.6s;
+    animation-iteration-count: 1;
+    li {
+        width: 45%;
+        height: auto;
+        text-align: center;
+        list-style: none;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: $border-radius;
+        background: $primary-color;
+        margin-left: 3%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        box-shadow: $shadow-value;
+        
+        p{
+        text-align: center;
+        font-size: 1.2em;
+        background: $mini-color;
+        overflow: hidden;
+        border-radius: $border-radius;
+        border: 1px solid $light-color;
+        width: 80%;
+        margin-top: 20px;
+        margin-left: 10%;
+        padding: 6px;
+        
+        }
+
+        img{
+            width: 20%;
+            height: auto;
+            cursor: pointer;
+            border-radius: $border-radius;
+            border: 1px solid $light-color;
+            
+        }
+
+      
+
+           .material-icons{
+            width: 30%;
+            height: auto;
+            cursor: pointer;
+            margin: 3%;
+            border-radius: $border-radius;
+            border: 1px solid $light-color;
+            
+        }
+
+        .material-icons:hover{
+            width: 30%;
+            height: auto;
+            background: $secondary-color;
+            cursor: pointer;
+            border-radius: $border-radius;
+            border: 1px solid $light-color;
+            
+        }
+        
+
+        .h{
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 70px;
+            overflow: hidden;
+            }
+    }
+
+}
+
+
+
+
+    h1{
+        text-align: center;  
+        color: rgb(255, 255, 255);
+        font-size: 1.1em;
+        padding: 5px;
+    }
+    
+    .seperator{
+        text-align: center;
+        font-size: 1.2em;
+      
+        overflow: hidden;
+        border: 10px;
+        color: rgb(247, 247, 247)
+    }
+
+
+  
+     .material-icons_close{
+          width: 10% auto;
+          height: auto;
+          cursor: pointer;
+          margin-right: 0%;
+          border-radius: $border-radius;
+          border: 1px solid $light-color;
+          float: right;
+          background: rgb(255, 29, 21);
+          z-index: 10;
+          margin-left: 25% !important
+      }
+
+      .material-icons_close:hover{
+          width: 10% auto;
+          height: auto;
+          background: rgb(99, 2, 2);
+          cursor: pointer;
+          border-radius: $border-radius;
+          border: 1px solid $light-color;
+          
+      }
+      
+
+
+
+    .allItems{
+      p{
+        text-align: center;
+        font-size: 1.2em;
+        background: $mini-color;
+        overflow: hidden;
+        border-radius: $border-radius;
+        border: 1px solid $light-color;
+        width: 50% !important;
+        margin-top: 20px;
+        margin-left: 20%;
+        padding: 6px;
+        
+        }
+
+    }
+    
+    
+    
+.menu_items {
+  position: fixed;
+  padding: 0px 0;
+  height: auto;
+  overflow: hidden;
+  background: $primary-color;
+  color: #ffffff;
+  // line-height: 500px;
+  width: 100%;
+  z-index: 4;
+  border: 1px solid rgb(181, 219, 255);
+  box-shadow: $shadow-value $secondary-color;
+}
+
+.items{
+    text-align: center;
+   
+  li {
+    text-align: center;
+    list-style: none;
+    display:inline-block;
+    vertical-align:middle;
+    margin: 1%;
+    background: $mini-color;
+    border-radius: $border-radius;
+    padding: 1%;
+    height: 50%;
+    cursor: pointer;
+    box-shadow: $shadow-value;
+    img{
+      margin: 3px;
+      padding: 2%;
+      border-radius: $border-radius;
+      width: auto;
+      border-bottom: 1px solid white;
+      z-index: 0;
+    }
+
+}
+
+    p{
+        text-align: center;
+        font-size: 1.2em;
+        background: $mini-color;
+        overflow: hidden;
+        border-radius: $border-radius;
+        border: 1px solid $light-color;
+        width: 80%;
+        margin-top: 20px;
+        margin-left: 10%;
+        padding: 2px;
+        
+        }
+
+ 
+}

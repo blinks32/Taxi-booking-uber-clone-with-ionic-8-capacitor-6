@@ -1,0 +1,64 @@
+<div class="form-style-8">
+  <p>
+  Formular => : Price = Total Distance /1000 * PricePerKm + Faretime
+</p>
+</div>
+
+
+<div class="form-style-8">
+  <div *ngIf="!submitted">
+    <h2>Change Login Password</h2>
+    <form #heroForm="ngForm" (ngSubmit)="onSubmit(heroForm.value)">
+      <div class="form-group">
+        <label for="name">New Password</label>
+        <input type="text" class="form-control" name="name" ngModel #name="ngModel" required>
+        <div class="alert alert-danger" [hidden]="name.valid || name.pristine">Password is required</div>
+      </div>
+      <button type="submit" [disabled]="!heroForm.valid">Submit</button>
+    </form>
+  </div>
+  <div *ngIf="submitted">
+    <h2>Password Changed Successfully</h2>
+  
+    <button class='ended' type="submit" (click)="submitted=false">Change Password Again</button>
+  </div>
+</div>
+
+
+
+<div class="form-style-8">
+  <div *ngIf="!submitted2">
+    <h2>Change Ride Price</h2>
+    <form #heroForm="ngForm" (ngSubmit)="onSubmit2(heroForm.value)">
+      <div class="form-group">
+        <label for="name">Price</label>
+        <input type="number" class="form-control" name="name" ngModel #name="ngModel" required>
+        <div class="alert alert-danger" [hidden]="name.valid || name.pristine">Price is required</div>
+      </div>
+      <button type="submit" [disabled]="!heroForm.valid">Submit</button>
+    </form>
+  </div>
+  <div *ngIf="submitted2">
+    <h2>Price Added Successfully</h2>
+    <button class='ended' type="submit" (click)="submitted2=false">Change Price</button>
+  </div>
+</div>
+
+
+<div class="form-style-8">
+  <div *ngIf="!submitted3">
+    <h2>Change kilometre value</h2>
+    <form #heroForm="ngForm" (ngSubmit)="onSubmit3(heroForm.value)">
+      <div class="form-group">
+        <label for="name">PerKm</label>
+        <input type="number" class="form-control" name="name" ngModel #name="ngModel" required>
+        <div class="alert alert-danger" [hidden]="name.valid || name.pristine">PerKm is required</div>
+      </div>
+      <button type="submit" [disabled]="!heroForm.valid">Submit</button>
+    </form>
+  </div>
+  <div *ngIf="submitted3">
+    <h2>PerKm Added Successfully</h2>
+    <button class='ended' type="submit" (click)="submitted3=false">Change PerKm</button>
+  </div>
+</div>

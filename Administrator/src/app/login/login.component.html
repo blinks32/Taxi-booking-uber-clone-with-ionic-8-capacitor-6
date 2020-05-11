@@ -1,0 +1,37 @@
+<div class='container'>
+     <h2>TAXIHUB</h2>
+     
+     
+     
+     <div class="form-style-8">
+          <div *ngIf="!submitted">
+            <h2>Please Enter Login Password</h2>
+            <form #heroForm="ngForm" (ngSubmit)="onSubmit(heroForm.value)">
+              <div class="form-group">
+                <label for="name">Password</label>
+                <input type="text" class="form-control" name="name" ngModel #name="ngModel" required>
+                <div class="alert alert-danger" [hidden]="name.valid || name.pristine">Password is required</div>
+              </div>
+              <button type="submit" [disabled]="!heroForm.valid">Submit</button>
+            </form>
+          </div>
+          <div *ngIf="submitted">
+            <h2>Wrong Password, Attempts {{num_times}}</h2>
+            <div class="row">
+              <div class="col-md-2">Name</div>
+              <div class="col-md-10 pull-left">{{ form.name }}</div>
+            </div>
+            <button class='ended' type="submit" (click)="submitted=false">Try Again</button>
+          </div>
+        </div>
+
+
+          <mat-progress-bar
+          *ngIf='ctrl.started'
+           class="app-progress"
+           mode="indeterminate"
+           aria-label="Indeterminate progress-bar example"></mat-progress-bar>
+
+
+           <h3>Welcome to the dashboard. Manage Users, Accept and Reject Drivers Etc.</h3>
+          </div>

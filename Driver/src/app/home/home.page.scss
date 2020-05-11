@@ -1,0 +1,386 @@
+ion-content {
+  overflow: visible !important;
+  margin-top: -4% !important; // change her for ios
+
+  #map_canvas {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 0;
+  }
+}
+
+ion-footer {
+  @keyframes wiki {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .bars {
+    width: 100%;
+    position: absolute;
+    background: #f7f7f7;
+    height: auto;
+    z-index: 4;
+    line-height: 50px;
+    text-align: center;
+
+    .name_text {
+      z-index: 3;
+      font-size: 1.2em;
+      text-align: center;
+      margin-top: 0%;
+    }
+
+    .profile_bar {
+      margin-top: 5%;
+    }
+
+    ion-button {
+      margin-top: 16%;
+      height: auto;
+
+      width: 95%;
+      border-radius: 12px;
+      text-align: center;
+    }
+  }
+
+  #myButtin {
+    border-radius: 12px;
+    margin-top: 3%;
+    padding: 5px;
+    font-size: 1.2em;
+
+    color: #ffffff;
+  }
+
+  p {
+    padding: 0px;
+    margin: 0px;
+  }
+
+  #aButton {
+    background: rgb(36, 140, 210);
+    color: #f7f7f7;
+    border-radius: 12px;
+    padding: 10px;
+    width: 90%;
+  }
+
+  ion-title {
+    color: #f7f7f7 !important;
+  }
+}
+
+.rate {
+  position: absolute;
+  margin-left: 80%;
+  margin-top: -10%;
+  color: #3eab0f;
+  top: 14%;
+  border: 1px solid rgba(212, 212, 212, 0.93);
+  z-index: 4;
+  width: 50px;
+  border-radius: 12px;
+  ion-icon {
+    font-size: 1.8em;
+    color: rgb(255, 255, 255);
+    z-index: 4;
+  }
+}
+
+#title {
+  height: 2% !important;
+}
+
+#mytite {
+  padding: 2px !important;
+  background: #f7f7f7;
+  border-radius: 30px;
+  margin-left: 19%;
+  margin-top: 2%;
+  width: 45%;
+  height: 14%;
+  ion-icon {
+    width: 10%;
+    margin: 2px;
+  }
+}
+
+#leftshit {
+  margin: 2%;
+  border: 2px solid rgb(10, 100, 235);
+  border-radius: 12px+5;
+  padding: 5px;
+  color: white;
+  background: rgb(10, 100, 235);
+  left: 35% !important;
+  position: relative;
+}
+
+#star {
+  border: 1px solid rgba(212, 212, 212, 0.93);
+  margin-top: 1%;
+}
+
+#rides {
+  border-radius: 12px;
+  border: 1px solid rgba(212, 212, 212, 0.93);
+}
+
+#unstar_1 {
+  margin-top: 3%;
+  --background: url("src/assets/img/car.png") no-repeat;
+
+  background-size: contain;
+  border: 1px solid rgb(10, 100, 235);
+
+  h2 {
+    padding: 4px !important;
+    background: rgb(10, 100, 235);
+    border-radius: 30px;
+  }
+}
+
+#unstar {
+  margin-top: 3%;
+  margin-left: 2.5% !important;
+}
+
+#unstar_2 {
+  margin-top: 3%;
+  margin-left: 2.5% !important;
+  --background: url("src/assets/img/a-splash-1.png") no-repeat;
+  background-size: cover;
+  border: 1px solid rgb(10, 100, 235);
+  h2 {
+    padding: 4px !important;
+    background: rgb(10, 100, 235);
+    border-radius: 30px;
+  }
+}
+
+#top_container {
+  background: url("src/assets/img/logo-icon.png") no-repeat;
+  height: 30%;
+  width: 100%;
+  overflow: hidden;
+  background-size: cover;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+
+  .stuff {
+    margin-top: 10%;
+  }
+}
+
+#buttonContainer {
+  float: right;
+  padding-right: 10px;
+  ion-button {
+    background: rgb(10, 100, 235);
+    color: #ffffff;
+
+    box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+  }
+}
+
+#buttonContainer2 {
+  float: left;
+  ion-button {
+    background: rgb(10, 100, 235);
+    color: #ffffff;
+
+    box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+  }
+}
+
+#container {
+  margin-top: 2%;
+  height: auto;
+  width: 100%;
+  padding: 5px;
+  color: white;
+  text-align: center;
+
+  box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+  h2 {
+    font-size: 1em;
+    height: auto;
+  }
+
+  ion-icon {
+    margin: 3px;
+  }
+}
+
+#container_1 {
+  margin-top: 2%;
+  height: auto;
+  width: 100%;
+  padding: 5px;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  background: rgb(10, 100, 235);
+
+  background-position: left;
+  box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+  overflow: hidden;
+  ion-icon {
+    color: #ffffff;
+  }
+  h2 {
+    font-size: 1em;
+    height: auto;
+  }
+
+  ion-icon {
+    margin: 5px;
+  }
+
+  .profile-pic {
+    width: 15%;
+    height: 18%;
+  }
+}
+
+ion-toggle {
+  float: right;
+  width: 100%;
+  border: 2px solid #f7f7f7;
+  border-radius: 30px;
+  background: #ffffff;
+  padding: auto;
+  box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+  margin-top: 4% !important;
+  margin: 3%;
+}
+
+#mCont {
+  border-radius: 12px;
+
+  padding: 3px;
+  font-size: 1em;
+  background: #ffffff;
+  box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+  color: rgb(10, 100, 235);
+}
+
+#header {
+  height: auto;
+  width: 100%;
+  padding: 5px;
+  border-radius: 0px;
+  color: black;
+  text-align: center;
+  background: #f7f7f7;
+}
+
+#slopw {
+  width: 100%;
+  margin-left: -1%;
+  overflow: auto !important;
+  padding: 10px;
+}
+
+.topBar {
+  height: 50px;
+  width: 100%;
+  margin-top: 5.5%; //change to 10%
+  z-index: 3;
+
+  ion-icon {
+    padding: 5px;
+  }
+  .button-right {
+    float: right;
+  }
+}
+
+#myBadge {
+  height: 70%;
+  font-size: 1.6em;
+}
+
+#map_layer {
+  z-index: 13;
+  animation-name: wiki;
+  animation-duration: 1.2s;
+  padding: 5px;
+  background: #ffffff;
+  overflow: auto !important;
+  .button {
+    margin-top: 3% !important;
+    height: auto;
+    width: 100%;
+    border-radius: 12px;
+    text-align: center;
+    margin: 5px;
+    padding: 20px;
+    ion-icon {
+      color: #ffffff;
+    }
+    box-shadow: 0px 4px 7px 0px rgba(3, 3, 3, 0.253);
+  }
+
+  .button_1 {
+    background: #ffffff;
+    margin-top: 2px;
+    height: auto;
+    width: 100%;
+    border-radius: 12px;
+    text-align: center;
+    .profile-pic {
+      height: 70%;
+      width: 43%;
+      border: 1.6px solid rgb(10, 100, 235);
+    }
+  }
+
+  .button_2 {
+    background: #9d08e2;
+    margin-top: 2px;
+    height: auto;
+    width: 100%;
+    border-radius: 12px;
+    text-align: center;
+    background-position: left;
+  }
+}
+
+ion-footer {
+  #lower_items {
+    height: auto;
+    width: 100%;
+    background: #ffffff;
+    z-index: 15;
+    box-shadow: 12px 0px 0px 0px rgba(3, 3, 3, 0.253);
+  }
+
+  .buttons {
+    margin-top: 10% !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+    margin-left: 80%;
+    padding: auto !important;
+    background: rgb(10, 100, 235);
+    z-index: 300 !important;
+    border: 0.7px solid rgb(10, 100, 235);
+    color: white;
+    font-size: 17px;
+  }
+  #rides {
+    border-radius: 0px;
+    border: 1px solid rgba(212, 212, 212, 0.93);
+  }
+}

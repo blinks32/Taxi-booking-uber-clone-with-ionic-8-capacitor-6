@@ -1,0 +1,409 @@
+<ion-content class="no-scroll">
+
+    <!-- This is the cordova google map -->
+    <div style="height: 100%;width: 100%" id='map_canvas'>
+
+        <div class="topBar" *ngIf="cMap.onbar3" <div id='buttonContainer'>
+            <ion-button *ngIf="!hideTopbuttons" class='button' detail="false" icon-only (click)="Send()">
+                <ion-icon color='light' name="chatbubbles">
+                    <ion-badge *ngIf='notification' id="cart-badge">New</ion-badge>
+                </ion-icon>
+            </ion-button>
+        </div>
+
+    </div>
+
+    <!-- This is the navigation bar containing sidemenu btn and booklater btn -->
+    <div class="topBar" [hidden]='pop.onRequest'>
+
+        <!-- back btn -->
+        <ion-menu-toggle autoHide='false'>
+            <ion-fab *ngIf="!cMap.selected_destination_bar" class="ion-padding">
+                <ion-fab-button class='Menubutton'>
+                    <ion-icon color='light' name="contact"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+        </ion-menu-toggle>
+
+
+        <ion-button *ngIf="cMap.selected_destination_bar" style="margin-top:20px" (click)="ReturnHome()" color="primary"
+            fill="clear">
+            <ion-icon style="font-size: 1.5em" name="arrow-back"></ion-icon>
+            <span style="margin-left:30px; font-size: 1.5em">CLOSE</span>
+        </ion-button>
+        <span [hidden]='pop.onRequest'>
+            <ion-button [hidden]='!settings.schedule' *ngIf="!cMap.selected_destination_bar" ion-float-right
+                class='button-right' fill="clear" (click)="bookLater()">
+                <ion-icon name="ios-calendar-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </span>
+
+        <ion-button *ngIf="cMap.selected_destination_bar" class='button-right' fill="clear" ion-float-right
+            (click)="estimate()">
+            <ion-icon slot="icon-only" color="dark" name="calculator" slot="end"></ion-icon>
+        </ion-button>
+
+
+    </div>
+
+
+    <div class="topBar" [hidden]='!pop.onRequest'>
+        <div [hidden]='startedNavigation'>
+            <!-- back btn -->
+
+            <ion-button *ngIf="cMap.selected_destination_bar" (click)="ReturnHome()" color="primary" fill="clear"
+                style="margin-top:20px">
+                <ion-icon style="font-size: 1.5em" name="arrow-back"></ion-icon>
+                <span style="margin-left:30px; font-size: 1.5em">CLOSE</span>
+            </ion-button>
+
+            <!-- </div> -->
+
+        </div>
+
+    </div>
+
+
+
+    <!-- These are the location bar and destination bar -->
+    <div [hidden]='pop.onRequest' class="bars">
+        <!-- location bar -->
+        <div *ngIf='cMap.hasShown'>
+
+            <div [hidden]="cMap.selected_destination_bar">
+                <ion-button expand="block" color="#ffffff" class="bars-whereto" (click)="toggleMoreSection()">
+                    <ion-icon color='primary' slot="start" name="square"></ion-icon>
+                    <div class='myText' slot="start">{{lp.translate()[0].whereTo}}</div>
+                </ion-button>
+            </div>
+
+        </div>
+
+        <div class='bookingSect' [hidden]="!cMap.selected_destination_bar">
+            <!-- location bar -->
+            <ion-grid>
+                <ion-row>
+                    <ion-col id='iCol' (click)="showAddressModal(1)">
+                        <ion-button [hidden]="!cMap.onLocationbarHide" class="bars-locate" color="#ffffff">
+                            <ion-icon name="locate" slot="start"></ion-icon>
+                            <div id="location" style="color:black">{{lp.translate()[0].set}}
+                            </div>
+                        </ion-button>
+                    </ion-col>
+
+                    <ion-button [hidden]="!cMap.onLocationbarHide" color="danger" [disabled]='cMap.showDone'
+                        class="bars-locate-pin" (click)="ToggleChange_1()">
+                        <ion-icon name="pin"></ion-icon>
+                    </ion-button>
+
+                </ion-row>
+            </ion-grid>
+
+            <!-- desination bar -->
+            <ion-grid>
+                <ion-row>
+                    <ion-col id='iCol' (click)="showAddressModal(2)">
+                        <ion-button [hidden]="!cMap.onDestinatiobarHide" class="bars-destinate" color="#ffffff">
+                            <ion-icon name="flag" slot="start"></ion-icon>
+                            <div id="destination" style="color:black">{{lp.translate()[0].dest}}
+                            </div>
+                        </ion-button>
+                    </ion-col>
+                    <!-- <ion-col id='myCol'> -->
+                    <ion-button style="margin-top:6px" color="primary" [hidden]="!cMap.onDestinatiobarHide"
+                        [disabled]='cMap.showDone' class="bars-destinate-pin" (click)="ToggleChange_2()">
+                        <ion-icon name="pin"></ion-icon>
+                    </ion-button>
+                    <!-- </ion-col> -->
+                </ion-row>
+            </ion-grid>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <!-- This is the pickup location button situated in the center -->
+    <ion-button [hidden]="!cMap.showDone" lines="none" detail="none" class="bar" id='onbar' (click)="Done()">
+        {{lp.translate()[0].done}}
+        <ion-icon color='light' class="icon" name="ios-arrow-round-forward" slot="end"></ion-icon>
+    </ion-button>
+
+
+    <!-- marker/pin situated in the center -->
+    <div [hidden]="!cMap.showDone">
+        <div [hidden]="!cMap.selected_destination_bar" class="centerMarker">
+            <span class="middy" [hidden]="cMap.onPointerHide">
+                <div id="nugget" [hidden]="cMap.onPointerHide">
+                </div>
+            </span>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- Booking section  -->
+    <div id='bar2' *ngIf='cMap.canShowchoiceTab && cMap.car_notificationIds != []' class="bottom-bar">
+
+
+        <div class="request-for-ride">
+            <!-- ridetypes section -->
+
+            <div class="scrolling-wrapper">
+
+                <div *ngFor='let car of cMap.car_notificationIds'>
+                    <h4 class="ion-text-center">{{car[4]}}</h4>
+                    <div class="ion-text-center" id='stf' (click)="checkPrice(car[6])">
+                        <img [src]="car[5]" style="float:left;margin-right:8em;">
+                        <h4 class="ion-padding" class="ion-text-center">{{settings.appcurrency}}{{car[6]}}</h4>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <ion-button *ngIf='!rideShare' id='pay' detail="false" lines="none" (click)="gotoPayment()">
+                <ion-item color="secondary" id='rides'>
+                    <div id='price' class="ion-text-center">
+                        <h2>{{settings.appcurrency}}{{actualPrice}} - {{settings.appcurrency}}{{highPrice}}</h2>
+                    </div>
+                </ion-item>
+            </ion-button>
+
+
+            <!-- Booknow btn -->
+            <div class='booker'>
+
+                <ion-grid>
+                    <ion-row>
+                        <ion-col class="ion-padding">
+                            <ion-button lines="none" detail="false" class="gutton" color="primary" (click)="Start()">
+
+                                <h2>REQUEST NOW</h2>
+                                <ion-icon class="ion-padding" color='nav-color' slot="end" name="ios-fastforward">
+                                </ion-icon>
+
+                            </ion-button>
+                        </ion-col>
+                        <ion-col class="ion-padding" *ngIf='settings.schedule'>
+                            <ion-button lines="none" detail="false" class="gutton" color="gery" (click)="bookLater()">
+                                <ion-icon color='nav-color' name="ios-clock" slot="end"></ion-icon>
+                                REQUEST LATER
+                            </ion-button>
+                        </ion-col>
+
+
+                    </ion-row>
+                </ion-grid>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <!-- Gohome or work section -->
+    <div [hidden]='!cMap.hasShown'>
+        <div [hidden]='cMap.selected_destination_bar' class='bottom-list'>
+            <ion-grid class='my-grid'>
+                <ion-row>
+                    <!-- home -->
+                    <ion-col>
+                        <ion-button *ngIf='ph.home' color='nav-color' class="stuffs" shape="round"
+                            (click)="GotoPlace(ph.home)">
+                            <ion-icon color='primary' class="icon" name="ios-home" slot="icon-only"></ion-icon>
+                        </ion-button>
+                    </ion-col>
+
+
+
+                    <!-- work -->
+                    <ion-col>
+                        <ion-button color='nav-color' *ngIf='ph.work' class="stuffs" shape="round"
+                            (click)="GotoPlace(ph.work)">
+                            <ion-icon color='primary' class="icon" name="ios-briefcase" slot=" icon-only ">
+                            </ion-icon>
+                        </ion-button>
+                    </ion-col>
+
+                </ion-row>
+            </ion-grid>
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- Booking section  -->
+
+    <div id='norideBar' *ngIf='cMap.norideavailable' class="bottom-bar">
+
+
+        <div class="request-for-ride">
+
+            <img id='envelope'
+                src="data:image/png;base64,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">
+
+            <!-- <ion-label color="primary"  [ngStyle]="{'margin-top': 10 + 'px', 'font-size': 1.3 + 'em'}" > -->
+            <p id="butt" class="ion-text-center">No Drivers Available In This Area</p>
+            <!-- </ion-label> -->
+
+
+        </div>
+
+    </div>
+
+
+    <!-- cancel button on driver booking state-->
+    <div class="bottom-bar2" *ngIf="cMap.onbar2">
+        <ion-item lines="none" color="white">
+
+            <div>
+                <div class="spinners"></div>
+            </div>
+
+            <ion-button *ngIf='canCancel' class="gutton" detail="false" color="primary" (click)="cancelRequest()">
+                Cancel
+            </ion-button>
+
+
+        </ion-item>
+        <!-- cancel btn-->
+
+    </div>
+
+
+
+    <!-- bar showing driver information section-->
+    <div class="bottom3-container" *ngIf="cMap.onbar3">
+
+
+        <!-- Driver information -->
+        <div *ngIf='toggleMore' class="bottom-bar3">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+
+                        <img class="profile-pic" [src]="picture" />
+                    </ion-col>
+                    <ion-col>
+                        <div class="text">
+                            {{name}}
+                        </div>
+                    </ion-col>
+                    <ion-col>
+
+                        <ion-icon [ngStyle]="{'margin-top': 17 + 'px', 'margin-left': 20 + 'px', 'font-size': 2 + 'em'}"
+                            name="star">
+                        </ion-icon>
+                        {{rating}}|5
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <div class="logos">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+
+                            <ion-icon color='primary' name="ios-car">
+                            </ion-icon>
+                            {{carType}}
+
+                        </ion-col>
+
+                        <ion-col>
+
+                            <ion-icon color='primary' name="ios-contacts">
+
+                            </ion-icon>
+                            {{seat}}
+
+                        </ion-col>
+                        <ion-col>
+
+                            <ion-icon color='primary' name="ios-barcode">
+
+                            </ion-icon>
+                            {{plate}}
+
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </div>
+            <p><strong>Review " {{review}} "</strong></p>
+        </div>
+    </div>
+
+
+
+    <!-- Low bar containing btns to connect the driver and the user-->
+    <div *ngIf="cMap.onbar3" id="top-buttons" class="ion-text-center">
+
+        <ion-grid>
+            <ion-row>
+                <ion-col id="control-buttons">
+                    <ion-button detail="false" (click)="callDriver()">
+                        <ion-icon color='nav-color' name="ios-call" slot="icon-only "></ion-icon>
+                    </ion-button>
+                </ion-col>
+                <ion-col id="control-buttons">
+                    <ion-button detail="none" [disabled]='!canShowBars' (click)="cancelRequest()">
+                        <ion-icon color='nav-color' name="ios-trash" slot="icon-only"></ion-icon>
+                    </ion-button>
+                </ion-col>
+                <ion-col id="control-buttons">
+                    <ion-button color='gery' detail="false" (click)="toggleMoreBtn()">
+                        <ion-icon color='nav-color' name="ios-{{type}}" slot="icon-only"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+
+
+
+        <!-- driver and user distance container -->
+        <ion-button class='lowbutton' *ngIf="dProvider.time2 == null" color='primary' detail="false" class="ion-padding"
+            id='header'>
+            Driver Arrives in % mins
+        </ion-button>
+
+        <ion-button class='lowbutton' *ngIf="dProvider.time2" color='primary' detail="false" class="ion-padding"
+            id='header'>
+            Estimated Arrival {{dProvider.time2}}
+        </ion-button>
+    </div>
+
+    
+
+</ion-content>
+
+
+<ion-footer no-border *ngIf=' !hideNews' id='lower_items'>
+
+    <!-- <ion-item *ngIf='news' color="secondary" id='rides' (click)='openNews()'>
+        {{news}}
+        <ion-badge color='primary' slot="end">View More</ion-badge>
+    </ion-item> -->
+</ion-footer>

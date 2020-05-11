@@ -1,0 +1,7 @@
+{
+  "name": "DriverUpdate",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

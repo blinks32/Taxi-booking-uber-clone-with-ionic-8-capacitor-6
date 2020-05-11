@@ -1,0 +1,12 @@
+
+<div>
+<mat-card *ngFor="let item of items" class='center'>
+  <div class='seperator'> Email </div><p><strong>{{item.email}}</strong> </p>
+  <div class='seperator'> Feedback </div><p><strong>{{item.review}}</strong> </p>
+  
+
+  <i class="material-icons" (click)="openDialog()">delete</i>
+  <i class="material-icons" (click)="Mail(item.email)">mail</i>
+
+</mat-card>
+</div>

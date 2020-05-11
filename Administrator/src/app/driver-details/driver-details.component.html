@@ -1,0 +1,28 @@
+
+<h1 class='seperator'>Click the accept button after Paying all accrued income to the driver, to start a fresh transaction.</h1>
+
+<mat-card *ngIf='allowed' class='center'>
+  <div>
+      <img *ngIf='snap.picture != null' [src]='snap.picture' (click)='gotoPage(snap)'>
+      <!-- <h3>click on image to enlarge</h3> -->
+    </div>
+    <div class='seperator'> Name </div><p><strong>{{snap.name}}</strong>    </p>
+    <div class='seperator'> License </div><p><strong>{{snap.license}}</strong>    </p>
+    <div class='seperator'> Phone </div><p><strong>{{snap.phoneNumber}}</strong>   </p>
+    <div class='seperator'> Bank Account Number </div><p><strong>{{snap.accountNumber}}</strong>    </p>
+    <div class='seperator'> Bank Name </div><p><strong>{{snap.Bank}}</strong>    </p>
+    <div class='seperator'> City </div><p><strong>{{snap.city}}</strong>    </p>
+    <div class='seperator'> Car Model </div><p><strong>{{snap.carmodel}}</strong>    </p>
+    <div class='seperator'> Driver Rating </div><p><strong>{{snap.rating}} out of 5</strong>    </p>
+
+
+  <i class="material-icons" (click)="openDialog()">delete</i>
+  <i class="material-icons" (click)="Mail(snap.email, snap.name)">mail</i>
+ 
+
+  <div *ngIf='snap.earnings > 0'  class='seperator'> Pending Transaction </div><p *ngIf='snap.earnings > 0'  class='owing'>Amount To be Paid To Driver {{snap.earnings}}</p>
+  <div *ngIf='snap.earnings == 0' class='seperator'> Nothing to be Paid </div><p *ngIf='snap.earnings == 0' class='not_owing'>All Payments Made To This Driver</p>
+  <i class="material-icons" (click)="openDialog2()">done</i>
+  
+  </mat-card>
+

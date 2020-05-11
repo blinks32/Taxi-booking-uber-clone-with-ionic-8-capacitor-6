@@ -1,0 +1,20 @@
+
+
+<mat-card *ngIf='allowed'  class='center'>
+    <div>
+        <img [src]='snap.picture' (click)='gotoPage(snap.picture)'>
+
+      </div>
+
+      <div class='seperator'> Name </div><p><strong>{{snap.name}}</strong></p>
+     
+      <div class='seperator'> Phone </div><p><strong>{{snap.phoneNumber}}</strong></p>
+     
+  
+  
+    <i class="material-icons" (click)="openDialog()">delete</i>
+    <i class="material-icons" (click)="Mail(snap.email, snap.name)">mail</i>
+   
+    </mat-card>
+  
+    

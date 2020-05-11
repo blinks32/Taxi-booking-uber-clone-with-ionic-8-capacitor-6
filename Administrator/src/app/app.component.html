@@ -1,0 +1,54 @@
+<!--The content below is only a placeholder and can be replaced.-->
+        <mat-sidenav-container [class.m2app-dark]="isDarkTheme">
+                
+                     
+                            <mat-toolbar  *ngIf='ctrl.hasLoggedIn' class='app-toolbar mat-elevation-z0' >
+                                    <button mat-button (click)="sidenav.toggle()">
+                                      <i class="material-icons app-toolbar-menu">menu</i>
+                                    </button>
+                                     
+                                    TAXIHUB
+
+                                    <span class="app-toolbar-filler"></span>
+                         
+                          
+                        
+                        <button mat-button (click)="openChange()">
+                            <i class="material-icons app-toolbar-menu">settings</i>
+                        </button>
+                        <button mat-button [mat-menu-trigger-for]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                      
+                      </mat-toolbar>
+            
+            
+                      <mat-menu x-position="before" #menu="matMenu">
+                        <button mat-menu-item (click)="logOut()">Sign Out</button>
+                        <!-- <button mat-menu-item>Option 2</button> -->
+                      </mat-menu>
+            
+        <mat-sidenav #sidenav mode="side" class="app-sidenav">
+                <mat-sidenav-container >
+                      
+                       <mat-list>
+                           <mat-list-item *ngFor="let page of pages">
+                       <button mat-button class='sidemenu_buttons' (click)='gotoPage(page.url)'>
+                           {{page.name}}
+                         
+                       </button>
+                           </mat-list-item>
+                     </mat-list>
+                    </mat-sidenav-container>
+              </mat-sidenav>
+
+              <div class="app-content">
+<router-outlet > 
+       
+</router-outlet>
+</div> 
+</mat-sidenav-container>
+
+
+
+

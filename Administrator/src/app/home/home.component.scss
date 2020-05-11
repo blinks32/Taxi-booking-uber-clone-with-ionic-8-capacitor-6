@@ -1,0 +1,88 @@
+@import "~styles/base/_variables.scss";
+
+#map {
+  height: 264px;
+  width: 453px auto;
+  border-radius: $border-radius;
+  padding-right: 12% !important;
+  margin: 4%;
+  //cursor: pointer;
+  box-shadow: $shadow-value;
+  animation-name: fadeAnim;
+  animation-duration: 0.8s;
+  animation-iteration-count: 1;
+ }
+
+ p{
+   font-size: 0.7em;
+ }
+
+
+
+.footer{
+  width: 98%;
+  margin:0px;
+  color: rgb(255, 255, 255);
+  background:  rgb(155, 154, 154);
+  text-align: center;
+}
+
+.button_1{
+  background: $primary-color;
+  color: white;
+  margin: 1%;
+  transition: $shadow-value !important;
+  box-shadow: $shadow-value !important;
+  border-radius: $border-radius;
+}
+
+.button_2{
+  background: #358cdd;
+  color: white;
+  margin: 1%;
+  transition: $shadow-value !important;
+  box-shadow: $shadow-value !important;
+  border-radius: $border-radius;
+}
+
+.button_3{
+  background:  #29ad24;
+  color: white;
+  margin: 1%;
+  transition: $shadow-value !important;
+  box-shadow: $shadow-value !important;
+  border-radius: $border-radius;
+}
+
+.button_4{
+  background:  #df31aa;
+  color: white;
+  margin: 1%;
+  transition: $shadow-value !important;
+  box-shadow: $shadow-value !important;
+  border-radius: $border-radius;
+}
+
+.button_5{
+  background: #24a2b3;
+  color: white;
+  margin: 1%;
+  transition: $shadow-value !important;
+  box-shadow: $shadow-value !important;
+  border-radius: $border-radius;
+}
+
+
+.button_6{
+  background: #58b324;
+  color: white;
+  margin: 1%;
+  transition: $shadow-value !important;
+  box-shadow: $shadow-value !important;
+  border-radius: $border-radius;
+}
+
+.cont{
+  margin-left: 4%;
+  
+}

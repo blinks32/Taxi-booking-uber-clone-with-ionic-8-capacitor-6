@@ -1,0 +1,828 @@
+ion-content {
+  font-family: "Humanst";
+  margin-top: 0% !important;
+}
+
+.Menubutton {
+  --padding-bottom: 40px !important;
+}
+
+.spinners {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(46, 46, 46);
+  margin: 100px auto;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% {
+    -webkit-transform: perspective(120px);
+  }
+  50% {
+    -webkit-transform: perspective(120px) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+  }
+}
+
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+.scrolling-wrapper {
+  overflow: auto !important;
+  width: auto;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  padding: 25px;
+  #stf {
+    margin: 7px;
+    width: 140px;
+    height: 140px;
+    font-size: 1em;
+    background: rgb(216, 216, 216);
+    border-radius: 12px;
+    box-shadow: 0px 0px 5px 0px rgba(3, 3, 3, 0.253);
+    img {
+      padding: 16px;
+      border-radius: 12px;
+    }
+  }
+}
+
+ion-footer {
+  font-family: "Humanst";
+  margin-top: 0% !important;
+}
+
+.topBar {
+  height: 50px;
+  width: 100%;
+  margin-top: 5%; //change to 10%
+  z-index: 3;
+  ion-icon {
+    padding: 5px;
+  }
+  .button-right {
+    float: right;
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+  }
+}
+
+.hidden {
+  animation-direction: alternate;
+  animation-name: wiki;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+}
+
+ion-content {
+  @keyframes left_right {
+    0% {
+      left: 75%;
+    }
+    50% {
+      left: 80%;
+    }
+    100% {
+      left: 75%;
+    }
+  }
+  @keyframes wiki {
+    from {
+      scale: 0;
+    }
+    to {
+      scale: 1;
+    }
+  }
+  @keyframes bump {
+    0% {
+      top: 100%;
+    }
+    // 50% {top: 90%;}
+    100% {
+      top: 85%;
+    }
+  }
+  [noScroll] {
+    overflow: hidden;
+  }
+  .bars {
+    margin-top: 13%; //change to 13%
+    padding-top: 18px;
+    .poiter {
+      z-index: 5;
+      margin-left: 1%;
+      background: #ffffff;
+      border-left: 1.1px solid rgb(216, 216, 216);
+      border-right: 1.1px solid rgb(216, 216, 216);
+      border-top: 1px solid rgb(216, 216, 216);
+      border-bottom: 1px solid rgb(216, 216, 216);
+    }
+    .bars-whereto {
+      height: 60px;
+      width: 90%;
+      background: #ffffff;
+      text-transform: none;
+      margin: -1% 0 0 -50px;
+      margin-left: 5%;
+      box-shadow: 0px 0px 5px 0px rgba(3, 3, 3, 0.253);
+      z-index: 0;
+      animation-name: wiki;
+      animation-duration: 0.3s;
+      border-radius: 12px;
+      overflow: hidden;
+      line-height: 20px;
+      font-size: 1.5em;
+      text-align: left;
+      .myText {
+        margin-right: 48%;
+        color: gray;
+      }
+      ion-icon {
+        position: absolute;
+        font-size: 0.4em;
+        left: 2%;
+        color: rgb(10, 100, 235);
+        padding-bottom: 14px;
+        padding-left: 6px;
+      }
+    }
+    .bars-whereto2 {
+      height: 60px;
+      width: 90%;
+      background: #ffffff;
+      margin: -12% 0 0 -50px;
+      margin-left: 5%;
+      z-index: 0;
+      animation-name: wiki;
+      animation-duration: 0.3s;
+      border: 1px solid #f53d3d;
+      border-radius: 12px;
+      overflow: hidden;
+      line-height: 20px;
+      font-size: 1.5em;
+      text-align: left;
+      .myText {
+        margin-left: 6%;
+        color: gray;
+      }
+      ion-icon {
+        position: absolute;
+        font-size: 0.4em;
+        left: 2%;
+        color: rgb(10, 100, 235);
+        padding: 5px;
+      }
+    }
+    .bookingSect {
+      background: #ffffff;
+      padding: 2%;
+      height: auto;
+      margin-top: -12%;
+      box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+      animation-name: wiki;
+      animation-duration: 0.3s;
+      z-index: 12;
+      .bars-locate {
+        height: 60px;
+        width: 96%;
+        background: rgba(240, 240, 240, 0.92);
+        border-left: 1.1px solid rgb(216, 216, 216);
+        border-right: 1.1px solid rgb(216, 216, 216);
+        border-top: 1px solid rgb(216, 216, 216);
+        border-bottom: 1px solid rgb(216, 216, 216);
+        margin-left: 0%;
+        border-radius: 12px;
+        overflow: hidden;
+        font-size: 0.8em;
+        float: left;
+        ion-icon {
+          position: absolute;
+          font-size: 1.1em;
+          left: 2%;
+          color: #f53d3d;
+          padding: 5px;
+        }
+      }
+      .bars-locate-pin {
+        width: auto;
+        height: 58px;
+        float: right;
+        margin-top: 2%;
+        background: #f53d3d;
+        border-radius: 12px;
+        ion-icon {
+          font-size: 1.1em;
+          margin-left: 2%;
+          color: rgb(255, 255, 255);
+          padding: 5px;
+        }
+      }
+      .bars-destinate {
+        height: 60px;
+        width: 96%;
+        background: rgba(240, 240, 240, 0.92);
+        border-left: 1.1px solid rgb(216, 216, 216);
+        border-right: 1.1px solid rgb(216, 216, 216);
+        border-top: 1px solid rgb(216, 216, 216);
+        border-bottom: 1px solid rgb(216, 216, 216);
+        margin-left: 0%;
+        border-radius: 12px;
+        overflow: hidden;
+        font-size: 0.8em;
+        text-align: center;
+        float: left;
+        ion-icon {
+          position: absolute;
+          font-size: 1.1em;
+          left: 2%;
+          color: rgb(10, 100, 235);
+          padding: 5px;
+        }
+      }
+      .bars-destinate-pin {
+        width: auto;
+        height: 58px;
+        float: right;
+        margin-top: 0%;
+        background: rgb(10, 100, 235);
+        border-radius: 12px;
+        ion-icon {
+          font-size: 1.1em;
+          margin-left: 2%;
+          color: rgb(255, 255, 255);
+          padding: 5px;
+        }
+      }
+    }
+  }
+  .reset {
+    height: 5%;
+    width: 10%;
+    background: #ffffff;
+    position: absolute;
+    margin-left: 85%;
+    top: 12%;
+    margin-top: 0%;
+    z-index: 1;
+    border: 1px solid rgb(216, 216, 216);
+    border-radius: 12px;
+    font-size: 1.5em;
+    text-align: center;
+    ion-icon {
+      margin-top: 4%;
+    }
+  }
+  #myCol {
+    width: 0% !important;
+    padding: 0px;
+  }
+  #iCol {
+    width: 50% !important;
+    padding: 0px;
+  }
+  #rides {
+    border-radius: 12px;
+    z-index: 4;
+    border: 1px solid rgb(216, 216, 216);
+
+    font-size: 3em;
+  }
+  #rides_bigger {
+    border-radius: 12px;
+    z-index: 4;
+    border: 1px solid rgb(216, 216, 216);
+    height: auto;
+    overflow: visible;
+  }
+  .bars-gps {
+    height: 50px;
+    width: 90%;
+    background: rgba(240, 240, 240, 0.92);
+    position: absolute;
+    margin: -50px 0 0 -50px;
+    margin-left: 5%;
+    top: 20%;
+    z-index: 1;
+    border: 1px solid rgb(10, 100, 235);
+    overflow: hidden;
+    border-radius: 12px;
+    line-height: 50px;
+    font-size: 1.2em;
+    text-align: center;
+    color: rgb(10, 100, 235);
+  }
+  .bars-position {
+    height: 50px;
+    width: 20%;
+    background: rgba(240, 240, 240, 0.92);
+    margin: -50px 0 0 -50px;
+    margin-left: 5%;
+    top: 20%;
+    z-index: 1;
+    border: 1px solid #f53d3d;
+    overflow: hidden;
+    border-radius: 12px;
+    line-height: 50px;
+    font-size: 1.2em;
+    text-align: center;
+    color: #f53d3d;
+  }
+  .bar {
+    position: fixed;
+    height: 35px;
+    width: 70%;
+    background: rgb(10, 100, 235);
+    margin-left: 15%;
+    z-index: 4;
+    top: 30%;
+    margin-top: 85%;
+    border: 1px solid rgb(216, 216, 216);
+    border-radius: 12px;
+    font-size: 1.1em;
+    text-align: center;
+    color: white;
+    animation-direction: alternate;
+    animation-name: wiki;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    @media only screen and (min-width: 1024px) {
+      margin-top: 55%;
+    }
+    .icon {
+      position: absolute;
+      font-size: 1.6em;
+      right: 2%;
+      padding: 0px;
+      color: #eeeeee;
+      animation-name: left_right;
+      animation-duration: 0.5s;
+      animation-iteration-count: infinite;
+      display: inline;
+    }
+    .textleft {
+      float: left;
+      border: 1.4px solid #eeeeee;
+      padding: 9px;
+      z-index: 3;
+      border-radius: 12px;
+      font-size: 0.9em;
+    }
+  }
+  .centerMarker {
+    z-index: 1;
+    margin-top: 37% !important;
+    .middy {
+      position: absolute;
+      left: 45%;
+      margin-left: 5%;
+      background: rgb(56, 56, 56);
+      height: 30px;
+      top: 0%;
+      margin-top: 0%;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      width: 0.65%;
+    }
+  }
+  #nugget {
+    position: fixed;
+    z-index: 2;
+    background: rgb(10, 100, 235);
+    height: 15px;
+    width: 4%;
+    left: 45%;
+    margin-left: 3.4%;
+    margin-top: -4% !important;
+    // top: 30% !important;
+    border-radius: 50px;
+  }
+  @media only screen and (min-width: 1024px) {
+    #nugget {
+      position: fixed;
+      z-index: 2;
+      background: rgb(10, 100, 235);
+      height: 15px;
+      width: 4%;
+      left: 45%;
+      margin-left: 3.4%;
+      margin-top: -1% !important;
+      border-radius: 50px;
+    }
+  }
+  #hider {
+    margin-left: 73%;
+    top: 3%;
+    .hutton {
+      padding: auto;
+      border-radius: 40px;
+      width: 57%;
+      box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+      ion-icon {
+        margin-left: 5% !important;
+      }
+    }
+  }
+  .scroll {
+    height: 100%;
+  }
+  #map_canvas {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 0;
+  }
+  .bottom-bar {
+    height: auto;
+    width: 100%;
+    background: #ffffff;
+    position: absolute;
+    margin: -50px 0 0 -50px;
+    margin-left: 0%;
+    bottom: 0%;
+    z-index: 1;
+    animation-direction: alternate;
+    animation-name: wiki;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+
+    .pricey {
+      border-radius: 30px;
+      background: rgb(10, 100, 235);
+      margin: 2%;
+      padding: 1%;
+      font-size: 1.2em;
+      width: 33%;
+      color: rgb(255, 255, 255);
+      z-index: 9;
+      border: 1px solid rgb(10, 100, 235);
+      margin-left: 30%;
+      margin-top: 0%;
+    }
+    .topey {
+      border-radius: 30px;
+      margin: 2%;
+      font-size: 0.9em;
+      color: rgb(10, 100, 235);
+      margin-top: 8%;
+      margin-bottom: 8%;
+    }
+    ion-button {
+      height: 35px;
+      text-align: center;
+    }
+    .booker {
+      border-top: 1px solid rgba(3, 3, 3, 0.253);
+      padding-bottom: 2%;
+      overflow: hidden !important;
+      .gutton {
+        border-radius: 12px;
+        height: 95px;
+        width: 100%;
+        box-shadow: 0px 0px 1px 0px rgba(3, 3, 3, 0.253);
+        font-size: 1.9em;
+      }
+    }
+    .text {
+      padding-bottom: 0px;
+      font-size: 1.16em;
+    }
+  }
+  #myGrid {
+    overflow-x: auto !important;
+    width: auto !important;
+  }
+  #myGrid2 {
+    overflow-x: auto !important;
+    width: auto !important;
+  }
+  #cart-btn {
+    position: relative;
+    background-color: red;
+  }
+  #cart-badge {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: red;
+  }
+  .bottom-list {
+    margin-top: 90%;
+    overflow-x: auto;
+    animation-name: wiki;
+    animation-duration: 0.3s;
+    .my-grid {
+      width: auto;
+      .stuffs {
+        height: 48.5px;
+        margin-left: 34%;
+        padding: 0%;
+        width: 29.5%;
+        top: 0px;
+        vertical-align: middle;
+        border-radius: 12px;
+        font-size: 1em;
+        text-align: center;
+        box-shadow: 0px 0px 5px 0px rgba(3, 3, 3, 0.253);
+        z-index: 3;
+        .itemPics {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .bottom-bar2 {
+    height: auto;
+    width: 100%;
+    background: #ffffff;
+    position: absolute;
+    margin: -50px 0 0 -50px;
+    margin-left: 0%;
+    bottom: 0%;
+    z-index: 1;
+
+    animation-direction: alternate;
+    animation-name: wiki;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+    .gutton {
+      border-radius: 12px;
+      height: 55px;
+      width: 50%;
+      margin-left: 26%;
+      box-shadow: 0px 0px 1px 0px rgba(3, 3, 3, 0.253);
+    
+      font-size: 1.1em;
+      text-align: center;
+    }
+    .text {
+      padding-bottom: 0px;
+      font-size: 1.4em;
+    }
+  }
+  .bottom3-container {
+    background: #eeeeee;
+    text-align: center;
+    color: colorrgba(73, 73, 73, 0.788);
+    .bottom-bar3 {
+      height: 100px auto;
+      width: 100%;
+      background: rgb(255, 255, 255);
+      position: fixed;
+      margin: 0px 0 0 0px;
+      margin-left: 0%;
+      border-top: 1.2px solid rgba(3, 3, 3, 0.253);
+      bottom: 20%;
+      z-index: 1;
+      animation-direction: alternate;
+      animation-name: wiki;
+      animation-duration: 0.3s;
+      animation-iteration-count: 1;
+      .myImage {
+        z-index: 0;
+        position: fixed;
+        left: 0%;
+        width: 100%;
+        height: 100px;
+        background-color: rgb(235, 66, 0);
+      }
+      .profile-pic {
+        width: 5em;
+        height: 5em;
+        border: 1px solid #3e3c3c;
+        border-radius: 50px;
+      }
+      .logos {
+        padding: 0px;
+        ion-icon {
+          font-size: 1.1em;
+          color: rgb(10, 100, 235);
+        }
+      }
+      .text {
+        padding: 0px;
+        font-size: 1.4em;
+        margin-top: 6%;
+      }
+      ion-icon {
+        font-size: 2.3em;
+        color: rgb(10, 100, 235);
+      }
+    }
+  }
+}
+
+#butt {
+  color: rgb(10, 100, 235);
+  margin-top: 8%;
+  margin-bottom: 8%;
+  font-size: 1.3em;
+  padding: 7px;
+}
+
+#envelope {
+  height: auto;
+  width: 5em;
+  margin-left: 40%;
+  margin-top: 5%;
+}
+
+#envelop {
+  height: 5em;
+  width: 5em;
+}
+
+#buttonContainer {
+  float: right;
+  ion-button {
+    background: rgb(10, 100, 235);
+    border-radius: 12px;
+    color: rgb(255, 255, 255);
+    margin: 6px;
+    padding: 15px;
+    box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+  }
+}
+
+#buttonContainer2 {
+  float: left;
+  ion-button {
+    background: rgb(10, 100, 235);
+    border-radius: 12px;
+    color: rgb(255, 255, 255);
+    margin: 6px;
+    padding: 15px;
+    box-shadow: 0px 0px 7px 0px rgba(3, 3, 3, 0.253);
+  }
+}
+
+#pay {
+  width: 100%;
+  height: auto;
+  margin: 1%;
+  margin-left: 2%;
+  font-size: 1.6em;
+
+  padding: 10px;
+  ion-badge {
+    height: 70%;
+    font-size: 1.6em;
+  }
+}
+
+#pay2 {
+
+  width: 100%;
+  height: auto;
+  margin: 1%;
+  margin-left: 2%;
+
+  padding: 4px;
+  ion-badge {
+    height: 70%;
+    font-size: 1.6em;
+  }
+}
+
+.myCentre {
+  z-index: 3;
+  margin-top: 65%;
+}
+
+#control-buttons {
+  padding: 20px;
+  ion-icon {
+    padding: 18px;
+  }
+}
+
+#top-buttons {
+  border-radius: 12px;
+  width: 100%;
+  overflow-x: auto;
+  background: rgb(255, 255, 255);
+  position: absolute;
+  margin: 0px 0 0 -50px;
+  margin-left: 0%;
+  bottom: 0%;
+  z-index: 1;
+  animation-direction: alternate;
+  animation-name: wiki;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  color: rgb(10, 100, 235);
+  animation-name: wiki;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  ion-button {
+    background: rgb(10, 100, 235);
+    border-radius: 12px;
+    box-shadow: 0px 1px 2px 0px rgba(3, 3, 3, 0.253);
+  }
+  .lowbutton {
+    padding-bottom: 10%;
+  }
+  ion-icon {
+    font-size: 1.6em;
+  }
+}
+
+#header {
+  font-size: 1.32em;
+  font-weight: 200;
+  text-align: center;
+  background: rgb(10, 100, 235);
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  color: #eeeeee;
+}
+
+#location {
+  text-align: center;
+  padding-left: 17px;
+  overflow: hidden;
+}
+
+#destination {
+  text-align: center;
+  padding-left: 17px;
+  overflow: hidden;
+}
+
+.locate_button {
+  z-index: 3;
+  float: right;
+  margin-top: 6%;
+  width: auto;
+  height: 40px;
+
+  margin-right: 4.5%;
+  border-radius: 60px;
+  background: white;
+  box-shadow: 0px 0px 4px 0px rgba(3, 3, 3, 0.253);
+  ion-icon {
+
+    margin-top: -2%;
+    border-radius: 60px;
+
+}
+}
+
+.request-for-ride {
+  margin-top: 0% !important;
+}
+
+ion-footer {
+  #lower_items {
+    height: auto;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    z-index: 15;
+  }
+  ion-button {
+    margin-top: 10% !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+    margin-left: 80%;
+    padding: auto !important;
+    background: rgb(10, 100, 235);
+    z-index: 300 !important;
+    border: 0.7px solid rgb(10, 100, 235);
+    color: white;
+    font-size: 17px;
+  }
+  #rides {
+    border-radius: 0px;
+    border: 1px solid rgb(216, 216, 216);
+    ion-badge {
+      font-size: 1.6em;
+    }
+  }
+}
+
+#price {
+  font-size: 1.5em;
+  font-weight: 500;
+  h2 {
+    font-size: 0.25em;
+  }
+}

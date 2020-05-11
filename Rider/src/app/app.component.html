@@ -1,0 +1,52 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu type="overlay" contentId="main-content">
+      <ion-header no-border>
+        <ion-toolbar>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-menu-toggle auto-hide="false" routerLink="/profile">
+                  <ion-avatar style="margin-top:40px; margin-left: 13px">
+                    <img
+                      src="https://media.istockphoto.com/vectors/person-icon-vector-man-symbol-circle-profile-avatar-sign-in-flat-vector-id959085976?k=6&m=959085976&s=170667a&w=0&h=Bvrf9uhvHZscnusgu8QODh4V3Y-N2sHuWvDbCxwTa_A=">
+                  </ion-avatar>
+                </ion-menu-toggle>
+              </ion-col>
+              <ion-col>
+                <div class='left-text'>
+                  <div *ngIf="ph.name" class='left-text'>
+                    {{ ph.name }}
+                  </div>
+                  <div *ngIf="!ph.name" class='left-text'>
+
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list lines="none" style="margin-top:50px">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-footer>
+        <ion-toolbar>
+          <ion-title>
+            <h6>VERSION 2</h6>
+          </ion-title>
+        </ion-toolbar>
+      </ion-footer>
+    </ion-menu>
+    <ion-router-outlet main id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

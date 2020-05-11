@@ -1,0 +1,76 @@
+
+      <div class="example-container mat-elevation-z8">
+          <mat-table #table [dataSource]="dataSource">
+        
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+  
+            <!-- Position Column -->
+            <!-- <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            </ng-container> -->
+        
+            <!-- Name Column -->
+           <ng-container matColumnDef="name">
+              <mat-header-cell  *matHeaderCellDef> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="phone">
+              <mat-header-cell  *matHeaderCellDef> PhoneNumber </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+            </ng-container> 
+
+            <ng-container matColumnDef="pic">
+                <mat-header-cell  *matHeaderCellDef> License </mat-header-cell>
+                <mat-cell *matCellDef="let element" (click)='gotoPage(element.pic)'> <img [src]='element.pic' > </mat-cell>
+              </ng-container> 
+          
+              <ng-container matColumnDef="rating">
+                  <mat-header-cell  *matHeaderCellDef> Rating </mat-header-cell>
+                  <mat-cell *matCellDef="let element" > {{element.rating}}/5 </mat-cell>
+                </ng-container> 
+
+
+                <ng-container matColumnDef="key">
+                    <mat-header-cell  *matHeaderCellDef> Manage </mat-header-cell>
+                    <mat-cell *matCellDef="let element" >   <i class="material-icons" (click)='goto_Item(element.key)'>edit</i></mat-cell>
+                  </ng-container> 
+
+            <!-- Symbol Column -->
+            <!-- <ng-container matColumnDef="location">
+              <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.location}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="destination">
+                  <mat-header-cell *matHeaderCellDef> Destination </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.destination}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                      <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="drivername">
+                          <mat-header-cell *matHeaderCellDef> Driver Name </mat-header-cell>
+                          <mat-cell *matCellDef="let element"> {{element.drivername}} </mat-cell>
+                        </ng-container>
+         -->
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+           
+          </mat-table>
+          <mat-paginator #paginator
+          [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 20]"
+          [showFirstLastButtons]="true">
+</mat-paginator>
+        </div>
+  
+  
+  
+

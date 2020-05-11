@@ -1,0 +1,165 @@
+
+  <div *ngIf='isDecided' class="menu_items">
+        <ul class='items'>
+          <p>Are you sure you want to remove item?</p>
+
+       <li (click)="Choose(1)">
+        <i class="material-icons">check</i>
+       </li>
+       <li (click)="Choose(2)">
+        <i class="material-icons">close</i>
+       </li>
+     
+      </ul>
+    </div>
+
+<div class='add_cont'>
+    <i class="material-icons" (click)="AddNew()">add</i>
+ </div>
+   
+
+ <ul class='center'>
+    
+   <li *ngFor="let t of eventList" >
+      <div>
+          <i class="material-icons" (click)="Edit(t.$key)">create</i>
+          <i class="material-icons" (click)="Decider(t)">delete</i>
+      </div>
+    <div class='top_item'>
+        <img *ngIf='t.picture != null' [src]='t.picture'>
+      <p>{{t.name}}</p>
+      <p>{{t.price}}</p>
+    </div>
+
+    </li>
+    
+  </ul>
+
+
+  <div *ngIf='ctrl.edit || ctrl.createNew' class='container'></div>
+
+
+  <div [hidden]='!ctrl.createNew' class="form-style-8">
+      <div *ngIf="!ctrl.submitted">
+          <i class="material-icons" (click)="ctrl.createNew = false">close</i>
+     <h2>Create New Item</h2>
+        <form #heroForm="ngForm" (ngSubmit)="onSubmit(heroForm.value)">
+          <div class="form-group">
+              <div class='toptext'>item Name</div>
+            <input type="text" class="form-control" name="name" ngModel #name="ngModel" required>
+            <div class='toptext'>item Price</div>
+            <input type="text" class="form-control" name="price" ngModel #price="ngModel" required>
+            
+            <div class="alert alert-danger" [hidden]="name.valid || name.pristine">Name is required</div>
+          </div>
+        
+          <div class="col-md-3">
+              
+              <div class='toptext'>item Image</div>
+              
+                  <div NgDropFiles
+                        [ngClass]="{'file-over': isDropZoneOver}"
+                        (fileOver)="fileOverDropZone($event)"
+                        [files]="files"
+                        class="well drop-zone">
+                        <div class='toptext2'>Drop Image Here</div>
+                    
+                  </div>
+              
+              </div>
+              
+              <div class="col-md-9" style="margin-bottom: 20px">
+              
+              
+                  <table class="table" *ngIf="files.length > 0">
+                      <tbody>
+                          <tr *ngFor="let item of files">
+                              <td [ngClass]="{'text-green': item.isUploading}"><strong>{{ item?.file?.name }}</strong></td>
+                              <!-- <td nowrap>{{ item?.file?.size / 1024 / 1024 | number:'.2' }} MB</td> -->
+                              <td>
+                                  <div class="progress" style="margin-bottom: 0;">
+                                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                  </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                                    
+              </div>
+        
+        <button type="submit" [disabled]="!heroForm.valid">Submit</button>
+        
+        </form>
+      </div>
+      <div *ngIf="ctrl.submitted">
+        <h2>Creating item....</h2>
+      
+        <!-- <button class='ended' type="submit" (click)="ctrl.submitted=false">Add Another</button> -->
+      </div>
+    </div>
+  
+
+
+<div [hidden]='!ctrl.edit' class="form-style-8">
+    <div *ngIf="!ctrl.submitted2">
+        <i class="material-icons" (click)="ctrl.edit = false">close</i>
+   <h2>Edit Item</h2>
+
+     
+      <form #heroForm="ngForm" (ngSubmit)="onSubmit2(heroForm.value)">
+        <div class="form-group">
+            <div class='toptext'>item Name</div>
+          <input type="text" class="form-control" name="name" ngModel #name="ngModel" required>
+          <div class='toptext'>item Price</div>
+          <input type="text" class="form-control" name="price" ngModel #price="ngModel" required>
+          <div class="alert alert-danger" [hidden]="name.valid || name.pristine">Name is required</div>
+        </div>
+      
+        <div class="col-md-3">
+            
+            <div class='toptext'>item Image</div>
+            
+                <div NgDropFiles
+                      [ngClass]="{'file-over': isDropZoneOver}"
+                      (fileOver)="fileOverDropZone($event)"
+                      [files]="files"
+                      class="well drop-zone">
+                      <div class='toptext2'>Drop Image Here</div>
+                  
+                </div>
+            
+            </div>
+            
+            <div class="col-md-9" style="margin-bottom: 40px">
+            
+            
+                <table class="table" *ngIf="files.length > 0">
+                    <tbody>
+                        <tr *ngFor="let item of files">
+                            <td [ngClass]="{'text-green': item.isUploading}"><strong>{{ item?.file?.name }}</strong></td>
+                            <!-- <td nowrap>{{ item?.file?.size / 1024 / 1024 | number:'.2' }} MB</td> -->
+                            <td>
+                                <div class="progress" style="margin-bottom: 0;">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                                  
+            </div>
+      
+      <button type="submit" [disabled]="!heroForm.valid">Submit</button>
+      
+      </form>
+    </div>
+    <div *ngIf="ctrl.submitted2">
+        <h2>Creating item....</h2>
+      
+        <!-- <button class='ended' type="submit" (click)="ctrl.submitted=false">Add Another</button> -->
+      </div>
+  </div>
+
+
+
+

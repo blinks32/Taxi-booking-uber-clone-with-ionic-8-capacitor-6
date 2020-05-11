@@ -1,0 +1,159 @@
+@import "~styles/base/_variables.scss";
+
+
+.center{
+    text-align: center;
+    animation-name: fadeAnim;
+    animation-duration: 0.6s;
+    animation-iteration-count: 1;
+    li {
+        width: 45%;
+        height: auto;
+        text-align: center;
+        list-style: none;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: $border-radius;
+        background: $primary-color;
+        margin-left: 3%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        box-shadow: $shadow-value;
+        .allowed{
+            animation-name: fadeAnim;
+            animation-duration: 0.6s;
+            animation-iteration-count: 1;
+        background: $primary-color;
+  
+        
+        p{
+        text-align: center;
+        font-size: 1.2em;
+        background: $mini-color;
+        overflow: hidden;
+        border-radius: $border-radius;
+        border: 1px solid $light-color;
+        width: 80%;
+        margin-top: 20px;
+        margin-left: 10%;
+        padding: 6px;
+        
+        }
+
+        img{
+            width: 20%;
+            height: 30%;
+            cursor: pointer;
+            border-radius: $border-radius;
+            border: 1px solid $light-color
+            
+        }
+
+      
+
+           .material-icons{
+            width: 30%;
+            height: auto;
+            cursor: pointer;
+            margin: 3%;
+            border-radius: $border-radius;
+            border: 1px solid $light-color;
+            
+        }
+
+        .material-icons:hover{
+            width: 30%;
+            height: auto;
+            background: $secondary-color;
+            cursor: pointer;
+            border-radius: $border-radius;
+            border: 1px solid $light-color;
+            
+        }
+        
+
+        .h{
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 70px;
+            overflow: hidden;
+            }
+    }
+
+    .notallowed{
+
+        background: $primary-color;
+        
+        animation-name: fadeAnim;
+        animation-duration: 0.6s;
+        animation-iteration-count: 1;
+        p{
+        text-align: center;
+        font-size: 1.2em;
+        background: $mini-color;
+        overflow: hidden;
+        border-radius: $border-radius;
+        border: 1px solid $light-color;
+        width: 80%;
+        margin-top: 20px;
+        margin-left: 10%;
+        padding: 6px;
+        
+        }
+
+        img{
+            width: 20%;
+            height: 30%;
+            cursor: pointer;
+            border-radius: $border-radius;
+            border: 1px solid $light-color
+            
+        }
+
+      
+
+           .material-icons{
+            width: 30%;
+            height: auto;
+            cursor: pointer;
+            margin: 3%;
+            border-radius: $border-radius;
+            border: 1px solid $light-color;
+            
+        }
+
+        .material-icons:hover{
+            width: 30%;
+            height: auto;
+            background: $secondary-color;
+            cursor: pointer;
+            border-radius: $border-radius;
+            border: 1px solid $light-color;
+            
+        }
+        
+
+        .h{
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 70px;
+            overflow: hidden;
+            }
+    }
+
+
+    }
+}
+
+    h1{
+        text-align: center;  
+        color: rgb(255, 255, 255);
+        font-size: 1.1em;
+        padding: 5px;
+    }
+    
+    mat-card {
+        margin: 12px;
+        width: auto;
+        display: inline-block;
+      }

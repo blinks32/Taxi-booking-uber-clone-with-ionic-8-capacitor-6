@@ -1,0 +1,29 @@
+
+<h3 *ngIf='allowed' class='seperator'>Click on the License Image to enlarge</h3>
+
+<mat-card *ngIf='allowed'  class='center'>
+    <div>
+        <img *ngIf='snap.license_picture != null' [src]='snap.license_picture' (click)='gotoPage(snap.license_picture)'>
+        <!-- <h3>click on image to enlarge</h3> -->
+      </div>
+
+      <div class='seperator'> Name </div><p><strong>{{snap.name}}</strong>    </p>
+      <div class='seperator'> License </div><p><strong>{{snap.license}}</strong>    </p>
+      <div class='seperator'> Phone </div><p><strong>{{snap.phoneNumber}}</strong>   </p>
+      <div class='seperator'> Bank Account Number </div><p><strong>{{snap.accountNumber}}</strong>    </p>
+      <div class='seperator'> Bank Name </div><p><strong>{{snap.Bank}}</strong>    </p>
+      <div class='seperator'> City </div><p><strong>{{snap.city}}</strong>    </p>
+      <div class='seperator'> Car Model </div><p><strong>{{snap.carmodel}}</strong>    </p>
+      <!-- <div class='seperator'> Driv </div><p><strong>{{snap.rating}}</strong>    </p> -->
+  
+    
+    <i *ngIf='snap.license_picture != null' class="material-icons" (click)="openDialog2()">done</i>
+    <i class="material-icons" (click)="Mail(snap.email, snap.name)">mail</i>
+   
+    <h1 *ngIf='snap.license_picture == null'>Cannot Accept the driver, some information are missing.</h1>
+    
+    <i class="material-icons" (click)="openDialog()">delete</i>
+    <h1 *ngIf='snap.license_picture != null'>click the accept button to accept this driver</h1>
+    </mat-card>
+  
+  
