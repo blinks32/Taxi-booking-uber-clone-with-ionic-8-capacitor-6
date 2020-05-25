@@ -21,8 +21,8 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 <br>
 
 <p align="center">
-    <img src="./screenshot/douban_home.gif" >
+    <img src="Hnet-image.gif" >
     <br>
-	 <strong><a href="https://jeneser.github.io/douban/">Live Demo</a></strong>
+
 </p>
  
