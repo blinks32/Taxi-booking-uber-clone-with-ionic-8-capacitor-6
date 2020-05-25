@@ -19,9 +19,9 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>
 <br>
 
-<p align="center" border-radius="15px">
-    <img src="Hnet-image.gif" width="250" height="500"  >
-    <img src="Hnet-image2.gif" width="250" height="500" >
+<p align="center" >
+    <img src="Hnet-image.gif" width="300" height="600"  >
+    <img src="Hnet-image2.gif" width="300" height="600" >
     <br><br>
     <strong>......</strong>
     <br>
@@ -48,7 +48,7 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 - Complete register login logic
 ......
 
-## To get the source code, checkout the [guide](http://vuejs-templates.github.io/webpack/)
+## To get the source code, checkout the [Click Here](http://vuejs-templates.github.io/webpack/)
 
-## To get your complete ride hailing platform with your logo and any app store of your choice in less than 24 hours, checkout the [guide](http://vuejs-templates.github.io/webpack/)
+## To get your complete ride hailing platform with your logo and any app store of your choice in less than 24 hours, checkout the [Click Here](http://vuejs-templates.github.io/webpack/)
  
