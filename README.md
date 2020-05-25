@@ -6,7 +6,6 @@
 
 <br>
  
-
 <p align="center">
 Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>                            
@@ -21,12 +20,12 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 <br>
 
 <p align="center">
-    <img src="Hnet-image.gif" width="400" height="500" >
-    <img src="Hnet-image2.gif" width="400" height="500" >
+    <img src="Hnet-image.gif" width="400" height="800" border-radius="15px" >
+    <img src="Hnet-image2.gif" width="400" height="800" border-radius="15px">
     <br><br>
     <strong>......</strong>
     <br>
-	 <strong><a href="https://jeneser.github.io/douban/">Live Demo</a></strong>
+    <strong><a href="https://jeneser.github.io/douban/">Live Demo</a></strong>
 </p>
 
 ## Features
