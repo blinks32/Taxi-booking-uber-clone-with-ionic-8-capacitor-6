@@ -19,9 +19,9 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>
 <br>
 
-<p align="center">
-    <img src="Hnet-image.gif" width="400" height="800" border-radius="15px" >
-    <img src="Hnet-image2.gif" width="400" height="800" border-radius="15px">
+<p align="center" border-radius="15px">
+    <img src="Hnet-image.gif" width="250" height="500"  >
+    <img src="Hnet-image2.gif" width="250" height="500" >
     <br><br>
     <strong>......</strong>
     <br>
@@ -30,24 +30,25 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 
 ## Features
 
-- Vue + vue-router + vuex + Superagent working together
-- Vuex divide store into modules
-- Modern JavaScript syntax with ES6
-- vue-cli webpack template
-- Single-file Vue Components
-- API request seperated
-- Real remote API and some mock data
-- eslint linter integration
+- Location Tracking (realtime)
+- Verified Payment Systmem of your Choice (Stripe, paypal etc)
+- Upgradeable to ionic Capacitor
+- Multi-Language option
+- Design of your choice right out of the box
+- Live tracking with actual map routes
+- Phone authentication with Twilio and nexmo
+- Voice notes in Chats
 - Hot-reload in development
 - Css with Sass
 - No third party CSS framework
 - Complex and different style view logic
-- Infinite loading list
-- Complete search logic
-- Custom components like List, Rating, Tags ...
-- Authentication with JSON Web Tokens
+- Tip Driver after rides
+- Notification sounds of your choice with cloud messaging
+- Geofencing and Geofire
 - Complete register login logic
 ......
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## To get the source code, checkout the [guide](http://vuejs-templates.github.io/webpack/)
+
+## To get your complete ride hailing platform with your logo and any app store of your choice in less than 24 hours, checkout the [guide](http://vuejs-templates.github.io/webpack/)
  
