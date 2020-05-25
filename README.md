@@ -20,7 +20,7 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>
 <br>
 
-<p align="center" width="600" height="600">
+<p align="center" width="auto" height="auto">
     <img src="Hnet-image.gif" >
     <br>
     <img src="Hnet-image2.gif" >
