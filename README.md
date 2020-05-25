@@ -20,13 +20,35 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>
 <br>
 
-<p align="left">
-    <img src="Hnet-image.gif" width="100" height="200" >
+<p align="center">
+    <img src="Hnet-image.gif" width="400" height="500" >
+    <img src="Hnet-image2.gif" width="400" height="500" >
+    <br><br>
+    <strong>......</strong>
+    <br>
+	 <strong><a href="https://jeneser.github.io/douban/">Live Demo</a></strong>
 </p>
 
-<br>
+## Features
 
-<p align="right">
-    <img src="Hnet-image2.gif" width="100" height="200" >
-</p>
+- Vue + vue-router + vuex + Superagent working together
+- Vuex divide store into modules
+- Modern JavaScript syntax with ES6
+- vue-cli webpack template
+- Single-file Vue Components
+- API request seperated
+- Real remote API and some mock data
+- eslint linter integration
+- Hot-reload in development
+- Css with Sass
+- No third party CSS framework
+- Complex and different style view logic
+- Infinite loading list
+- Complete search logic
+- Custom components like List, Rating, Tags ...
+- Authentication with JSON Web Tokens
+- Complete register login logic
+......
+
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
  
