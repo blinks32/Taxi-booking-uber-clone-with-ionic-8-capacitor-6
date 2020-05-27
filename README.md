@@ -19,15 +19,6 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>
 <br>
 
-<p align="center" >
-    <img src="Hnet-image.gif" width="300" height="600"  >
-    <img src="Hnet-image2.gif" width="300" height="600" >
-    <br><br>
-    <strong>......</strong>
-    <br>
-    <strong><a href="https://jeneser.github.io/douban/">Live Demo</a></strong>
-</p>
-
 ## Features
 
 - Location Tracking (realtime)
