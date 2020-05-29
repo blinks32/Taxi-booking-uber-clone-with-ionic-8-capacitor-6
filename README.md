@@ -19,7 +19,7 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>
 <br>
 
-<p align="center">
+<p >
     <img src="https://user-images.githubusercontent.com/7928001/83240461-55cc3e80-a191-11ea-90b2-42ce2d9625e4.jpg" width='200' height='400' >
     <img src="https://user-images.githubusercontent.com/7928001/83240477-5bc21f80-a191-11ea-9f43-69ca22db30ab.png" width='200' height='400' >
     <br>
