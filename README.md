@@ -19,12 +19,12 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>
 <br>
 
-<p >
-    <img src="https://user-images.githubusercontent.com/7928001/83246105-8dd77f80-a199-11ea-8039-66ef9f6c0852.png" width='100' height='200' >
-    <img src="https://user-images.githubusercontent.com/7928001/83240477-5bc21f80-a191-11ea-9f43-69ca22db30ab.png" width='200' height='400' >
+<p align='center'>
+     <img src="https://user-images.githubusercontent.com/7928001/83246911-adbb7300-a19a-11ea-9e4b-240262cdc748.jpg" width='310' height='650'>
+    <img src="https://user-images.githubusercontent.com/7928001/83246911-adbb7300-a19a-11ea-9e4b-240262cdc748.jpg" width='310' height='650'>
     <br>
-     <img src="./screenshot/douban_login.gifhttps://user-images.githubusercontent.com/7928001/83240515-67ade180-a191-11ea-98a8-47ee948f9b1a.png" width='200' height='400'>
-    <img src="https://user-images.githubusercontent.com/7928001/83240529-6da3c280-a191-11ea-94d2-ae12119d1dcc.png" width='200' height='400' >
+     <img src="https://user-images.githubusercontent.com/7928001/83246911-adbb7300-a19a-11ea-9e4b-240262cdc748.jpg" width='310' height='650'>
+    <img src="https://user-images.githubusercontent.com/7928001/83246911-adbb7300-a19a-11ea-9e4b-240262cdc748.jpg" width='310' height='650'>
     <br><br>
     <strong>......</strong>
     <br>
