@@ -44,6 +44,7 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 
 ## Features
 
+- 6 months of support and maintenance
 - Location Tracking (realtime)
 - PWA Ready
 - Verified Payment Systmem of your Choice (Stripe, paypal etc)
