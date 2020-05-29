@@ -14,6 +14,11 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 <strong><a href="https://jeneser.github.io/douban/">Get Full Source Code</a></strong>
 </p>    
 
+<p align="center">
+<strong color='red'><a href="https://chndth.gitbook.io/ionic4-taxi-app-setup-doc/">View Documentation</a></strong>
+</p>    
+
+
 
 <p align="center">
   
