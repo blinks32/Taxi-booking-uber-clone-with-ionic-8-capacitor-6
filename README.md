@@ -7,7 +7,7 @@
 <br>
  
 <p align="center">
-Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
+Taxi Booking Platform With Ionic 5 with 6 months support (Ionic-React In Works)
 </p>    
 
 <p align="center">
