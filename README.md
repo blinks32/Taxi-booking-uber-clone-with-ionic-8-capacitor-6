@@ -10,7 +10,7 @@
 Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 </p>                            
                                   
-
+## To get the source code [Click Here](http://vuejs-templates.github.io/webpack/)
 
 <p align="center">
   
@@ -23,8 +23,8 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
      <img src="https://user-images.githubusercontent.com/7928001/83249597-b7df7080-a19e-11ea-831c-09016024f190.jpg" width='310' height='650'>
     <img src="https://user-images.githubusercontent.com/7928001/83246911-adbb7300-a19a-11ea-9e4b-240262cdc748.jpg" width='310' height='650'>
     <br>
-     <img src="https://user-images.githubusercontent.com/7928001/83248191-941b2b00-a19c-11ea-8a8d-bae091e533ec.jpg" width='310' height='650'>
-    <img src="https://user-images.githubusercontent.com/7928001/83246911-adbb7300-a19a-11ea-9e4b-240262cdc748.jpg" width='310' height='650'>
+     <img src="https://user-images.githubusercontent.com/7928001/83249768-fd9c3900-a19e-11ea-94ac-4c91f3463d0e.jpg" width='310' height='650'>
+    <img src="https://user-images.githubusercontent.com/7928001/83250169-99c64000-a19f-11ea-853e-e6354d92fc2d.jpg" width='310' height='650'>
     <br><br>
     <strong>......</strong>
     <br>
@@ -52,7 +52,5 @@ Taxi Booking Platform With Ionic 5 (Ionic-React In Works)
 - Complete register login logic
 ......
 
-### To get the source code [Click Here](http://vuejs-templates.github.io/webpack/)
-
-### To kick off your ride booking business at the most affordable price, with your logo and any app store of your choice in less than 24 hours [Click Here](http://vuejs-templates.github.io/webpack/)
+And More.
  
