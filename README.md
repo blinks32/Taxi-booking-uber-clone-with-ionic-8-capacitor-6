@@ -11,6 +11,13 @@ Taxi Booking Platform With Ionic 5 with 6 months support (Ionic-React In Works)
 </p>    
 
 <p align="center">
+Email: Playstudio86@gmail.com
+Phone: +23407089930308
+skype: chndth@live.com
+</p>  
+
+
+<p align="center">
 <strong><a href="https://jeneser.github.io/douban/">Get Full Source Code</a></strong>
 </p>    
 
