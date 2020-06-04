@@ -6,11 +6,7 @@
 
 ### Password => 'etoh'
 
-
-
-![download 4](https://user-images.githubusercontent.com/7928001/38375262-b5a5fb8e-38ed-11e8-942f-27d50871fe4e.png)
-![download 5](https://user-images.githubusercontent.com/7928001/38375259-b4eabe1e-38ed-11e8-9589-a0fc707bc257.png)
-![download 6](https://user-images.githubusercontent.com/7928001/38375258-b398eafe-38ed-11e8-9d6d-9fca7628954d.png)
+![download 6](https://user-images.githubusercontent.com/7928001/83252780-c2503900-a1a3-11ea-9f81-ae1168e7877f.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
 
