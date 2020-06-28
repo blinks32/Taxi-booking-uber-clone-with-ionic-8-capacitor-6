@@ -18,11 +18,11 @@ skype: chndth@live.com
 
 
 <p align="center">
-<strong><a href="https://chinedu-website.firebaseapp.com/">Get Full Source Code</a></strong>
+<strong><a href="https://chinedu-website.firebaseapp.com/">Get Complete Code</a></strong>
 </p>    
 
 <p align="center">
-<strong color='red'><a href="https://chndth.gitbook.io/ionic4-taxi-app-setup-doc/">View Documentation</a></strong>
+<strong color='red'><a href="https://drive.google.com/drive/folders/1g_8LAdTR0FzpbKQqY5PR2P_Cc62X28Rz?usp=sharing">Live Demo</a></strong>
 </p>    
 
 
@@ -45,7 +45,7 @@ skype: chndth@live.com
     <br><br>
     <strong>......</strong>
     <br>
-	 <strong><a href="https://jeneser.github.io/douban/">Live Demo</a></strong>
+	 
 </p>
 
 
