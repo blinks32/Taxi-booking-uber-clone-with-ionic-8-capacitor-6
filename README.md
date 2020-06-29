@@ -22,7 +22,7 @@ skype: chndth@live.com
 </p>    
 
 <p align="center">
-<strong color='red'><a href="https://drive.google.com/drive/folders/1g_8LAdTR0FzpbKQqY5PR2P_Cc62X28Rz?usp=sharing">Live Demo</a></strong>
+<strong color='red'><a href="">Live Demo</a></strong>
 </p>    
 
 
