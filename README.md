@@ -7,14 +7,20 @@
 <br>
  
 <p align="center">
-Taxi Booking Platform With Ionic 5 with 6 months support (Ionic-React In Works)
+ Ride Booking Solution With Ionic 5 with 6 months support (Ionic-React In Works)
 </p>    
 
 <p align="center">
-Email: Playstudio86@gmail.com
-Phone: +23407089930308
-skype: chndth@live.com
+	<strong>Playstudio86@gmail.com</strong>
 </p>  
+
+<p align="center">
+	<strong>+23407089930308</strong>
+</p>  
+
+<p align="center"> 
+	<strong>skype: chndth@live.com</strong>
+</p>
 
 
 <p align="center">
