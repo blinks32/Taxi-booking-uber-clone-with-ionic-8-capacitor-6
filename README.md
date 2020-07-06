@@ -24,12 +24,9 @@
 
 
 <p align="center">
-<strong><a href="https://chinedu-website.firebaseapp.com/">Get Complete Code</a></strong>
+<strong><a href="https://chinedu-website.firebaseapp.com/">Learn More</a></strong>
 </p>    
 
-<p align="center">
-<strong color='red'><a href="">Live Demo</a></strong>
-</p>    
 
 <p align="center">
 <a href="https://tracking.gitads.io/?repo=YOUR_REPO">
@@ -38,7 +35,7 @@
 
 
 <p align="center">
-Screenshots
+	<strong>Screenshots</strong>
 </p>  
 <br>
 
