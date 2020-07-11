@@ -11,6 +11,10 @@
 </p>    
 
 <p align="center">
+<strong><a href="https://chinedu-website.firebaseapp.com/">BUY COMPLETE CODE</a></strong>
+</p>  
+
+<p align="center">
 	<strong>Playstudio86@gmail.com</strong>
 </p>  
 
@@ -22,10 +26,6 @@
 	<strong>skype: chndth@live.com</strong>
 </p>
 
-
-<p align="center">
-<strong><a href="https://chinedu-website.firebaseapp.com/">Learn More</a></strong>
-</p>    
 
 
 <p align="center">
