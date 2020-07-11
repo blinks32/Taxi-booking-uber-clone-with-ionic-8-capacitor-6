@@ -11,7 +11,7 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://chinedu-website.firebaseapp.com/">BUY COMPLETE CODE</a></strong>
+<strong><a href="https://chinedu-website.firebaseapp.com/">GET COMPLETE CODE HERE</a></strong>
 </p>  
 
 <p align="center">
