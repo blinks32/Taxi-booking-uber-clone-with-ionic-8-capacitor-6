@@ -11,7 +11,7 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://chinedu-website.firebaseapp.com/">GET COMPLETE CODE HERE</a></strong>
+<strong><a href="https://market.ionicframework.com/starters/complete-ride-booking-solution-with-firebase-and-ionic5-">GET COMPLETE CODE HERE</a></strong>
 </p>  
 
 <p align="center">
