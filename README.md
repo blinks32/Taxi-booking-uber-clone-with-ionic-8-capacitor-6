@@ -4,8 +4,10 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://market.ionicframework.com/starters/complete-ride-booking-solution-with-firebase-and-ionic5-">GET FULL CODE HERE</a></strong>
+<strong><a href="https://market.ionicframework.com/starters/complete-ride-booking-solution-with-firebase-and-ionic5-">GET FULL CODE</a></strong>
+	or
 <strong><a href="https://market.ionicframework.com/starters/complete-ride-booking-solution-with-firebase-and-ionic5-">DEMO</a></strong>
+	or
 <strong><a href="https://market.ionicframework.com/starters/complete-ride-booking-solution-with-firebase-and-ionic5-">WATCH DEMO</a></strong>
 </p>  
 
