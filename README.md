@@ -4,7 +4,7 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://market.ionicframework.com/starters/complete-ride-booking-solution-with-firebase-and-ionic5-">GET FULL CODE</a></strong>
+<strong><a href="https://gumroad.com/products/agaK/">GET FULL CODE</a></strong>
 	or
 <strong><a href="https://drive.google.com/drive/folders/1Npxn5ZBY1Rv9X_oyBvk7nblq5IhN5jeU">DEMO</a></strong>
 	or
