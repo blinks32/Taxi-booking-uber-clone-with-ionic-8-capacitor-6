@@ -4,7 +4,7 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://sellfy.com/playheaven/p/taxibooking-solution-ionic5/">GET FULL CODE</a></strong>
+<strong><a href="https://sowl.co/XA6UX">GET FULL CODE</a></strong>
 	or
 <strong><a href="https://drive.google.com/drive/folders/1Npxn5ZBY1Rv9X_oyBvk7nblq5IhN5jeU">DEMO</a></strong>
 	or
