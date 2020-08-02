@@ -44,9 +44,7 @@
 - Css with Sass
 - No third party CSS framework
 - Complex and different style view logic
-- Tip Driver after rides
 - Notification sounds of your choice with cloud messaging
-- Geofencing and Geofire
 - Complete register login logic
 ......
 
