@@ -16,11 +16,6 @@
 	<strong>Playstudio86@gmail.com</strong> or <strong>skype: chndth@live.com</strong>
 </p>  
 
-<p align="center">
-	[Complete-Taxi-Booking-Platform-With-Ionic5-And-Administrator] is being sponsored by the following tool; please help to support us by taking a look and signing up to a free trial
-<a href="https://tracking.gitads.io/?repo=Complete-Taxi-Booking-Platform-With-Ionic5-And-Administrator"><img src="https://images.gitads.io/Complete-Taxi-Booking-Platform-With-Ionic5-And-Administrator" alt="GitAds"/></a>
-</p>
-
 <br>
 
 <p align='center'>
