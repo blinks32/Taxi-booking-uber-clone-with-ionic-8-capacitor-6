@@ -19,7 +19,7 @@
 <br>
 
 <p align='center'>
-     <img src="https://user-images.githubusercontent.com/7928001/89113626-8f5c4700-d46b-11ea-8182-154f7689e1bf.jpg" width='300' height='auto'>
+     <img src="https://user-images.githubusercontent.com/7928001/89363724-c7ac9100-d6c8-11ea-866b-917873ce7a25.png" width='auto' height='auto'>
 </p>
 
 
