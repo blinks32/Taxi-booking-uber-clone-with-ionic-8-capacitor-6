@@ -1,6 +1,6 @@
 
 <p align="center">
- Ride Booking Solution With Ionic 5 (Ionic-React In Works)
+ Ride Booking Solution With Ionic 3 & 5 (Ionic-React In Works)
 </p>    
 
 <p align="center">
