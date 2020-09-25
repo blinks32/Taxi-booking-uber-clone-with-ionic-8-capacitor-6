@@ -4,12 +4,7 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://market.ionicframework.com/starters/complete-ride-booking-solution-with-firebase-and-ionic5"> GET THE FULL PRODUCT </a></strong>
-	or
-<strong><a href="https://drive.google.com/drive/folders/1Npxn5ZBY1Rv9X_oyBvk7nblq5IhN5jeU">DEMO</a></strong>
-	or
-<strong><a href="https://www.youtube.com/watch?v=zBqUA4ffvaM&t=203s">WATCH DEMO</a></strong>
-</p>  
+<strong><a href="https://chinedu-website.web.app/"> VISIT OUR SITE TO LEARN MORE </a></strong>
 
 
 <p align="center">
