@@ -4,7 +4,7 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://complete-taxi-solution.web.app/"> VISIT OUR SITE TO LEARN MORE </a></strong>
+<strong><a href="https://complete-taxi-solution.web.app/"> VIEW DEMO </a></strong>
 
 
 <p align="center">
