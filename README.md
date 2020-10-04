@@ -6,10 +6,14 @@
 <p align="center">
 <strong><a href="https://drive.google.com/drive/folders/1Npxn5ZBY1Rv9X_oyBvk7nblq5IhN5jeU"> VIEW DEMO </a></strong>
 <p align="center">
-<strong><a href="https://complete-taxi-solution.web.app/"> GET COMPLETE PROJECT </a></strong>
+<strong> FOR ONLY $30  </a></strong>
+	
+	
+<p align="center">
+<strong> PLEASE CONTACT ME FOR MORE INFO </a></strong>
 
 <p align="center">
-	<strong>Playstudio86@gmail.com</strong> or <strong>skype: chndth@live.com</strong>
+	<strong>Playstudio86@gmail.com</strong> or <strong>skype: chndth@live.com</strong> or <strong>Whatsapp: +23407089930308</strong>
 </p>  
 
 <br>
