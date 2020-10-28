@@ -4,13 +4,14 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://drive.google.com/drive/folders/1Npxn5ZBY1Rv9X_oyBvk7nblq5IhN5jeU"> VIEW DEMO </a></strong>
-<p align="center">
-
-<p align="center">
 <strong><a href="https://www.youtube.com/watch?v=zBqUA4ffvaM"> WATCH DEMO </a></strong>
 <p align="center">
 <strong> FOR ONLY $50  </a></strong>
+
+
+<p align="center">
+<strong><a href="https://market.ionicframework.com/starters/complete-ride-booking-solution-with-firebase-and-ionic5"> VIEW DEMO </a></strong>
+<p align="center">
 	
 	
 <p align="center">
