@@ -10,7 +10,7 @@
 <p align="center">
 <strong><a href="https://www.youtube.com/watch?v=zBqUA4ffvaM"> WATCH DEMO </a></strong>
 <p align="center">
-<strong> FOR ONLY $30  </a></strong>
+<strong> FOR ONLY $50  </a></strong>
 	
 	
 <p align="center">
