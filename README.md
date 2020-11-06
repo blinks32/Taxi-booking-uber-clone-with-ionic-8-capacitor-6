@@ -4,7 +4,7 @@
 </p>    
 
 <p align="center">
-<strong><a href="https://www.youtube.com/watch?v=zBqUA4ffvaM"> WATCH DEMO </a></strong>
+<strong><a href="https://www.youtube.com/watch?v=X4JMnDu2cTE"> WATCH DEMO </a></strong>
 <p align="center">
 <strong> FOR ONLY $50  </a></strong>
 
