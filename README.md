@@ -33,7 +33,7 @@ Add your API_KEY and your own credentials from your firebase database. Run follo
 $ npm i
 ```
 ### Credits
-Kudos to [Dibbendo Pranto](https://dribbble.com/Dibbendopranto) for this design.
+Kudos to [Chinedu Etoh](https://www.linkedin.com/in/chinedu-etoamaihe-a041a6105/) for this design.
 
 ### Development
 
