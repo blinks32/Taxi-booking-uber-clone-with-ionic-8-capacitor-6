@@ -45,7 +45,7 @@ App may still have issues and bugs that may have a quick fix that we missed whil
 We are a team of digital nomads who believe in open-source development and free-for-all products.
 We welcome anyone who is genuine and interested in developing great product that solve real world problems.
 
-You can get in touch with us at dev@ocg.technology
+You can get in touch with us at playstudio86@gmail.com
 
 ## How can I support developers?
 - Star our GitHub repo
