@@ -1,4 +1,4 @@
-# Ionic 6 Taxi App [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+# Ionic 6 On Demand Delivery and Taxi Service [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 
 A Ionic 6 starter taxi app built with BLOC pattern. It has following features
