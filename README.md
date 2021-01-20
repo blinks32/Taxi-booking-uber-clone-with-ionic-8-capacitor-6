@@ -11,8 +11,6 @@
 
 ### :email: Email playstudio86@gmail.com for more inquiries.
 
-##  View In Market [Here](https://market.ionicframework.com/starters/firebase-uber-style-ionic-3-and-4-complete-source-code-with-user-driver-and-web-admin-).
-
 ### Skype chndth@live.com
 
 ### :phone: +23407089930308
