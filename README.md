@@ -1,56 +1,88 @@
-# Ionic 6 On Demand Delivery and Taxi Service [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+## This is just a sample, Please purchase the full source code.
+
+## Full Support For Android and IOS.
+
+### This includes passenger app, driver app and web admin dashboard.
+
+### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
+
+### Buy From Here [DEMO](https://stackbust.com/)
+
+### :email: Email playstudio86@gmail.com for more inquiries.
+
+##  View In Market [Here](https://market.ionicframework.com/starters/firebase-uber-style-ionic-3-and-4-complete-source-code-with-user-driver-and-web-admin-).
+
+### Skype chndth@live.com
+
+### :phone: +23407089930308
 
 
-A Ionic 6 starter taxi app built with BLOC pattern. It has following features
-
-  - Taxi markers showing on different position on map (Based on static position)
-  - Different animations across different part of screen 
-  - Polyline showing on map (Hardcoded data from Google Maps API)
-  - Runs on both Android & IOS.
-
-### Screenshots
-
-![makephotogallery.net_1580238239.jpg](https://www.dropbox.com/s/dgd40s5752y2jsl/makephotogallery.net_1580238239.jpg?dl=0&raw=1)
-
-### Video Recording
-![video.gif](https://firebasestorage.googleapis.com/v0/b/smart-ordr.appspot.com/o/ezgif.com-resize.gif?alt=media&token=3d9a010b-ba52-4045-a24e-cb3078e2a2f1)
-### Dependencies
-
-This project is built with various awesome open sourced libraries
-
-* [google_maps]((https://github.com/mapsplugin/cordova-plugin-googlemaps) -  to show map on screen 
-* [nexmo](vonage.com/communications-apis/programmable-solutions/2fa/) - to mantain state and make every widget independent using blocs 
-* [onesignal](https://app.onesignal.com/apps) - push notifications
-* [GoogleMaps](https://github.com/mapsplugin/cordova-plugin-googlemaps) - to get current location of user.
-* and more....
+### Kick Off Your Business. Without Much Delay. And Benefit from regular updates.
 
 
-### Installation
 
-Add your API_KEY and your own credentials from your firebase database. Run following command in cmd and then run your app
-
-```sh
-$ npm i
-```
-### Credits
-Kudos to [Chinedu Etoh](https://www.linkedin.com/in/chinedu-etoamaihe-a041a6105/) for this design.
-
-### Development
-
-We love contributors. Looking forward to as many as possible.
-App may still have issues and bugs that may have a quick fix that we missed while development.
-
-### Developer
-
-We are a team of digital nomads who believe in open-source development and free-for-all products.
-We welcome anyone who is genuine and interested in developing great product that solve real world problems.
-
-You can get in touch with us at playstudio86@gmail.com
-
-## How can I support developers?
-- Star our GitHub repo
-- Create pull requests, submit bugs, suggest new features or documentation updates
+## Features;
 
 
-## Can I hire you guys?
-Yes! We are available for hire or simply leave us a note to playstudio86@gmail.com. We will be happy to work with you!
+![user](https://user-images.githubusercontent.com/7928001/43045102-5155113a-8daa-11e8-8a41-ac03f426d75a.png)
+## The Features present in the User app includes;
+
+
+* Ride Scheduling 
+
+* Promo code and referals
+
+* Chat System 
+
+* Android 7+
+
+* Phone Number verification 
+
+* Theme of your choice. 
+
+* Multi-Language Support. 
+
+* Uber Style UI 
+
+
+
+![driver](https://user-images.githubusercontent.com/7928001/43045101-50fb6536-8daa-11e8-82a3-c97adc8c6949.png)
+## For the Driver App, these are the features present;
+
+
+* 3 Step registration form with all required field capture and validation done to make app ready to go live. 
+
+* Facebook style sliding menu 
+
+* Option to set status online and offline. 
+
+* Support Firebase Real-time for tracking Driver. 
+
+* Support Onesignal notification
+
+* Auto assigning Drivers for Jobs on the basis of availability of Driver. 
+
+* Support Push messages to driver if app is in background. 
+
+* Calculating Tariff on the basis of Miles + Minutes required to travel. 
+
+* Multi-Language Support.
+
+
+
+![screenshot 15](https://user-images.githubusercontent.com/7928001/48484569-bcd80b80-e816-11e8-90c1-4735143647c5.png)
+
+ ## The Web Admin is where the users and drivers are managed;
+
+* Built with Angular 5+
+
+* Clean and Easy to understand Dashboard which display all relevant statistics. 
+
+* View Real-time driver and passenger activity on map. 
+
+* View all Drivers. View all Users. View Flagged Driver and Option to block them. 
+
+* View Flagged User and Option to block users. Option to view all users. 
+
+* Set Prices for Car types. Set Currencies.
