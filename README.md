@@ -7,7 +7,7 @@
 
 ### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
 
-### Buy From Here [DEMO](https://stackbust.com/)
+### Buy From [HERE](https://stackbust.com/)
 
 ### :email: Email playstudio86@gmail.com for more inquiries.
 
@@ -33,7 +33,7 @@
 
 * Chat System 
 
-* Android 7+
+* Android 10+
 
 * Phone Number verification 
 
@@ -73,7 +73,7 @@
 
  ## The Web Admin is where the users and drivers are managed;
 
-* Built with Angular 5+
+* Built with Angular 10+
 
 * Clean and Easy to understand Dashboard which display all relevant statistics. 
 
