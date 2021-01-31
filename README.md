@@ -7,7 +7,9 @@
 
 ### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
 
-### Buy From [HERE](https://stackbust.com/)
+### [FULL DEMO](https://stackbust.com/)
+
+### [HIRE ME](https://www.upwork.com/o/profiles/users/~01b5f7bdab29344634/)
 
 ### :email: Email playstudio86@gmail.com for more inquiries.
 
