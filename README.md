@@ -1,4 +1,6 @@
 
+![user](https://user-images.githubusercontent.com/7928001/108913590-75ae6700-762a-11eb-8618-9c42f9463e8c.png)
+
 ## This is just a sample, Please purchase the full source code.
 
 ## Full Support For Android and IOS.
@@ -9,13 +11,13 @@
 
 ### [FULL DEMO](https://stackbust.com/)
 
-### [HIRE ME](https://www.upwork.com/o/profiles/users/~01b5f7bdab29344634/)
 
-### :email: Email playstudio86@gmail.com for more inquiries.
 
-### Skype chndth@live.com
 
-### :phone: +23407089930308
+
+
+### :phone: +23407089930308 ### Skype chndth@live.com ### :email: Email playstudio86@gmail.com for more inquiries. ### [HIRE ME](https://www.upwork.com/o/profiles/users/~01b5f7bdab29344634/)
+
 
 
 ### Kick Off Your Business. Without Much Delay. And Benefit from regular updates.
