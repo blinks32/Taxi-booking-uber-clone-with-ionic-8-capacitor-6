@@ -1,33 +1,28 @@
 
 ![user](https://user-images.githubusercontent.com/7928001/108913590-75ae6700-762a-11eb-8618-9c42f9463e8c.png)
 
-## This is just a sample, Please purchase the full source code.
-
-## Full Support For Android and IOS.
-
-### This includes passenger app, driver app and web admin dashboard.
-
-### :tv: [Watch Demo](https://www.youtube.com/watch?v=zBqUA4ffvaM)
-
-### [FULL DEMO](https://stackbust.com/)
-
 ![user](https://user-images.githubusercontent.com/7928001/108913858-db9aee80-762a-11eb-8491-9ab2b24d4866.png)
 
-
-
-
-### :phone: +23407089930308 ### Skype chndth@live.com ### :email: Email playstudio86@gmail.com for more inquiries. ### [HIRE ME](https://www.upwork.com/o/profiles/users/~01b5f7bdab29344634/)
-
-
-
-### Kick Off Your Business. Without Much Delay. And Benefit from regular updates.
-
-
-
-## Features;
-
-
 ![user](https://user-images.githubusercontent.com/7928001/108959637-f5f9ba00-7674-11eb-9d6c-667d33c97c4e.png)
+
+![user](https://user-images.githubusercontent.com/7928001/108961646-ecbe1c80-7677-11eb-89aa-f1446bcf4d19.png)
+
+![user](https://user-images.githubusercontent.com/7928001/108961651-f051a380-7677-11eb-92ab-89e40bc3f309.png)
+
+
+
+### [LEARN MORE](https://stackbust.com/)
+
+
+## :phone: +23407089930308 
+## Skype chndth@live.com 
+## :email: Email playstudio86@gmail.com for more inquiries.
+## [HIRE ME](https://www.upwork.com/o/profiles/users/~01b5f7bdab29344634/)
+
+
+## All Features;
+
+
 ## The Features present in the User app includes;
 
 
@@ -48,8 +43,6 @@
 * Uber Style UI 
 
 
-
-![driver](https://user-images.githubusercontent.com/7928001/43045101-50fb6536-8daa-11e8-82a3-c97adc8c6949.png)
 ## For the Driver App, these are the features present;
 
 
@@ -71,9 +64,6 @@
 
 * Multi-Language Support.
 
-
-
-![screenshot 15](https://user-images.githubusercontent.com/7928001/48484569-bcd80b80-e816-11e8-90c1-4735143647c5.png)
 
  ## The Web Admin is where the users and drivers are managed;
 
