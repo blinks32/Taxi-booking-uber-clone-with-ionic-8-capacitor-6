@@ -1,7 +1,6 @@
 ### [LEARN MORE](https://stackbust.com/)
 
 
-![user](https://user-images.githubusercontent.com/7928001/108913590-75ae6700-762a-11eb-8618-9c42f9463e8c.png)
 
 ![user](https://user-images.githubusercontent.com/7928001/108913858-db9aee80-762a-11eb-8491-9ab2b24d4866.png)
 
