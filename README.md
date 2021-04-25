@@ -1,4 +1,4 @@
-### [LEARN MORE](https://ridetugo.firebaseapp.com/)
+### [LEARN MORE](https://stackbust.com/)
 
 
 
@@ -17,4 +17,4 @@
 ![user](https://user-images.githubusercontent.com/7928001/108965059-a0c1a680-767c-11eb-929f-1e685a84ac70.png)
 
 
-### [LEARN MORE](https://ridetugo.firebaseapp.com/)
+### [LEARN MORE](https://stackbust.com/)
