@@ -1,9 +1,17 @@
 
+
+My Upwork Account: https://www.upwork.com/freelancers/~01b5f7bdab29344634
+
+My Email: playstudio86@gmail.com
+
+### [LET ME KNOW IF YOU NEED SIMILAR PROJECT](https://flutterwave.com/pay/mz0c3qidsk1h)
+
+
 ![user](https://user-images.githubusercontent.com/7928001/108913858-db9aee80-762a-11eb-8491-9ab2b24d4866.png)
 
-### [BUY COMPLETE CODE ONLY $50](https://flutterwave.com/pay/mz0c3qidsk1h)
+
 ### [DEMO](https://drive.google.com/drive/folders/1zB9vEnXiLL3K-tgfMVuiNzb7fWIR9MfB?usp=sharing)
-### [REQUEST A NEW FEATURE](https://stackbust.com/)
+
 
 
 
@@ -12,8 +20,6 @@
  
 This project is sponsored by **Spurwing**, where their API Makes Adding Scheduling Quick, Reliable and Scalable. Use Spurwing to build and integrate Scheduling, Booking & Calendar features in your project. Read more about Spurwing's [**Scheduling API**](https://www.spurwing.io/).
 
-
-### [LEARN MORE](https://stackbust.com/)
 
 
 ![user](https://user-images.githubusercontent.com/7928001/108965048-9c958900-767c-11eb-95f9-ceba147cb572.png)
@@ -28,5 +34,3 @@ This project is sponsored by **Spurwing**, where their API Makes Adding Scheduli
 
 ![user](https://user-images.githubusercontent.com/7928001/108965059-a0c1a680-767c-11eb-929f-1e685a84ac70.png)
 
-
-### [LEARN MORE](https://stackbust.com/)
