@@ -1,8 +1,8 @@
 
 
-My Upwork Account: https://www.upwork.com/freelancers/~01b5f7bdab29344634
+##UPWORK: https://www.upwork.com/freelancers/~01b5f7bdab29344634
 
-My Email: playstudio86@gmail.com
+##EMAIL: playstudio86@gmail.com
 
 ### [LET ME KNOW IF YOU NEED SIMILAR PROJECT](https://flutterwave.com/pay/mz0c3qidsk1h)
 
