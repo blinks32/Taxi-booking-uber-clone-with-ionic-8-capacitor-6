@@ -15,13 +15,6 @@
 
 
 
-## Sponsor
-![Scheduling API](https://user-images.githubusercontent.com/9488406/125080407-0dd25780-e0c5-11eb-9f70-ef958968674a.png)
- 
-This project is sponsored by **Spurwing**, where their API Makes Adding Scheduling Quick, Reliable and Scalable. Use Spurwing to build and integrate Scheduling, Booking & Calendar features in your project. Read more about Spurwing's [**Scheduling API**](https://www.spurwing.io/).
-
-
-
 ![user](https://user-images.githubusercontent.com/7928001/108965048-9c958900-767c-11eb-95f9-ceba147cb572.png)
 
 ![user](https://user-images.githubusercontent.com/7928001/108959637-f5f9ba00-7674-11eb-9d6c-667d33c97c4e.png)
