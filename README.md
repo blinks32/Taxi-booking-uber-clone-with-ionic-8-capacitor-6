@@ -1,18 +1,10 @@
 
-
-## UPWORK: https://www.upwork.com/freelancers/~01b5f7bdab29344634
-
-## EMAIL: playstudio86@gmail.com
-
-### [LET ME KNOW IF YOU NEED SIMILAR PROJECT](https://flutterwave.com/pay/mz0c3qidsk1h)
-
-
-![user](https://user-images.githubusercontent.com/7928001/108913858-db9aee80-762a-11eb-8491-9ab2b24d4866.png)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=nTQUwghvy5Q" target="_blank">
+ <img src="http://img.youtube.com/vi/nTQUwghvy5Q/mqdefault.jpg" alt="Watch the video" width="240" height="180" border="10" />
+</a>
 
 
 ### [DEMO](https://drive.google.com/drive/folders/1zB9vEnXiLL3K-tgfMVuiNzb7fWIR9MfB?usp=sharing)
-
-
 
 
 ![user](https://user-images.githubusercontent.com/7928001/108965048-9c958900-767c-11eb-95f9-ceba147cb572.png)
