@@ -1,6 +1,6 @@
 
 <a href="https://youtu.be/qkymCs6F2f8" target="_blank">
- <img src="https://user-images.githubusercontent.com/7928001/188144579-62391f1e-27a4-438d-8574-e98df9c71ea5.png" alt="Watch the video" width="1150" height="500" border="10" />
+ <img src="https://user-images.githubusercontent.com/7928001/188144579-62391f1e-27a4-438d-8574-e98df9c71ea5.png" alt="Watch the video" width="auto" height="auto" border="10" />
 </a>
 
 # This is a complete taxi booking system similar to Uber and Bolt. which can be converted to vendor projects; like food delivery or restuarant app.
@@ -57,7 +57,7 @@
 ## PHONE: +2347041684556
 
 <a href="https://chinedu-etoh.gumroad.com/l/OamgB" target="_blank">
- <img src="https://user-images.githubusercontent.com/7928001/188195160-f6860a55-6a4f-419d-ae1f-8d801e9c8241.png" alt="Watch the video" width="600" height="250" border="10"/>
+ <img src="https://user-images.githubusercontent.com/7928001/188195160-f6860a55-6a4f-419d-ae1f-8d801e9c8241.png" alt="Watch the video" width="auto" height="auto" border="10"/>
 </a>
 
 
