@@ -1,6 +1,6 @@
 
 <a href="https://youtu.be/qkymCs6F2f8" target="_blank">
- <img src="https://user-images.githubusercontent.com/7928001/188144579-62391f1e-27a4-438d-8574-e98df9c71ea5.png" alt="Watch the video" width="1000" height="500" border="10" />
+ <img src="https://user-images.githubusercontent.com/7928001/188144579-62391f1e-27a4-438d-8574-e98df9c71ea5.png" alt="Watch the video" width="1100" height="500" border="10" />
 </a>
 
 # This is a complete taxi booking system similar to Uber, Bolt, Uber Eats, Zepto, Grab, , which can be converted to vendor projects; like food delivery or restuarant app.
