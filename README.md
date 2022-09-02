@@ -5,7 +5,8 @@
 
 # This is a complete taxi booking system similar to Uber, Bolt, Uber Eats, Zepto, Grab, , which can be converted to vendor projects; like food delivery or restuarant app.
 
-It uses:
+# It uses:
+
 1) Ionic 6+/Angular 13+
 2) Capacitor 4
 3) No cordova plugin
@@ -14,11 +15,15 @@ It uses:
 6) Stripe Payment
 7) More features added continously
 
-If you need a similar project, Reach out to me here:
-EMAIL: playstudio86@gmail.com
-SKYPE: chndth@live.com
+# If you need a similar project, Reach out to me here:
+
+## EMAIL: playstudio86@gmail.com
+## SKYPE: chndth@live.com
+## PHONE: +2347041684556
+
 
 ### [FULL DEMO](https://drive.google.com/drive/folders/1zB9vEnXiLL3K-tgfMVuiNzb7fWIR9MfB?usp=sharing)
+### [GET FULL CODE HERE](https://chinedu-etoh.gumroad.com/l/OamgB)
 
 ![layer1](https://user-images.githubusercontent.com/7928001/188022294-cb20bb25-989f-4a6d-9b77-de3eb7e13bdb.png)
 ![layer2](https://user-images.githubusercontent.com/7928001/188022570-af0d7d47-5761-4c62-a6ed-71326dc28d8e.png)
