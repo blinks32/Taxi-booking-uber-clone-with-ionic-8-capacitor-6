@@ -24,7 +24,7 @@
  <img src="https://user-images.githubusercontent.com/7928001/188303457-db859657-acf0-4aee-a3cf-b33e55ca7e2b.png" alt="Watch the video" width="250" height="120" border="10" />
 </a>
 
-<a href="https://ionic4-taxi-f1bdf.web.app/" target="_blank">
+<a href="https://timely-chaja-e64263.netlify.app/" target="_blank">
  <img src="https://user-images.githubusercontent.com/7928001/188158644-f0fcc737-60dd-4c57-a9b7-708915721e42.png" alt="Watch the video" width="250" height="120" border="10" />
 </a>
 
