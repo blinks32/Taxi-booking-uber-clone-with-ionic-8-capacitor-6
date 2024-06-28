@@ -12,9 +12,8 @@
 ## PHONE: +2347041684556
 ## WHATSAPP: +2347089930308
 
-<a href="https://buymeacoffee.com/chinedu30/e/269444" target="_blank">
- <img src="https://user-images.githubusercontent.com/7928001/188195160-f6860a55-6a4f-419d-ae1f-8d801e9c8241.png" alt="Watch the video" width="auto" height="auto" border="10"/>
-</a>
+
+<a href="https://buymeacoffee.com/chinedu30/e/269444" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 <a href="https://voluble-crisp-805982.netlify.app" target="_blank">
  <img src="https://user-images.githubusercontent.com/7928001/188303453-98a89b72-00f8-4b0e-9927-faa4e4dc0dfe.png" alt="Watch the video" width="250" height="120" border="10" />
