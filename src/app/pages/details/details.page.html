@@ -1,0 +1,80 @@
+<ion-header [translucent]="true" class="ion-no-border ion-padding">
+  <ion-list>
+    <ion-list-header class="ion-padding-top">
+      <ion-label color="primary" class="ion-text-center">
+        <h1>Personal Info</h1>
+      </ion-label>
+    </ion-list-header>
+  
+    <ion-item-group class="ion-margin-horizontal">
+      <div class="preview">
+        <ion-avatar (click)="presentImageSourceActionSheet()">
+          <img *ngIf="imageUrl; else placeholder_avatar;" [src]="imageUrl" />
+          <ng-template #placeholder_avatar>
+            <div class="fallback">
+              <p *ngIf="!approve2">Select avatar</p>
+              <ion-progress-bar *ngIf="approve2" color='light' type="indeterminate"></ion-progress-bar>
+            </div>
+          </ng-template>
+        </ion-avatar>
+      </div>
+
+
+      <form [formGroup]="form">
+
+        <div class="ion-margin-vertical">
+          <ion-item class="ion-margin">
+            <ion-input 
+              formControlName="fullname" 
+              placeholder="First Name" 
+              type="text"
+              minlength="1"
+              maxlength="200">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="ion-margin">
+            <ion-input 
+              formControlName="lastname" 
+              placeholder="Last Name" 
+              type="text"
+              minlength="1"
+              maxlength="200">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="ion-margin">
+            <ion-input 
+              formControlName="email" 
+              placeholder="Your Email" 
+              type="email"
+              minlength="1"
+              maxlength="200">
+            </ion-input>
+          </ion-item>
+        </div>
+
+      </form>
+
+      <!-- Placeholder for reCAPTCHA -->
+      <div id="recaptcha-container"></div>
+
+      <ion-button shape="round" size="large" type="submit" [disabled]="!form.valid" color="primary" (click)="updateProfile()" expand="block">
+        <ion-label *ngIf="!approve2">Continue</ion-label>
+        <ion-icon *ngIf="!approve2" color='light' slot="end" name="arrow-forward"></ion-icon>
+        <ion-progress-bar *ngIf="approve2" color='light' type="indeterminate"></ion-progress-bar>
+      </ion-button>
+
+      <!-- <ion-button shape="round" size="large" color="secondary" (click)="signInWithGoogle()" expand="block">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        <ion-label>Sign in with Google</ion-label>
+      </ion-button> -->
+
+    </ion-item-group>
+  </ion-list>
+</ion-header>
+
+<ion-content class="ion-no-border">
+  <ion-list class="ion-no-padding" lines="none">
+  </ion-list>
+</ion-content>

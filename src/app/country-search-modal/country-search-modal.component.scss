@@ -1,0 +1,38 @@
+/* country-search-modal.component.scss */
+    ion-toolbar {
+      background: var(--ion-color-primary); /* Using a solid color */
+    }
+  
+    ion-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--ion-color-primary);
+    }
+  
+    ion-button {
+      color: var(--ion-color-primary);
+      --color: var(--ion-color-primary);
+    }
+  
+    ion-searchbar {
+      --background: white;
+      --color: var(--ion-color-primary);
+      --placeholder-color: #8b9dc3;
+    }
+  
+    ion-item {
+      margin: 0.5rem 0;
+    }
+  
+    .country-item {
+      display: flex;
+      align-items: center;
+    }
+  
+    .country-icon {
+      margin-right: 1rem;
+      font-size: 1.5rem;
+      color: var(--ion-color-primary); /* Icon color to match the theme */
+    }
+  
+  

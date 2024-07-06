@@ -1,0 +1,83 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon> 
+      </ion-button>
+    </ion-buttons>
+    <ion-title> Enter Destination </ion-title>
+  </ion-toolbar>
+  <ion-item lines="none">
+    <ion-icon color='success' name="locate-sharp"></ion-icon>
+    <ion-searchbar  animated="true" [(ngModel)]="autocomplete.query2" placeholder="Enter Pick Up Location" (ionInput)="updateSearch2()" (ionFocus)="Show()" (ionBlur)="Hide()" (ionCancel)="closeSearch()" class="search" showCancelButton="never"></ion-searchbar>
+</ion-item>
+<ion-item lines="none">
+<ion-icon color='primary' name="pin-sharp"></ion-icon>
+<ion-searchbar  animated="true" placeholder="Enter Destination" [(ngModel)]="autocomplete.query" (ionInput)="updateSearch()" (ionFocus)="Show()" (ionBlur)="Hide()" (ionCancel)="closeSearch()" class="search2" showCancelButton="never"></ion-searchbar>
+</ion-item>
+  
+</ion-header>
+
+
+<ion-content class='ion-no-padding'>
+
+  <ion-list lines="none">
+
+    <div *ngIf="!skeleton">
+    <ion-item  *ngFor="let item of skeletOns">
+      <ion-label class="ion-margin">
+        <h1> <ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text></h1>
+        <p> <ion-skeleton-text [animated]="true" style="width: 130px"></ion-skeleton-text></p>
+      </ion-label>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true" style="width: 30px; height: 50px;"></ion-skeleton-text>
+      </ion-thumbnail>
+    </ion-item>
+  </div>
+    
+    <ion-item *ngFor="let item of autocompleteItems" (click)="chooseItem(item)">
+      <ion-label class="ion-margin">
+        <h1>{{ item.place}}</h1>
+        <p>{{item.city}}</p>
+      </ion-label>
+        <ion-icon name="pin" slot="start"></ion-icon>
+    </ion-item>
+
+    <ion-item *ngFor="let item of autocompleteItems2" (click)="chooseItem2(item)">
+      <ion-label class="ion-margin">
+        <h1>{{ item.place}}</h1>
+        <p>{{item.city}}</p>
+      </ion-label>
+        <ion-icon name="pin" slot="start"></ion-icon>
+    </ion-item>
+
+    <!-- <ion-item class='ion-padding' *ngFor="let itme of place">
+        <div (click)="choosePlace(itme)">
+            {{itme.name}}
+            <br />
+            <p>{{itme.city}}</p>
+        </div> -->
+
+        <!-- <ion-icon color='doom' name="close" item-end (click)="delete(itme)"></ion-icon>
+        <ion-icon color='doom' name="pin" item-start></ion-icon>
+    </ion-item> -->
+
+    <ion-item *ngIf="!hideImage" style="margin:0 auto;">
+      <ion-img src="../../assets/imgs/trip.svg"></ion-img>
+     </ion-item>
+</ion-list>
+
+
+</ion-content>
+
+<ion-footer class="ion-padding">
+
+  
+              <ion-button size="large" shape="round" color="primary" expand='block' (click)="chooseOnMap()">
+                  <ion-icon slot="icon-only" name="pin"></ion-icon> 
+                  Choose on map
+              </ion-button>
+         
+
+</ion-footer>

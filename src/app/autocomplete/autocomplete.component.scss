@@ -1,0 +1,22 @@
+.search{
+    --box-shadow:none;
+    color: var(--ion-color-dark); 
+    --background: var(--ion-color-light-shade);
+     --icon-color: rgba(106, 186, 106, 0);
+     --border-radius: 30px;
+  }
+
+  .search2{
+    --box-shadow:none;
+    color: var(--ion-color-dark); 
+    --background: var(--ion-color-light-shade);
+     --icon-color: rgba(106, 186, 106, 0);
+     --border-radius: 30px;
+    // border: 1.5px solid var(--ion-color-primary);
+  }
+
+
+  ion-skeleton-text {
+    --background: rgba(0, 98, 255, 0.259);
+  }
+  

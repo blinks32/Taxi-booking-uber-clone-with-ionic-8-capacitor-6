@@ -1,0 +1,41 @@
+@keyframes slide-top {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+  
+  .slide-top {
+      animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+
+  ion-item{
+    animation-name: slide-top;
+    animation-duration: 0.5s;
+  }
+
+  .test{
+    animation-name: slide-top;
+    animation-duration: 0.6s;
+  }
+
+  ion-content {
+    ion-item {
+      margin-bottom: 10px;
+    }
+  
+    ion-button {
+      margin-top: 20px;
+    }
+  
+    .stripe-element {
+      margin: 10px 0;
+      padding: 60px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+  
+  

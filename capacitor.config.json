@@ -1,0 +1,19 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "myRider",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"plugins": {
+		  "Keyboard": {
+			"resize": "none"
+		},
+		  "android": {
+            "allowMixedContent": true
+          },
+		"GoogleAuth": {
+		  "scopes": ["profile", "email"],
+		  "serverClientId": "1033966813085-k8a7fn4uitkoavnj2oj5adgfl553q9t5.apps.googleusercontent.com",
+		  "forceCodeForRefreshToken": true
+		}
+	  }
+}

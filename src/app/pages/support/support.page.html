@@ -1,0 +1,77 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary">
+        <ion-icon name="call" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> Support </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+ 
+<ion-content class="ion-padding">
+ 
+  <ion-grid *ngIf="!hideSkeleton">
+    <ion-row *ngFor="let message of messages | async">
+      <ion-col size="9" class="message"
+        [offset]="message.myMsg ? 3 : 0"
+        [ngClass]="{ 'my-message': message.myMsg, 'other-message': !message.myMsg }">
+        <b>{{ message.fromName }}</b><br>
+        <span>{{ message.msg }}
+        </span>
+        <div class="time ion-text-right"><br>{{ message.createdAt?.toMillis() | date:'short' }}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <div *ngIf="hideSkeleton">
+    <ion-item lines="none" *ngFor="let item of skeletOns">
+      <ion-thumbnail>
+        <ion-skeleton-text [animated]="true" style="width: 250px; height: 400px;"></ion-skeleton-text>
+      </ion-thumbnail>
+    </ion-item>
+
+    <ion-item lines="none" *ngFor="let item of skeletOns">
+      <ion-thumbnail>
+        <ion-skeleton-text  [animated]="true" style="width: 250px; height: 400px; left: 100px"></ion-skeleton-text>
+      </ion-thumbnail>
+    </ion-item>
+  </div>
+
+
+
+  
+  <ion-list class="ion-no-padding" lines="none">
+  <ion-img *ngIf="hasNoData" src="../../../assets/imgs/chat.svg"></ion-img>
+  <ion-list-header *ngIf="hasNoData" style="margin-top: 10%">
+    <ion-label color="primary" class="ion-text-center">
+      <h1>We Respond Immediately</h1>
+      <p>Tell Us How We can Help You.</p></ion-label>
+</ion-list-header>
+</ion-list>
+ 
+</ion-content>
+ 
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+        <ion-textarea autoGrow="true" (ionFocus)="Show()"  (ionBlur)="Hide()" placeholder="Start Typing.." class="message-input" rows="1" maxLength="500" [(ngModel)]="newMsg" >
+        </ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg === ''"
+          class="msg-btn" (click)="sendMessage()">
+          <ion-icon name="send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

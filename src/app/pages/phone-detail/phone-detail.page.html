@@ -1,0 +1,81 @@
+
+
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-list lines="none">
+    <ion-list-header class="ion-padding-top" >
+      <ion-label color="primary" class="ion-text-center">
+        <h1>Enter Phone Number</h1>
+        </ion-label>
+  </ion-list-header>
+
+
+      
+    <ion-item-group class="ion-margin-horizontal">
+      <form [formGroup]="form">
+
+        <div id="sign-in-button"></div>
+
+        <div class="ion-margin-vertical">
+          
+          <ion-item class="ion-margin">
+               <ion-label>{{CountryCode}}</ion-label>
+              <ion-select interface="action-sheet" (ionChange)="countryCodeChange($event)">
+                <ion-select-option *ngFor="let country of CountryJson">
+                    {{country.dialCode}} {{country.name}}
+                </ion-select-option>
+              </ion-select>
+         
+
+            <ion-input 
+              formControlName="phone" 
+              placeholder="Enter Mobile Number" 
+              type="tel"
+              clearInput
+              minlength="10"
+              maxlength="10">
+            </ion-input>
+          </ion-item>
+
+
+          <ion-text *ngIf="!form.get('phone').valid && form.get('phone').touched">
+            <ion-text class="error" *ngIf="form.get('phone').hasError('required')" color="danger">
+              * Please enter the Mobile Number
+            </ion-text>
+            <ion-text class="error" *ngIf="form.get('phone').hasError('minlength') 
+              && !form.get('phone').hasError('required')" color="danger">
+              * Please enter a valid Mobile Number
+            </ion-text>
+          </ion-text>
+            
+        </div>
+
+        
+            <ion-button shape="round" size="large" type="submit" [disabled]="!form.get('phone').valid" color="secondary" (click)="signIn()" expand="block">
+              <ion-label *ngIf="!approve2">Continue</ion-label>
+              <ion-icon *ngIf="!approve2" color='light' slot="end" name="arrow-forward"></ion-icon>
+              <ion-progress-bar *ngIf="approve2" color='light' type="indeterminate"></ion-progress-bar>
+            </ion-button>
+        
+
+      </form>
+
+
+    
+
+    </ion-item-group>
+
+
+
+
+      </ion-list>
+</ion-header>
+
+
+<ion-content class="ion-no-border">
+
+    <ion-list class="ion-no-padding" lines="none">
+     
+    </ion-list>
+
+
+</ion-content>

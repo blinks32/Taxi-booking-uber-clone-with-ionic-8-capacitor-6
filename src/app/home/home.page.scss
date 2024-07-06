@@ -1,0 +1,164 @@
+
+capacitor-google-maps {
+  display: inline-block;
+  width: 100%;
+  height: 100vh;
+}
+
+
+@keyframes slide-top {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.slide-top {
+	animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+
+.centerPin{
+  animation-name: slide-top;
+  animation-duration: 0.8s;
+}
+
+.bottomItems{
+  animation-name: slide-top;
+  animation-duration: 0.5s;
+}
+
+ion-skeleton-text {
+  --background: rgba(0, 98, 255, 0.625);
+}
+
+
+ion-header{
+   
+  ion-fab{
+    margin-top: 20px;
+  }
+  ion-row {
+    padding-top: 0vh;
+    background: transparent;
+    display: block;
+    ion-list {
+        border-radius: 0px 0px 20px 20px;
+        padding-bottom: 0vh;
+        ion-item{
+          width: 100%;
+          --inner-padding-bottom: 0;
+          --inner-padding-end: 0;
+          --inner-padding-start: 0;
+          --inner-padding-top: 0;
+        }
+    }
+}
+  
+}
+
+ion-content { --background: transparent; margin-top: 20px;}
+
+
+ion-footer{
+  ion-row {
+    padding-top: 5vh;
+    background: transparent;
+    display: block;
+    ion-fab-button {
+        margin-right: 2.5vh;
+    }
+    ion-list {
+        border-radius: 20px 20px 0 0;
+        // padding-bottom: 6vh;
+        ion-list-header {
+            ion-label {
+                font-weight: bold;
+                font-size: 1.8rem;
+            }
+        }
+    }
+}
+  ion-fab{
+    margin-top: -40px;
+  }
+   ion-list{
+     .payment{
+      font-size: 1.1em;
+      //  margin-top: 5px;
+       --background: transparent !important;
+       ion-item{
+        --inner-padding-bottom: 1px;
+        --inner-padding-end: 0;
+        --inner-padding-start: 0;
+        --inner-padding-top: 0;
+        --background: transparent !important;
+     
+       }
+       
+      
+       
+     }
+
+  }
+}
+
+.centerElem
+{
+  justify-content: center;
+  align-items: center;
+}
+
+.price
+ {
+  margin-left: auto;
+  flex: 0.5;
+ }
+ 
+ .shadow-top
+  {
+    box-shadow: 0px -1.5px 1.5px rgba(196, 196, 196, 0.414);
+  }
+
+  .top_bar{
+    box-shadow: 0px 1.5px 1.5px rgba(196, 196, 196, 0.414);
+  }
+
+  .card{
+    box-shadow: 0px -1.5px 1.5px rgba(196, 196, 196, 0.414);
+  }
+
+.main-button{
+  color: var(--ion-color-dark); 
+  --background: var(--ion-color-light-shade);
+  // border-bottom: 1px solid var(--ion-color-primary);
+}
+
+.preview {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+
+.fallback {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: #bfbfbf;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}
+
+.map {
+  width: 100%;
+  height: 1024px;
+  padding-bottom: 100%
+}
+

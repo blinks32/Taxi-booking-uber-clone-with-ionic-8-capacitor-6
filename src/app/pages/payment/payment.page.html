@@ -1,0 +1,57 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <form id="payment-form" (ngSubmit)="onSubmit($event)">
+        <ion-item>
+          <ion-label>Payment Provider</ion-label>
+          <ion-select [(ngModel)]="paymentProvider" name="paymentProvider" required (ionChange)="onPaymentProviderChange()">
+            <ion-select-option value="stripe">Stripe</ion-select-option>
+            <ion-select-option value="paystack">Paystack</ion-select-option>
+            <ion-select-option value="flutterwave">Flutterwave</ion-select-option>
+            <ion-select-option value="razorpay">Razorpay</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Amount</ion-label>
+          <ion-input type="number" [(ngModel)]="amount" name="amount" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Currency</ion-label>
+          <ion-input [(ngModel)]="currency" name="currency" required></ion-input>
+        </ion-item>
+
+        <div *ngIf="paymentProvider === 'stripe'" id="card-element" class="stripe-element"></div>
+        <div *ngIf="paymentProvider === 'stripe'" id="card-errors" role="alert"></div>
+
+        <ion-item *ngIf="paymentProvider === 'paystack' || paymentProvider === 'flutterwave'">
+          <ion-label>Email</ion-label>
+          <ion-input [(ngModel)]="email" name="email" required></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="paymentProvider === 'razorpay'">
+          <ion-label>Receipt</ion-label>
+          <ion-input [(ngModel)]="receipt" name="receipt" required></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" size='large' type="submit" color="primary">
+          <ion-icon *ngIf="!approve" color='light' slot="icon-only" name="checkmark-sharp"></ion-icon>
+          <ion-progress-bar *ngIf="approve" color='light' type="indeterminate"></ion-progress-bar>
+          <ion-label *ngIf="!approve">Proceed</ion-label> 
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

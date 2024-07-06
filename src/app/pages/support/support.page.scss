@@ -1,0 +1,57 @@
+.message-input {
+    width: 100%;
+    border: 1px solid var(--ion-color-medium);
+    border-radius: 6px;
+    resize: none;
+    margin-top: 0px;
+    --padding-start: 10px;
+}
+
+@keyframes slide-top {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+  
+  .slide-top {
+      animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  
+  
+  
+ 
+.message {
+    padding: 10px !important;
+    border-radius: 10px !important;
+    margin-bottom: 4px !important;
+    white-space: pre-wrap;
+    
+}
+ 
+.my-message {
+    background: var(--ion-color-tertiary);
+    color: #fff;
+    animation-name: slide-top;
+    animation-duration: 0.5s;
+}
+ 
+.other-message {
+    background: var(--ion-color-secondary);
+    color: #fff;
+    animation-name: slide-top;
+    animation-duration: 0.6s;
+}
+ 
+.time {
+    color: #dfdfdf;
+    float: right;
+    font-size: small;
+}
+
+ion-skeleton-text {
+    --background: rgba(0, 98, 255, 0.259);
+  }
+  
