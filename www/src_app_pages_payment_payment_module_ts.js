@@ -85,14 +85,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "PaymentPage": () => (/* binding */ PaymentPage)
 /* harmony export */ });
 /* harmony import */ var c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 3918);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var src_app_services_avatar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/avatar.service */ 5083);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 3819);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var src_app_services_overlay_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/overlay.service */ 5596);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _bot101_capacitor_paystack_plugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @bot101/capacitor-paystack-plugin */ 8445);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var _services_payment_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/payment.service */ 1863);
+/* harmony import */ var _services_avatar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/avatar.service */ 5083);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 4666);
 
 
 
@@ -103,348 +102,329 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const _c0 = ["paymentform"];
-function PaymentPage_ion_icon_35_Template(rf, ctx) {
+const _c0 = ["cardElement"];
+function PaymentPage_div_12_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](0, "ion-icon", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](1, "div", 11, 12)(3, "div", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
   }
 }
-function PaymentPage_ion_progress_bar_36_Template(rf, ctx) {
+function PaymentPage_ion_card_15_ion_item_6_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](0, "ion-progress-bar", 22);
-  }
-}
-function PaymentPage_ion_label_37_Template(rf, ctx) {
-  if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-label");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](1, "Proceed");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-  }
-}
-function PaymentPage_ion_radio_group_42_ion_item_1_ion_icon_7_Template(rf, ctx) {
-  if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](0, "ion-icon", 29);
-  }
-}
-function PaymentPage_ion_radio_group_42_ion_item_1_ion_icon_8_Template(rf, ctx) {
-  if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](0, "ion-icon", 30);
-  }
-}
-function PaymentPage_ion_radio_group_42_ion_item_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-item", 25);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function PaymentPage_ion_radio_group_42_ion_item_1_Template_ion_item_click_0_listener() {
-      const restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵrestoreView"](_r10);
-      const card_r6 = restoredCtx.$implicit;
-      const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"](2);
-      return _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵresetView"](ctx_r9.chooseCard(card_r6));
+    const _r6 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "ion-item")(1, "ion-label");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](3, "ion-radio", 16);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](4, "ion-button", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function PaymentPage_ion_card_15_ion_item_6_Template_ion_button_click_4_listener() {
+      const restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r6);
+      const method_r4 = restoredCtx.$implicit;
+      const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](2);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵresetView"](ctx_r5.deletePaymentMethod(method_r4.cardId));
     });
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](1, "ion-label")(2, "h1", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](4, "p");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](6, "ion-radio", 26);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](7, PaymentPage_ion_radio_group_42_ion_item_1_ion_icon_7_Template, 1, 0, "ion-icon", 27);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](8, PaymentPage_ion_radio_group_42_ion_item_1_ion_icon_8_Template, 1, 0, "ion-icon", 28);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](5, " Delete ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()();
   }
   if (rf & 2) {
-    const card_r6 = ctx.$implicit;
-    const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate"](card_r6.name);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate"](card_r6.type);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("value", card_r6.name);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", card_r6.type == ctx_r5.cash);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", card_r6.type != ctx_r5.cash);
+    const method_r4 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](method_r4.last4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("value", method_r4.cardId);
   }
 }
-function PaymentPage_ion_radio_group_42_Template(rf, ctx) {
+function PaymentPage_ion_card_15_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-radio-group", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](1, PaymentPage_ion_radio_group_42_ion_item_1_Template, 9, 5, "ion-item", 24);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+    const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "ion-card", 5)(1, "ion-card-header")(2, "ion-card-title");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](3, "Saved Payment Methods");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](4, "ion-card-content", 5)(5, "ion-radio-group", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngModelChange", function PaymentPage_ion_card_15_Template_ion_radio_group_ngModelChange_5_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r8);
+      const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵresetView"](ctx_r7.selectedCardId = $event);
+    })("ionChange", function PaymentPage_ion_card_15_Template_ion_radio_group_ionChange_5_listener($event) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r8);
+      const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵresetView"](ctx_r9.setActiveCard($event));
+    });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](6, PaymentPage_ion_card_15_ion_item_6_Template, 6, 2, "ion-item", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()()();
   }
   if (rf & 2) {
-    const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("value", ctx_r3.selectedCard);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngForOf", ctx_r3.cards);
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngModel", ctx_r1.selectedCardId);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngForOf", ctx_r1.savedPaymentMethods);
   }
 }
-function PaymentPage_ion_list_43_ion_item_2_Template(rf, ctx) {
-  if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-item")(1, "ion-label");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](2, "ion-skeleton-text", 32);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](3, "ion-skeleton-text", 33)(4, "ion-skeleton-text", 34);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-  }
-  if (rf & 2) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("animated", true);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("animated", true);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("animated", true);
-  }
-}
-function PaymentPage_ion_list_43_Template(rf, ctx) {
-  if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-list", 17)(1, "ion-radio-group");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](2, PaymentPage_ion_list_43_ion_item_2_Template, 5, 3, "ion-item", 31);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-  }
-  if (rf & 2) {
-    const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngForOf", ctx_r4.skeletOns);
-  }
-}
+const _c1 = function (a0) {
+  return {
+    "slide-down": a0
+  };
+};
 class PaymentPage {
-  constructor(prof, nav, http, alertCtrl, overlay, formBuilder, paystack // Inject PaystackPlugin
-  ) {
-    this.prof = prof;
-    this.nav = nav;
-    this.http = http;
-    this.alertCtrl = alertCtrl;
-    this.overlay = overlay;
-    this.formBuilder = formBuilder;
-    this.paystack = paystack;
-    this.cash = 'cash';
-  }
-  ionViewDidEnter() {
-    this.skeletOns = [{}, {}, {}, {}, {}];
-    this.setupPaystack();
-    this.prof.getCards().subscribe(d => {
-      console.log(d);
-      this.cards = d;
-      this.cards.forEach(element => {
-        console.log(element);
-        if (element.selected === true) {
-          this.selected = element;
-          this.selectedCard = element.name;
-          console.log(this.selectedCard);
-        }
-      });
+  constructor(fb, alertController, loadingController, paymentService, avatarService, router) {
+    this.fb = fb;
+    this.alertController = alertController;
+    this.loadingController = loadingController;
+    this.paymentService = paymentService;
+    this.avatarService = avatarService;
+    this.router = router;
+    this.approve = false;
+    this.cardInitialized = false;
+    this.selectedProvider = '';
+    this.savedPaymentMethods = [];
+    this.selectedCardId = '';
+    this.defaultAmount = 1000;
+    this.isCardComplete = false; // New state for card completion
+    this.paymentForm = this.fb.group({
+      provider: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__.Validators.required],
+      cardId: [''],
+      authCode: ['']
     });
   }
-  chooseCard(event) {
+  ngOnInit() {
+    this.fetchSavedPaymentMethods();
+    this.onPaymentProviderChange('stripe');
+    this.getActiveCard();
+  }
+  ngAfterViewInit() {}
+  // Ensure Stripe card is initialized
+  initializeStripeCard() {
+    if (this.cardElement && this.cardElement.nativeElement) {
+      this.stripe = Stripe('pk_test_0t85o0Llo0MbBfC9imSzznam');
+      this.elements = this.stripe.elements();
+      if (!this.card) {
+        this.card = this.elements.create('card');
+        this.card.mount(this.cardElement.nativeElement);
+        // Listen for changes on the card input
+        this.card.on('change', event => {
+          this.isCardComplete = event.complete;
+        });
+      }
+      this.cardInitialized = true;
+    }
+  }
+  onPaymentProviderChange(provider) {
+    this.selectedProvider = provider;
+    this.paymentForm.patchValue({
+      provider
+    });
+    if (provider === 'stripe') {
+      setTimeout(() => {
+        this.initializeStripeCard();
+      }, 0);
+    }
+  }
+  fetchSavedPaymentMethods() {
     var _this = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      console.log(event);
-      _this.overlay.showLoader('Please wait..');
-      yield _this.prof.updateCArd(_this.selected.name, _this.selected.number, _this.selected.type, _this.selected.id, false);
-      yield _this.prof.updateCArd(event.name, event.number, event.type, event.id, true);
-      _this.overlay.hideLoader();
+      try {
+        _this.savedPaymentMethods = yield _this.avatarService.getSavedPaymentMethods();
+        console.log('Saved Payment Methods:', _this.savedPaymentMethods);
+        if (_this.savedPaymentMethods.length > 0) {
+          _this.selectedCardId = _this.savedPaymentMethods[0].cardId; // Set default selected card
+        }
+      } catch (error) {
+        console.error('Error fetching saved payment methods:', error);
+      }
     })();
   }
-  setupPaystack() {
+  getActiveCard() {
     var _this2 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      console.log(_this2.paystack);
-      // Initialize Paystack
-      const initializeOptions = {
-        publicKey: 'pk_test_efb7b8fa7e77edd630931e1f818802ed7e72dfed',
-        production: false // Set to true for production environment
-      };
-      try {
-        yield _this2.paystack.initialize(initializeOptions);
-        console.log('Paystack initialized');
-      } catch (error) {
-        console.error('Paystack initialization failed', error);
-      }
+      const email = _this2.avatarService.user.email;
+      _this2.avatarService.getActiveCard(email).subscribe(data => {
+        if (data && data.activeCardId) {
+          _this2.selectedCardId = data.activeCardId;
+        }
+      });
     })();
   }
-  handlePaystackPayment(event) {
+  setActiveCard(event) {
     var _this3 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      event.preventDefault();
-      _this3.approve = true;
-      try {
-        // Add customer card information
-        yield _this3.paystack.addCard({
-          cardNumber: _this3.cardNumber,
-          expiryMonth: _this3.expiryMonth,
-          expiryYear: _this3.expiryYear,
-          cvv: _this3.cvv
-        });
-        // Set the email to charge
-        yield _this3.paystack.setChargeEmail({
-          email: "email@address.com"
-        });
-        // Set the amount to charge the card (in kobo)
-        yield _this3.paystack.setChargeAmount({
-          amount: '1000000'
-        }); // example amount: 1000000 (10,000 Naira)
-        // Optionally add custom fields, metadata, and charge parameters
-        yield _this3.paystack.putChargeCustomFields({
-          customField1: "field1",
-          customField2: "field2"
-        });
-        yield _this3.paystack.putChargeMetadata({
-          metaData1: "meta1",
-          metaData2: "meta2"
-        });
-        yield _this3.paystack.addChargeParameters({
-          param1: "param1",
-          param2: "param2"
-        });
-        // Charge the card
-        const chargeResponse = yield _this3.paystack.chargeCard();
-        console.log(chargeResponse.reference);
-        _this3.overlay.showToast('Payment successful! Reference: ' + chargeResponse.reference);
-        _this3.approve = false;
-        // Update the card list or handle post-payment logic
-        yield _this3.prof.updateCArd(_this3.selected.name, _this3.selected.number, _this3.selected.type, _this3.selected.id, false);
-        yield _this3.prof.createCard(_this3.cardNumber, _this3.cardNumber.slice(-4), "Paystack", chargeResponse.reference);
-        _this3.ionViewDidEnter(); // Refresh card list
-      } catch (error) {
-        console.error('Payment failed', error);
-        _this3.overlay.showAlert('Payment Error', error.message);
-        _this3.approve = false;
+      const cardId = event.detail.value;
+      if (cardId) {
+        try {
+          const email = _this3.avatarService.user.email;
+          yield _this3.avatarService.setActiveCard(email, cardId);
+          _this3.selectedCardId = cardId;
+        } catch (error) {
+          console.error('Error setting active card:', error);
+        }
       }
     })();
   }
-  showPaymentAlert(title, subtitle, canLeave) {
+  processPayment() {
     var _this4 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const alert = yield _this4.alertCtrl.create({
-        header: title,
-        subHeader: subtitle,
-        buttons: [{
-          text: 'Approve',
-          role: 'cancel',
-          handler: () => {
-            if (canLeave) {
-              _this4.nav.pop();
-            }
-          }
-        }],
-        backdropDismiss: false
-      });
-      alert.present();
+      if (_this4.paymentForm.valid) {
+        const formValues = _this4.paymentForm.value;
+        formValues.email = _this4.avatarService.user.email; // Use email from avatarService
+        _this4.showLoading();
+        try {
+          let paymentResult;
+          paymentResult = yield _this4.processStripePayment(formValues);
+          console.log('Payment successful:', paymentResult);
+          yield _this4.showAlert('Success', 'Payment successful!');
+          yield _this4.avatarService.updateFirestoreAfterPayment(paymentResult);
+        } catch (error) {
+          console.error('Error during payment:', error);
+          const errorMessage = error.error ? error.error.error : 'An unexpected error occurred.';
+          yield _this4.showAlert('Error', `Payment failed: ${errorMessage}`);
+        } finally {
+          _this4.hideLoading();
+          _this4.approve = false;
+        }
+      } else {
+        _this4.showAlert('Form Error', 'Please fill out all required fields.');
+      }
     })();
   }
-  ngOnInit() {}
+  processStripePayment(formValues) {
+    var _this5 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      console.log('Starting processStripePayment with formValues:', formValues);
+      try {
+        const setupIntentResponse = yield _this5.paymentService.createSetupIntent(formValues.email).toPromise();
+        const clientSecret = setupIntentResponse.client_secret;
+        console.log('Setup Intent created:', setupIntentResponse);
+        const {
+          setupIntent,
+          error
+        } = yield _this5.stripe.confirmCardSetup(clientSecret, {
+          payment_method: {
+            card: _this5.card,
+            billing_details: {
+              email: formValues.email
+            }
+          }
+        });
+        if (error) {
+          const errorElement = document.getElementById('card-errors');
+          if (errorElement) {
+            errorElement.textContent = error.message;
+          }
+          yield _this5.showAlert('Payment Error', error.message);
+          _this5.approve = false;
+          console.error('Error confirming card setup:', error);
+          throw new Error(error.message);
+        }
+        console.log('Card setup confirmed:', setupIntent);
+        const paymentMethodId = setupIntent.payment_method;
+        // Fetch the payment method details from your server (which will call Stripe)
+        const paymentMethod = yield _this5.paymentService.retrievePaymentMethod(paymentMethodId).toPromise();
+        console.log('Payment method retrieved:', paymentMethod);
+        const cardDetails = paymentMethod.card;
+        const last4 = cardDetails.last4;
+        console.log('Checking if card exists with email:', formValues.email, ' and last4:', last4);
+        const cardExists = yield _this5.avatarService.checkCardExistsStripe(formValues.email, last4);
+        if (!cardExists) {
+          yield _this5.avatarService.addCardStripe(formValues.email, paymentMethodId, last4);
+          yield _this5.fetchSavedPaymentMethods();
+        }
+        return _this5.paymentService.savePaymentMethod(formValues.email, paymentMethodId).toPromise();
+      } catch (error) {
+        console.error('Error in processStripePayment:', error);
+        throw error;
+      }
+    })();
+  }
+  deletePaymentMethod(cardId) {
+    var _this6 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      yield _this6.avatarService.deleteSavedPaymentMethod(cardId);
+      _this6.fetchSavedPaymentMethods(); // Refresh the list of saved payment methods
+    })();
+  }
+  showLoading() {
+    var _this7 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this7.loading = yield _this7.loadingController.create({
+        message: 'Processing payment...'
+      });
+      yield _this7.loading.present();
+    })();
+  }
+  hideLoading() {
+    var _this8 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      if (_this8.loading) {
+        yield _this8.loading.dismiss();
+      }
+    })();
+  }
+  showAlert(header, message) {
+    var _this9 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const alert = yield _this9.alertController.create({
+        header,
+        message,
+        buttons: ['OK']
+      });
+      yield alert.present();
+    })();
+  }
 }
 PaymentPage.ɵfac = function PaymentPage_Factory(t) {
-  return new (t || PaymentPage)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](src_app_services_avatar_service__WEBPACK_IMPORTED_MODULE_1__.AvatarService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.NavController), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_6__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.AlertController), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](src_app_services_overlay_service__WEBPACK_IMPORTED_MODULE_2__.OverlayService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormBuilder), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_bot101_capacitor_paystack_plugin__WEBPACK_IMPORTED_MODULE_3__.PaystackPlugin));
+  return new (t || PaymentPage)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormBuilder), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.AlertController), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.LoadingController), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_services_payment_service__WEBPACK_IMPORTED_MODULE_1__.PaymentService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_services_avatar_service__WEBPACK_IMPORTED_MODULE_2__.AvatarService), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router));
 };
-PaymentPage.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({
+PaymentPage.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({
   type: PaymentPage,
   selectors: [["app-payment"]],
   viewQuery: function PaymentPage_Query(rf, ctx) {
     if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵviewQuery"](_c0, 5, _angular_core__WEBPACK_IMPORTED_MODULE_4__.ElementRef);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵviewQuery"](_c0, 5);
     }
     if (rf & 2) {
       let _t;
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵloadQuery"]()) && (ctx.stripeButton = _t.first);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵloadQuery"]()) && (ctx.cardElement = _t.first);
     }
   },
-  decls: 50,
-  vars: 10,
-  consts: [[1, "ion-no-border", 3, "translucent"], ["slot", "start"], ["color", "primary"], [1, "ion-text-center", "ion-padding"], [1, "ion-text-center"], ["id", "payment-form", 3, "submit"], [1, "form-row", "ion-padding-bottom"], ["position", "floating"], ["type", "text", "name", "cardNumber", 3, "ngModel", "ngModelChange"], ["type", "text", "name", "expiryMonth", 3, "ngModel", "ngModelChange"], ["type", "text", "name", "expiryYear", 3, "ngModel", "ngModelChange"], ["type", "text", "name", "cvv", 3, "ngModel", "ngModelChange"], ["id", "card-errors", "role", "alert"], ["shape", "round", "expand", "block", "size", "large", "type", "submit", "color", "primary"], ["color", "light", "slot", "icon-only", "name", "checkmark-sharp", 4, "ngIf"], ["color", "light", "type", "indeterminate", 4, "ngIf"], [4, "ngIf"], ["lines", "none", 1, "ion-padding-bottom"], [3, "value", 4, "ngIf"], ["lines", "none", "class", "ion-padding-bottom", 4, "ngIf"], ["color", "primary", 1, "ion-text-center", "test"], ["color", "light", "slot", "icon-only", "name", "checkmark-sharp"], ["color", "light", "type", "indeterminate"], [3, "value"], [3, "click", 4, "ngFor", "ngForOf"], [3, "click"], ["slot", "start", 3, "value"], ["color", "success", "slot", "end", "name", "cash-sharp", 4, "ngIf"], ["color", "primary", "slot", "end", "name", "card-sharp", 4, "ngIf"], ["color", "success", "slot", "end", "name", "cash-sharp"], ["color", "primary", "slot", "end", "name", "card-sharp"], [4, "ngFor", "ngForOf"], [3, "animated"], [2, "width", "30px", 3, "animated"], ["slot", "end", 2, "width", "30px", 3, "animated"]],
+  decls: 16,
+  vars: 8,
+  consts: [[1, "ion-no-border", 3, "translucent"], ["slot", "start"], ["color", "primary"], [1, "ion-text-center", "ion-padding"], [1, "ion-no-border", "no-shadow"], [1, "no-shadow"], [1, "payment-details", 3, "ngClass"], [3, "formGroup", "ngSubmit"], [4, "ngIf"], ["color", "success", "shape", "round", "expand", "block", "size", "large", "type", "submit", 3, "disabled"], ["class", "no-shadow", 4, "ngIf"], [1, "stripe-element"], ["cardElement", ""], ["id", "card-errors", "role", "alert"], [3, "ngModel", "ngModelChange", "ionChange"], [4, "ngFor", "ngForOf"], ["slot", "start", 3, "value"], ["slot", "end", "color", "danger", 3, "click"]],
   template: function PaymentPage_Template(rf, ctx) {
     if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-header", 0)(1, "ion-toolbar")(2, "ion-buttons", 1)(3, "ion-button", 2);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](4, "ion-back-button");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](5, "ion-title");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](6, "Payment");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](7, "ion-content", 3)(8, "ion-list")(9, "ion-list-header", 4)(10, "ion-label", 2)(11, "h1");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](12, "Add New Card");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](13, "ion-card")(14, "ion-card-content")(15, "form", 5);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("submit", function PaymentPage_Template_form_submit_15_listener($event) {
-        return ctx.handlePaystackPayment($event);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "ion-header", 0)(1, "ion-toolbar")(2, "ion-buttons", 1)(3, "ion-button", 2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](4, "ion-back-button");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](5, "ion-title");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](6, "Payment");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](7, "ion-content", 3)(8, "ion-card", 4)(9, "ion-card-content", 5)(10, "div", 6)(11, "form", 7);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("ngSubmit", function PaymentPage_Template_form_ngSubmit_11_listener() {
+        return ctx.processPayment();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](16, "div", 6)(17, "ion-item")(18, "ion-label", 7);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](19, "Card Number");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](20, "ion-input", 8);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("ngModelChange", function PaymentPage_Template_ion_input_ngModelChange_20_listener($event) {
-        return ctx.cardNumber = $event;
-      });
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](21, "ion-item")(22, "ion-label", 7);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](23, "Expiry Month");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](24, "ion-input", 9);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("ngModelChange", function PaymentPage_Template_ion_input_ngModelChange_24_listener($event) {
-        return ctx.expiryMonth = $event;
-      });
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](25, "ion-item")(26, "ion-label", 7);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](27, "Expiry Year");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](28, "ion-input", 10);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("ngModelChange", function PaymentPage_Template_ion_input_ngModelChange_28_listener($event) {
-        return ctx.expiryYear = $event;
-      });
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](29, "ion-item")(30, "ion-label", 7);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](31, "CVV");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](32, "ion-input", 11);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("ngModelChange", function PaymentPage_Template_ion_input_ngModelChange_32_listener($event) {
-        return ctx.cvv = $event;
-      });
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](33, "div", 12);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](34, "ion-button", 13);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](35, PaymentPage_ion_icon_35_Template, 1, 0, "ion-icon", 14);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](36, PaymentPage_ion_progress_bar_36_Template, 1, 0, "ion-progress-bar", 15);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](37, PaymentPage_ion_label_37_Template, 2, 0, "ion-label", 16);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](38, "ion-list", 17)(39, "ion-list-header", 4)(40, "ion-label", 2);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](41, "Payment Methods");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](42, PaymentPage_ion_radio_group_42_Template, 2, 2, "ion-radio-group", 18);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](43, PaymentPage_ion_list_43_Template, 3, 1, "ion-list", 19);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](44, "ion-list-header")(45, "ion-label", 20)(46, "h1");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](47, "Test Card");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](48, "p");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](49, "4242424242424242 2/25 544 1324");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](12, PaymentPage_div_12_Template, 4, 0, "div", 8);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](13, "ion-button", 9);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](14, " Add Card ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]()()()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](15, PaymentPage_ion_card_15_Template, 7, 2, "ion-card", 10);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     }
     if (rf & 2) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("translucent", true);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](20);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngModel", ctx.cardNumber);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](4);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngModel", ctx.expiryMonth);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](4);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngModel", ctx.expiryYear);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](4);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngModel", ctx.cvv);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](3);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", !ctx.approve);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", ctx.approve);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", !ctx.approve);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](5);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", ctx.cards);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", !ctx.cards);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("translucent", true);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](10);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵpureFunction1"](6, _c1, ctx.selectedProvider !== ""));
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("formGroup", ctx.paymentForm);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", ctx.selectedProvider === "stripe");
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("disabled", !ctx.paymentForm.valid || !ctx.isCardComplete);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", ctx.savedPaymentMethods.length > 0);
     }
   },
-  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_8__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_8__.NgIf, _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_7__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_7__.NgModel, _angular_forms__WEBPACK_IMPORTED_MODULE_7__.NgForm, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonBackButton, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButton, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButtons, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonCard, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonCardContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonIcon, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonInput, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonItem, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonLabel, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonList, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonListHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonProgressBar, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonRadio, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonRadioGroup, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonSkeletonText, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonTitle, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonToolbar, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.RadioValueAccessor, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.SelectValueAccessor, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.TextValueAccessor, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonBackButtonDelegate],
-  styles: ["@keyframes slide-top {\n  0% {\n    transform: translateY(100%);\n  }\n  100% {\n    transform: translateY(0%);\n  }\n}\n.slide-top[_ngcontent-%COMP%] {\n  animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;\n}\nion-item[_ngcontent-%COMP%] {\n  animation-name: slide-top;\n  animation-duration: 0.5s;\n}\n.test[_ngcontent-%COMP%] {\n  animation-name: slide-top;\n  animation-duration: 0.6s;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBheW1lbnQucGFnZS5zY3NzIiwiLi5cXC4uXFwuLlxcLi5cXC4uXFwuLlxcLi5cXElPTklDJTIwUFJPSkVDVFNcXG15UmlkZXItMjAyNDA1MjRUMDQwNTA1Wi0wMDFcXG15UmlkZXJcXHNyY1xcYXBwXFxwYWdlc1xccGF5bWVudFxccGF5bWVudC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSTtJQUNFLDJCQUFBO0VDQ0o7RURDRTtJQUNFLHlCQUFBO0VDQ0o7QUFDRjtBREVFO0VBQ0ksbUVBQUE7QUNBTjtBREdFO0VBQ0UseUJBQUE7RUFDQSx3QkFBQTtBQ0FKO0FER0U7RUFDRSx5QkFBQTtFQUNBLHdCQUFBO0FDQUoiLCJmaWxlIjoicGF5bWVudC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAa2V5ZnJhbWVzIHNsaWRlLXRvcCB7XG4gICAgMCUge1xuICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKDEwMCUpO1xuICAgIH1cbiAgICAxMDAlIHtcbiAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgwJSk7XG4gICAgfVxuICB9XG4gIFxuICAuc2xpZGUtdG9wIHtcbiAgICAgIGFuaW1hdGlvbjogc2xpZGUtdG9wIDAuNXMgY3ViaWMtYmV6aWVyKDAuMjUwLCAwLjQ2MCwgMC40NTAsIDAuOTQwKSBib3RoO1xuICB9XG5cbiAgaW9uLWl0ZW17XG4gICAgYW5pbWF0aW9uLW5hbWU6IHNsaWRlLXRvcDtcbiAgICBhbmltYXRpb24tZHVyYXRpb246IDAuNXM7XG4gIH1cblxuICAudGVzdHtcbiAgICBhbmltYXRpb24tbmFtZTogc2xpZGUtdG9wO1xuICAgIGFuaW1hdGlvbi1kdXJhdGlvbjogMC42cztcbiAgfVxuICAiLCJAa2V5ZnJhbWVzIHNsaWRlLXRvcCB7XG4gIDAlIHtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMTAwJSk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKDAlKTtcbiAgfVxufVxuLnNsaWRlLXRvcCB7XG4gIGFuaW1hdGlvbjogc2xpZGUtdG9wIDAuNXMgY3ViaWMtYmV6aWVyKDAuMjUsIDAuNDYsIDAuNDUsIDAuOTQpIGJvdGg7XG59XG5cbmlvbi1pdGVtIHtcbiAgYW5pbWF0aW9uLW5hbWU6IHNsaWRlLXRvcDtcbiAgYW5pbWF0aW9uLWR1cmF0aW9uOiAwLjVzO1xufVxuXG4udGVzdCB7XG4gIGFuaW1hdGlvbi1uYW1lOiBzbGlkZS10b3A7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMC42cztcbn0iXX0= */"]
+  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_7__.NgClass, _angular_common__WEBPACK_IMPORTED_MODULE_7__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_7__.NgIf, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.NgModel, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonBackButton, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButton, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButtons, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonCard, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonCardContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonCardHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonCardTitle, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonItem, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonLabel, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonRadio, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonRadioGroup, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonTitle, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonToolbar, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.RadioValueAccessor, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.SelectValueAccessor, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonBackButtonDelegate, _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormGroupDirective],
+  styles: ["@keyframes slide-top {\n  0% {\n    transform: translateY(100%);\n  }\n  100% {\n    transform: translateY(0%);\n  }\n}\n.slide-top[_ngcontent-%COMP%] {\n  animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;\n}\nion-item[_ngcontent-%COMP%] {\n  animation-name: slide-top;\n  animation-duration: 0.5s;\n}\n.payment-details[_ngcontent-%COMP%] {\n  max-height: 0;\n  overflow: hidden;\n  transition: max-height 0.5s ease-in-out;\n}\n.payment-details.slide-down[_ngcontent-%COMP%] {\n  max-height: 500px; \n}\n.stripe-element[_ngcontent-%COMP%] {\n  padding: 15px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  margin-bottom: 10px;\n}\n.payment-methods[_ngcontent-%COMP%]   ion-button.selected[_ngcontent-%COMP%] {\n  background-color: var(--ion-color-primary) !important;\n  color: #fff;\n}\n.no-shadow[_ngcontent-%COMP%] {\n  box-shadow: none !important;\n}\n.provider-logo[_ngcontent-%COMP%] {\n  height: 24px;\n  margin-right: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBheW1lbnQucGFnZS5zY3NzIiwiLi5cXC4uXFwuLlxcLi5cXC4uXFwuLlxcLi5cXElPTklDJTIwUFJPSkVDVFNcXG15UmlkZXItMjAyNDA1MjRUMDQwNTA1Wi0wMDFcXG15UmlkZXJcXHNyY1xcYXBwXFxwYWdlc1xccGF5bWVudFxccGF5bWVudC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtJQUNFLDJCQUFBO0VDQ0Y7RURDQTtJQUNFLHlCQUFBO0VDQ0Y7QUFDRjtBREVBO0VBQ0UsbUVBQUE7QUNBRjtBREdBO0VBQ0UseUJBQUE7RUFDQSx3QkFBQTtBQ0FGO0FERUE7RUFDRSxhQUFBO0VBQ0EsZ0JBQUE7RUFDQSx1Q0FBQTtBQ0NGO0FERUE7RUFDRSxpQkFBQSxFQUFBLHdDQUFBO0FDQ0Y7QURFQTtFQUNFLGFBQUE7RUFDQSxzQkFBQTtFQUNBLGtCQUFBO0VBQ0EsbUJBQUE7QUNDRjtBREVBO0VBQ0UscURBQUE7RUFDQSxXQUFBO0FDQ0Y7QURFQTtFQUNFLDJCQUFBO0FDQ0Y7QURFQTtFQUNFLFlBQUE7RUFDQSxrQkFBQTtBQ0NGIiwiZmlsZSI6InBheW1lbnQucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGtleWZyYW1lcyBzbGlkZS10b3Age1xuICAwJSB7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKDEwMCUpO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgwJSk7XG4gIH1cbn1cblxuLnNsaWRlLXRvcCB7XG4gIGFuaW1hdGlvbjogc2xpZGUtdG9wIDAuNXMgY3ViaWMtYmV6aWVyKDAuMjUwLCAwLjQ2MCwgMC40NTAsIDAuOTQwKSBib3RoO1xufVxuXG5pb24taXRlbSB7XG4gIGFuaW1hdGlvbi1uYW1lOiBzbGlkZS10b3A7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMC41cztcbn1cbi5wYXltZW50LWRldGFpbHMge1xuICBtYXgtaGVpZ2h0OiAwO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICB0cmFuc2l0aW9uOiBtYXgtaGVpZ2h0IDAuNXMgZWFzZS1pbi1vdXQ7XG59XG5cbi5wYXltZW50LWRldGFpbHMuc2xpZGUtZG93biB7XG4gIG1heC1oZWlnaHQ6IDUwMHB4OyAvKiBBZGp1c3QgYXMgbmVlZGVkIHRvIGZpdCB0aGUgY29udGVudCAqL1xufVxuXG4uc3RyaXBlLWVsZW1lbnQge1xuICBwYWRkaW5nOiAxNXB4O1xuICBib3JkZXI6IDFweCBzb2xpZCAjY2NjO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG1hcmdpbi1ib3R0b206IDEwcHg7XG59XG5cbi5wYXltZW50LW1ldGhvZHMgaW9uLWJ1dHRvbi5zZWxlY3RlZCB7XG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KSAhaW1wb3J0YW50O1xuICBjb2xvcjogI2ZmZjtcbn1cblxuLm5vLXNoYWRvdyB7XG4gIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuLnByb3ZpZGVyLWxvZ28ge1xuICBoZWlnaHQ6IDI0cHg7XG4gIG1hcmdpbi1yaWdodDogMTBweDtcbn1cblxuIiwiQGtleWZyYW1lcyBzbGlkZS10b3Age1xuICAwJSB7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKDEwMCUpO1xuICB9XG4gIDEwMCUge1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgwJSk7XG4gIH1cbn1cbi5zbGlkZS10b3Age1xuICBhbmltYXRpb246IHNsaWRlLXRvcCAwLjVzIGN1YmljLWJlemllcigwLjI1LCAwLjQ2LCAwLjQ1LCAwLjk0KSBib3RoO1xufVxuXG5pb24taXRlbSB7XG4gIGFuaW1hdGlvbi1uYW1lOiBzbGlkZS10b3A7XG4gIGFuaW1hdGlvbi1kdXJhdGlvbjogMC41cztcbn1cblxuLnBheW1lbnQtZGV0YWlscyB7XG4gIG1heC1oZWlnaHQ6IDA7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIHRyYW5zaXRpb246IG1heC1oZWlnaHQgMC41cyBlYXNlLWluLW91dDtcbn1cblxuLnBheW1lbnQtZGV0YWlscy5zbGlkZS1kb3duIHtcbiAgbWF4LWhlaWdodDogNTAwcHg7IC8qIEFkanVzdCBhcyBuZWVkZWQgdG8gZml0IHRoZSBjb250ZW50ICovXG59XG5cbi5zdHJpcGUtZWxlbWVudCB7XG4gIHBhZGRpbmc6IDE1cHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkICNjY2M7XG4gIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcbn1cblxuLnBheW1lbnQtbWV0aG9kcyBpb24tYnV0dG9uLnNlbGVjdGVkIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpICFpbXBvcnRhbnQ7XG4gIGNvbG9yOiAjZmZmO1xufVxuXG4ubm8tc2hhZG93IHtcbiAgYm94LXNoYWRvdzogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4ucHJvdmlkZXItbG9nbyB7XG4gIGhlaWdodDogMjRweDtcbiAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xufSJdfQ== */"]
 });
 
 /***/ })

@@ -22,11 +22,11 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { CountrySearchModalComponent } from './country-search-modal/country-search-modal.component';
-import { PaystackPlugin } from '@bot101/capacitor-paystack-plugin';
 import { EnrouteChatComponent } from './enroute-chat/enroute-chat.component';
+import { AddCardComponent } from './add-card/add-card.component';
 
 @NgModule({
-  declarations: [AppComponent, OtpComponent, AutocompleteComponent, CountrySearchModalComponent, EnrouteChatComponent],
+  declarations: [AppComponent, OtpComponent, AutocompleteComponent, CountrySearchModalComponent, EnrouteChatComponent, AddCardComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -36,6 +36,7 @@ import { EnrouteChatComponent } from './enroute-chat/enroute-chat.component';
     HttpClientModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => {
       if (Capacitor.isNativePlatform()) {
@@ -56,7 +57,7 @@ import { EnrouteChatComponent } from './enroute-chat/enroute-chat.component';
     }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, GoogleAuthProvider,
-    PaystackPlugin, FacebookAuthProvider, Client],
+   FacebookAuthProvider, Client],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

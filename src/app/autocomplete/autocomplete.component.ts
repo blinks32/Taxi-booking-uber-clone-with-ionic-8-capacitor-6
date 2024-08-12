@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StatusBar, Style } from '@capacitor/status-bar';
+import { StatusBar } from '@capacitor/status-bar';
 import { Client } from '@googlemaps/google-maps-services-js';
 import { ModalController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { AvatarService } from '../services/avatar.service';
-declare let google;
 import { HttpClient } from '@angular/common/http';
+declare let google;
+
 
 
 @Component({

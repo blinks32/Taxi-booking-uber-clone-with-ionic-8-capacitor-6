@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { StatusBar, Style } from '@capacitor/status-bar';
-import { IonContent, NavController } from '@ionic/angular';
+import { StatusBar } from '@capacitor/status-bar';
+import { IonContent } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { AvatarService } from 'src/app/services/avatar.service';
 

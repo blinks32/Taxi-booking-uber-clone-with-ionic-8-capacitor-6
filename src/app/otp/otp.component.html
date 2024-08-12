@@ -2,10 +2,10 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="primary" (click)="closeModal()">
-        <ion-icon slot="icon-only" name="close"></ion-icon> 
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title> Back </ion-title>
+    <ion-title>Back</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -35,7 +35,7 @@
     </ion-item>
 
     <ion-button shape='round' fill="outline" size="large" expand="block" color="primary" slot="start" (click)="resend()">
-      Resend Otp
+      Resend OTP
     </ion-button>
     <ion-button shape='round' size="large" expand="block" slot="end" [disabled]="!otp" color="primary" (click)="verifyOtp()">
       <ion-label *ngIf="!approve2">Continue</ion-label>

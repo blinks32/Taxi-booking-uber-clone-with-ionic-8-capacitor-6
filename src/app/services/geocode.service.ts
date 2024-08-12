@@ -51,6 +51,8 @@ export class GeocodeService {
     );
   }
 
+  
+
   // Get the distance between the origin and destination
   async getDirections(from: string, to: string): Promise<any> {
     try {

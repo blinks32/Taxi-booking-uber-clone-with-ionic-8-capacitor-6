@@ -1,5 +1,195 @@
 (self["webpackChunkapp"] = self["webpackChunkapp"] || []).push([["main"],{
 
+/***/ 671:
+/*!************************************************!*\
+  !*** ./src/app/add-card/add-card.component.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AddCardComponent": () => (/* binding */ AddCardComponent)
+/* harmony export */ });
+/* harmony import */ var c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 3918);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 3819);
+/* harmony import */ var _services_payment_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/payment.service */ 1863);
+/* harmony import */ var _services_avatar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/avatar.service */ 5083);
+
+
+
+
+
+
+
+
+const _c0 = ["cardElement"];
+class AddCardComponent {
+  constructor(fb, alertController, loadingController, paymentService, avatarService, modalController) {
+    this.fb = fb;
+    this.alertController = alertController;
+    this.loadingController = loadingController;
+    this.paymentService = paymentService;
+    this.avatarService = avatarService;
+    this.modalController = modalController;
+    this.approve = false;
+    this.cardInitialized = false;
+    this.paymentForm = this.fb.group({
+      provider: ['stripe', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required],
+      cardId: [''],
+      authCode: ['']
+    });
+  }
+  ngOnInit() {
+    // Initialize the form or any other needed data
+  }
+  ngAfterViewInit() {
+    this.initializeStripeCard();
+  }
+  initializeStripeCard() {
+    if (this.cardElement && this.cardElement.nativeElement) {
+      this.stripe = Stripe('pk_test_0t85o0Llo0MbBfC9imSzznam');
+      this.elements = this.stripe.elements();
+      if (!this.card) {
+        this.card = this.elements.create('card');
+        this.card.mount(this.cardElement.nativeElement);
+      }
+      this.cardInitialized = true;
+    }
+  }
+  processPayment() {
+    var _this = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      if (_this.paymentForm.valid) {
+        const formValues = _this.paymentForm.value;
+        formValues.email = _this.avatarService.user.email; // Use email from avatarService
+        _this.showLoading();
+        try {
+          const setupIntentResponse = yield _this.paymentService.createSetupIntent(formValues.email).toPromise();
+          const clientSecret = setupIntentResponse.client_secret;
+          const {
+            setupIntent,
+            error
+          } = yield _this.stripe.confirmCardSetup(clientSecret, {
+            payment_method: {
+              card: _this.card,
+              billing_details: {
+                email: formValues.email
+              }
+            }
+          });
+          if (error) {
+            yield _this.showAlert('Payment Error', error.message);
+            throw new Error(error.message);
+          }
+          const paymentMethodId = setupIntent.payment_method;
+          const paymentMethod = yield _this.paymentService.retrievePaymentMethod(paymentMethodId).toPromise();
+          const cardDetails = paymentMethod.card;
+          const last4 = cardDetails.last4;
+          const cardExists = yield _this.avatarService.checkCardExistsStripe(formValues.email, last4);
+          if (!cardExists) {
+            yield _this.avatarService.addCardStripe(formValues.email, paymentMethodId, last4);
+          }
+          yield _this.modalController.dismiss({
+            success: true,
+            paymentMethodId
+          });
+        } catch (error) {
+          yield _this.showAlert('Error', error.message || 'An unexpected error occurred.');
+        } finally {
+          _this.hideLoading();
+        }
+      } else {
+        _this.showAlert('Form Error', 'Please fill out all required fields.');
+      }
+    })();
+  }
+  showLoading() {
+    var _this2 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      _this2.loading = yield _this2.loadingController.create({
+        message: 'Processing payment...'
+      });
+      yield _this2.loading.present();
+    })();
+  }
+  hideLoading() {
+    var _this3 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      if (_this3.loading) {
+        yield _this3.loading.dismiss();
+      }
+    })();
+  }
+  showAlert(header, message) {
+    var _this4 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const alert = yield _this4.alertController.create({
+        header,
+        message,
+        buttons: ['OK']
+      });
+      yield alert.present();
+    })();
+  }
+  closeModal() {
+    this.modalController.dismiss();
+  }
+}
+AddCardComponent.ɵfac = function AddCardComponent_Factory(t) {
+  return new (t || AddCardComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.AlertController), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.LoadingController), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_payment_service__WEBPACK_IMPORTED_MODULE_1__.PaymentService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_avatar_service__WEBPACK_IMPORTED_MODULE_2__.AvatarService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.ModalController));
+};
+AddCardComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({
+  type: AddCardComponent,
+  selectors: [["app-add-card"]],
+  viewQuery: function AddCardComponent_Query(rf, ctx) {
+    if (rf & 1) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵviewQuery"](_c0, 5);
+    }
+    if (rf & 2) {
+      let _t;
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵloadQuery"]()) && (ctx.cardElement = _t.first);
+    }
+  },
+  decls: 14,
+  vars: 3,
+  consts: [[1, "ion-no-border", 3, "translucent"], ["slot", "start"], ["color", "primary", 3, "click"], [1, "ion-padding"], [3, "formGroup", "ngSubmit"], [1, "stripe-element"], ["cardElement", ""], ["id", "card-errors", "role", "alert"], ["color", "success", "expand", "block", "type", "submit", 3, "disabled"]],
+  template: function AddCardComponent_Template(rf, ctx) {
+    if (rf & 1) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-header", 0)(1, "ion-toolbar")(2, "ion-buttons", 1)(3, "ion-button", 2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function AddCardComponent_Template_ion_button_click_3_listener() {
+        return ctx.closeModal();
+      });
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](4, "Close");
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](5, "ion-title");
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](6, "Add Card");
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](7, "ion-content", 3)(8, "form", 4);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("ngSubmit", function AddCardComponent_Template_form_ngSubmit_8_listener() {
+        return ctx.processPayment();
+      });
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](9, "div", 5, 6)(11, "div", 7);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](12, "ion-button", 8);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](13, "Add Card");
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
+    }
+    if (rf & 2) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("translucent", true);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](8);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("formGroup", ctx.paymentForm);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](4);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("disabled", ctx.approve);
+    }
+  },
+  dependencies: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__.NgControlStatusGroup, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButton, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButtons, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonTitle, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonToolbar, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormGroupDirective],
+  encapsulation: 2
+});
+
+/***/ }),
+
 /***/ 158:
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -11,15 +201,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppRoutingModule": () => (/* binding */ AppRoutingModule)
 /* harmony export */ });
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var _angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/fire/auth-guard */ 3200);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/fire/auth-guard */ 3200);
+/* harmony import */ var _guards_rider_profile_guard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./guards/rider-profile.guard */ 7534);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
 
 
 
 
-const redirectUnauthorizedToLogin = () => (0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.redirectUnauthorizedTo)(['']);
-const redirectLoggedInToHome = () => (0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.redirectLoggedInTo)(['home']);
+
+const redirectUnauthorizedToLogin = () => (0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_1__.redirectUnauthorizedTo)(['login']);
+const redirectLoggedInToHome = () => (0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_1__.redirectLoggedInTo)(['home']);
 const routes = [
     {
         path: '',
@@ -29,63 +221,63 @@ const routes = [
     {
         path: 'login',
         loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_login_login_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./login/login.module */ 107)).then((m) => m.LoginPageModule),
-        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.canActivate)(redirectLoggedInToHome),
+        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_1__.canActivate)(redirectLoggedInToHome),
     },
     {
         path: 'home',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_home_home_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./home/home.module */ 3467)).then((m) => m.HomePageModule),
-        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.canActivate)(redirectUnauthorizedToLogin),
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e("src_app_home_home_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./home/home.module */ 3467)).then((m) => m.HomePageModule),
+        canActivate: [_guards_rider_profile_guard__WEBPACK_IMPORTED_MODULE_0__.RiderProfileGuard],
     },
     {
         path: 'profile',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_profile_profile_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/profile/profile.module */ 8558)).then((m) => m.ProfilePageModule),
-        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.canActivate)(redirectUnauthorizedToLogin),
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e("src_app_pages_profile_profile_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/profile/profile.module */ 8558)).then((m) => m.ProfilePageModule),
+        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_1__.canActivate)(redirectUnauthorizedToLogin),
     },
     {
         path: 'history',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_history_history_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/history/history.module */ 608)).then(m => m.HistoryPageModule),
-        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.canActivate)(redirectUnauthorizedToLogin),
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_history_history_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/history/history.module */ 608)).then((m) => m.HistoryPageModule),
+        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_1__.canActivate)(redirectUnauthorizedToLogin),
     },
     {
         path: 'details',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_details_details_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/details/details.module */ 557)).then(m => m.DetailsPageModule),
-        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_0__.canActivate)(redirectUnauthorizedToLogin),
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e("src_app_pages_details_details_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/details/details.module */ 557)).then((m) => m.DetailsPageModule),
+        ...(0,_angular_fire_auth_guard__WEBPACK_IMPORTED_MODULE_1__.canActivate)(redirectUnauthorizedToLogin),
     },
     {
         path: 'payment',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_payment_payment_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/payment/payment.module */ 4923)).then(m => m.PaymentPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_payment_payment_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/payment/payment.module */ 4923)).then((m) => m.PaymentPageModule)
     },
     {
         path: 'support',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_support_support_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/support/support.module */ 2602)).then(m => m.SupportPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_support_support_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/support/support.module */ 2602)).then((m) => m.SupportPageModule)
     },
     {
         path: 'about',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_about_about_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/about/about.module */ 8114)).then(m => m.AboutPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_about_about_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/about/about.module */ 8114)).then((m) => m.AboutPageModule)
     },
     {
         path: 'promotion',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_promotion_promotion_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/promotion/promotion.module */ 2145)).then(m => m.PromotionPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_promotion_promotion_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/promotion/promotion.module */ 2145)).then((m) => m.PromotionPageModule)
     },
     {
         path: 'rating',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_rating_rating_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/rating/rating.module */ 4176)).then(m => m.RatingPageModule)
-    },
-    {
-        path: 'phone-detail',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_phone-detail_phone-detail_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/phone-detail/phone-detail.module */ 7112)).then(m => m.PhoneDetailPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_rating_rating_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/rating/rating.module */ 4176)).then((m) => m.RatingPageModule)
     },
     {
         path: 'network',
-        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_pages_network_network_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/network/network.module */ 7846)).then(m => m.NetworkPageModule)
+        loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e("src_app_pages_network_network_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/network/network.module */ 7846)).then((m) => m.NetworkPageModule)
+    },
+    {
+        path: 'paymentcallback',
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_paymentcallback_paymentcallback_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./paymentcallback/paymentcallback.module */ 848)).then(m => m.PaymentcallbackPageModule)
     },
 ];
 class AppRoutingModule {
 }
 AppRoutingModule.ɵfac = function AppRoutingModule_Factory(t) { return new (t || AppRoutingModule)(); };
-AppRoutingModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
-AppRoutingModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__.RouterModule.forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__.PreloadAllModules }), _angular_router__WEBPACK_IMPORTED_MODULE_2__.RouterModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__.RouterModule], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__.RouterModule] }); })();
+AppRoutingModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({ type: AppRoutingModule });
+AppRoutingModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({ imports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule.forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_3__.PreloadAllModules }), _angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsetNgModuleScope"](AppRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule] }); })();
 
 
 /***/ }),
@@ -104,12 +296,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 3918);
 /* harmony import */ var _capacitor_splash_screen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @capacitor/splash-screen */ 2239);
 /* harmony import */ var _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @capacitor/status-bar */ 9326);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _services_avatar_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/avatar.service */ 5083);
-/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 3819);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _capacitor_app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @capacitor/app */ 3253);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _services_avatar_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/avatar.service */ 5083);
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 3819);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ 124);
+
 
 
 
@@ -122,104 +316,104 @@ __webpack_require__.r(__webpack_exports__);
 
 function AppComponent_ion_menu_2_ion_avatar_5_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-avatar");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](1, "ion-img", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "ion-avatar");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](1, "ion-img", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
   }
   if (rf & 2) {
-    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("src", ctx_r1.user.photoURL);
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("src", ctx_r1.user.photoURL);
   }
 }
 function AppComponent_ion_menu_2_ion_avatar_6_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-avatar");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](1, "ion-img", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "ion-avatar");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](1, "ion-img", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
   }
 }
 function AppComponent_ion_menu_2_ion_item_12_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-item")(1, "ion-avatar");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](2, "ion-skeleton-text", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](3, "ion-label", 7)(4, "h1");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](5, "ion-skeleton-text", 12);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](6, "p");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](7, "ion-skeleton-text", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "ion-item")(1, "ion-avatar");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](2, "ion-skeleton-text", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "ion-label", 7)(4, "h1");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](5, "ion-skeleton-text", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](6, "p");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](7, "ion-skeleton-text", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()();
   }
   if (rf & 2) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("animated", true);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("animated", true);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("animated", true);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("animated", true);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("animated", true);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("animated", true);
   }
 }
 function AppComponent_ion_menu_2_ion_menu_toggle_14_Template(rf, ctx) {
   if (rf & 1) {
-    const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-menu-toggle", 14)(1, "ion-item", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function AppComponent_ion_menu_2_ion_menu_toggle_14_Template_ion_item_click_1_listener() {
-      const restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵrestoreView"](_r8);
+    const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "ion-menu-toggle", 14)(1, "ion-item", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AppComponent_ion_menu_2_ion_menu_toggle_14_Template_ion_item_click_1_listener() {
+      const restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r8);
       const p_r5 = restoredCtx.$implicit;
-      const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"](2);
-      return _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵresetView"](ctx_r7.gotoPage(p_r5.url));
+      const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r7.gotoPage(p_r5.url));
     });
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](2, "ion-icon", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](3, "ion-label");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](2, "ion-icon", 16);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "ion-label");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()();
   }
   if (rf & 2) {
     const p_r5 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ios", p_r5.icon)("md", p_r5.icon)("color", p_r5.color);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate"](p_r5.title);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ios", p_r5.icon)("md", p_r5.icon)("color", p_r5.color);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](p_r5.title);
   }
 }
 function AppComponent_ion_menu_2_Template(rf, ctx) {
   if (rf & 1) {
-    const _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-menu", 3)(1, "ion-content")(2, "ion-list", 4)(3, "ion-menu-toggle")(4, "ion-item", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function AppComponent_ion_menu_2_Template_ion_item_click_4_listener() {
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵrestoreView"](_r10);
-      const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"]();
-      return _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵresetView"](ctx_r9.gotoProfile());
+    const _r10 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "ion-menu", 3)(1, "ion-content")(2, "ion-list", 4)(3, "ion-menu-toggle")(4, "ion-item", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AppComponent_ion_menu_2_Template_ion_item_click_4_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r10);
+      const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
+      return _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵresetView"](ctx_r9.gotoProfile());
     });
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](5, AppComponent_ion_menu_2_ion_avatar_5_Template, 2, 1, "ion-avatar", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](6, AppComponent_ion_menu_2_ion_avatar_6_Template, 2, 0, "ion-avatar", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](7, "ion-label", 7)(8, "h1");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](10, "p");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](12, AppComponent_ion_menu_2_ion_item_12_Template, 8, 3, "ion-item", 6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](13, "ion-list");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](14, AppComponent_ion_menu_2_ion_menu_toggle_14_Template, 5, 4, "ion-menu-toggle", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](5, AppComponent_ion_menu_2_ion_avatar_5_Template, 2, 1, "ion-avatar", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](6, AppComponent_ion_menu_2_ion_avatar_6_Template, 2, 0, "ion-avatar", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "ion-label", 7)(8, "h1");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](10, "p");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](12, AppComponent_ion_menu_2_ion_item_12_Template, 8, 3, "ion-item", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](13, "ion-list");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](14, AppComponent_ion_menu_2_ion_menu_toggle_14_Template, 5, 4, "ion-menu-toggle", 8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()()();
   }
   if (rf & 2) {
-    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", ctx_r0.user.photoURL);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", !ctx_r0.user.photoURL);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate"](ctx_r0.user.displayName || "Unknown");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate"](ctx_r0.user.phoneNumber || "987654687976");
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", !ctx_r0.user);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngForOf", ctx_r0.appPages);
+    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx_r0.user.photoURL);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", !ctx_r0.user.photoURL);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](ctx_r0.user.displayName || "Unknown");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](ctx_r0.user.phoneNumber || "987654687976");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", !ctx_r0.user);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", ctx_r0.appPages);
   }
 }
 class AppComponent {
@@ -261,6 +455,7 @@ class AppComponent {
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       _this.platform.ready().then( /*#__PURE__*/function () {
         var _ref = (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (readySource) {
+          _this.initializeBackButtonCustomHandler();
           _this.auth.onAuthStateChanged( /*#__PURE__*/function () {
             var _ref2 = (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (user) {
               _this.user = user;
@@ -283,6 +478,19 @@ class AppComponent {
         };
       }());
     })();
+  }
+  initializeBackButtonCustomHandler() {
+    _capacitor_app__WEBPACK_IMPORTED_MODULE_3__.App.addListener('backButton', ({
+      canGoBack
+    }) => {
+      if (!canGoBack) {
+        if (confirm('Are you sure you want to exit the app?')) {
+          _capacitor_app__WEBPACK_IMPORTED_MODULE_3__.App.exitApp();
+        }
+      } else {
+        window.history.back();
+      }
+    });
   }
   LoadSplash() {
     var _this2 = this;
@@ -319,9 +527,9 @@ class AppComponent {
   }
 }
 AppComponent.ɵfac = function AppComponent_Factory(t) {
-  return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_avatar_service__WEBPACK_IMPORTED_MODULE_3__.AvatarService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__.Auth), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_6__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_6__.NavController));
+  return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_services_avatar_service__WEBPACK_IMPORTED_MODULE_4__.AvatarService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_6__.Auth), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_7__.Platform), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_7__.NavController));
 };
-AppComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({
+AppComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({
   type: AppComponent,
   selectors: [["app-root"]],
   decls: 4,
@@ -329,17 +537,17 @@ AppComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵ
   consts: [["contentId", "main-content"], ["contentId", "main-content", "type", "overlay", 4, "ngIf"], ["id", "main-content"], ["contentId", "main-content", "type", "overlay"], ["id", "inbox-list", "lines", "none"], [3, "click"], [4, "ngIf"], [1, "ion-margin"], ["auto-hide", "false", 4, "ngFor", "ngForOf"], [3, "src"], ["src", "../assets/icon/favicon.png"], [3, "animated"], [2, "width", "100px", 3, "animated"], [2, "width", "80px", 3, "animated"], ["auto-hide", "false"], ["lines", "none", "detail", "false", "routerLinkActive", "selected", 1, "allItems", 3, "click"], ["slot", "start", 3, "ios", "md", "color"]],
   template: function AppComponent_Template(rf, ctx) {
     if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-app")(1, "ion-split-pane", 0);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](2, AppComponent_ion_menu_2_Template, 15, 6, "ion-menu", 1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](3, "ion-router-outlet", 2);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "ion-app")(1, "ion-split-pane", 0);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](2, AppComponent_ion_menu_2_Template, 15, 6, "ion-menu", 1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](3, "ion-router-outlet", 2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]()();
     }
     if (rf & 2) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](2);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", ctx.user);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.user);
     }
   },
-  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_7__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_7__.NgIf, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonApp, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonAvatar, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonIcon, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonImg, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonItem, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonLabel, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonList, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonMenu, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonMenuToggle, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonSkeletonText, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonSplitPane, _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonRouterOutlet, _angular_router__WEBPACK_IMPORTED_MODULE_8__.RouterLinkActive],
+  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_8__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_8__.NgIf, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonApp, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonAvatar, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonIcon, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonImg, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonItem, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonLabel, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonList, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonMenu, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonMenuToggle, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonSkeletonText, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonSplitPane, _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.IonRouterOutlet, _angular_router__WEBPACK_IMPORTED_MODULE_9__.RouterLinkActive],
   styles: ["ion-menu[_ngcontent-%COMP%]   ion-content[_ngcontent-%COMP%] {\n  --background: var(--ion-item-background, var(--ion-background-color, #fff));\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-content[_ngcontent-%COMP%] {\n  --padding-start: 8px;\n  --padding-end: 8px;\n  --padding-top: 20px;\n  --padding-bottom: 20px;\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-list[_ngcontent-%COMP%] {\n  padding: 20px 0;\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-note[_ngcontent-%COMP%] {\n  margin-bottom: 30px;\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-list-header[_ngcontent-%COMP%], ion-menu.md[_ngcontent-%COMP%]   ion-note[_ngcontent-%COMP%] {\n  padding-left: 10px;\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-list#inbox-list[_ngcontent-%COMP%] {\n  border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-list#inbox-list[_ngcontent-%COMP%]   ion-list-header[_ngcontent-%COMP%] {\n  font-size: 22px;\n  min-height: 70px;\n  margin-bottom: 16px;\n}\n\n.allItems[_ngcontent-%COMP%] {\n  margin-top: 8px;\n  font-size: 19px;\n}\n\n.allItems[_ngcontent-%COMP%]   ion-icon[_ngcontent-%COMP%] {\n  font-size: 29px;\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-list#labels-list[_ngcontent-%COMP%]   ion-list-header[_ngcontent-%COMP%] {\n  font-size: 20px;\n  margin-bottom: 90px;\n  color: #757575;\n  min-height: 20px;\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-item[_ngcontent-%COMP%] {\n  --padding-start: 10px;\n  --padding-end: 10px;\n  border-radius: 4px;\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-item.selected[_ngcontent-%COMP%] {\n  --background: rgba(var(--ion-color-primary-rgb), 0.14);\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-item.selected[_ngcontent-%COMP%]   ion-icon[_ngcontent-%COMP%] {\n  color: var(--ion-color-primary);\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-item[_ngcontent-%COMP%]   ion-icon[_ngcontent-%COMP%] {\n  color: #616e7e;\n}\n\nion-menu.md[_ngcontent-%COMP%]   ion-item[_ngcontent-%COMP%]   ion-label[_ngcontent-%COMP%] {\n  font-weight: 500;\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-content[_ngcontent-%COMP%] {\n  --padding-bottom: 20px;\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-list[_ngcontent-%COMP%] {\n  padding: 20px 0 0 0;\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-note[_ngcontent-%COMP%] {\n  line-height: 24px;\n  margin-bottom: 20px;\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-item[_ngcontent-%COMP%] {\n  --padding-start: 16px;\n  --padding-end: 16px;\n  --min-height: 50px;\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-item.selected[_ngcontent-%COMP%]   ion-icon[_ngcontent-%COMP%] {\n  color: var(--ion-color-primary);\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-item[_ngcontent-%COMP%]   ion-icon[_ngcontent-%COMP%] {\n  font-size: 24px;\n  color: #73849a;\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-list#labels-list[_ngcontent-%COMP%]   ion-list-header[_ngcontent-%COMP%] {\n  margin-bottom: 8px;\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-list-header[_ngcontent-%COMP%], ion-menu.ios[_ngcontent-%COMP%]   ion-note[_ngcontent-%COMP%] {\n  padding-left: 16px;\n  padding-right: 16px;\n}\n\nion-menu.ios[_ngcontent-%COMP%]   ion-note[_ngcontent-%COMP%] {\n  margin-bottom: 8px;\n}\n\nion-note[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 16px;\n  color: var(--ion-color-medium-shade);\n}\n\nion-item.selected[_ngcontent-%COMP%] {\n  --color: var(--ion-color-primary);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuc2NzcyIsIi4uXFwuLlxcLi5cXC4uXFwuLlxcSU9OSUMlMjBQUk9KRUNUU1xcbXlSaWRlci0yMDI0MDUyNFQwNDA1MDVaLTAwMVxcbXlSaWRlclxcc3JjXFxhcHBcXGFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLDJFQUFBO0FDQ0o7O0FERUU7RUFDRSxvQkFBQTtFQUNBLGtCQUFBO0VBQ0EsbUJBQUE7RUFDQSxzQkFBQTtBQ0NKOztBREVFO0VBQ0UsZUFBQTtBQ0NKOztBREVFO0VBQ0UsbUJBQUE7QUNDSjs7QURFRTs7RUFFRSxrQkFBQTtBQ0NKOztBREVFO0VBQ0UsMkRBQUE7QUNDSjs7QURFRTtFQUNFLGVBQUE7RUFDQSxnQkFBQTtFQUNBLG1CQUFBO0FDQ0o7O0FERUU7RUFDQyxlQUFBO0VBQ0EsZUFBQTtBQ0NIOztBREFHO0VBQ0MsZUFBQTtBQ0VKOztBREVFO0VBQ0UsZUFBQTtFQUVBLG1CQUFBO0VBRUEsY0FBQTtFQUVBLGdCQUFBO0FDRko7O0FES0U7RUFDRSxxQkFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7QUNGSjs7QURLRTtFQUNFLHNEQUFBO0FDRko7O0FES0U7RUFDRSwrQkFBQTtBQ0ZKOztBREtFO0VBQ0UsY0FBQTtBQ0ZKOztBREtFO0VBQ0UsZ0JBQUE7QUNGSjs7QURLRTtFQUNFLHNCQUFBO0FDRko7O0FES0U7RUFDRSxtQkFBQTtBQ0ZKOztBREtFO0VBQ0UsaUJBQUE7RUFDQSxtQkFBQTtBQ0ZKOztBREtFO0VBQ0UscUJBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0FDRko7O0FES0U7RUFDRSwrQkFBQTtBQ0ZKOztBREtFO0VBQ0UsZUFBQTtFQUNBLGNBQUE7QUNGSjs7QURLRTtFQUNFLGtCQUFBO0FDRko7O0FES0U7O0VBRUUsa0JBQUE7RUFDQSxtQkFBQTtBQ0ZKOztBREtFO0VBQ0Usa0JBQUE7QUNGSjs7QURLRTtFQUNFLHFCQUFBO0VBQ0EsZUFBQTtFQUVBLG9DQUFBO0FDSEo7O0FETUU7RUFDRSxpQ0FBQTtBQ0hKIiwiZmlsZSI6ImFwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tZW51IGlvbi1jb250ZW50IHtcbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1pdGVtLWJhY2tncm91bmQsIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmKSk7XG4gIH1cbiAgXG4gIGlvbi1tZW51Lm1kIGlvbi1jb250ZW50IHtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDhweDtcbiAgICAtLXBhZGRpbmctZW5kOiA4cHg7XG4gICAgLS1wYWRkaW5nLXRvcDogMjBweDtcbiAgICAtLXBhZGRpbmctYm90dG9tOiAyMHB4O1xuICB9XG4gIFxuICBpb24tbWVudS5tZCBpb24tbGlzdCB7XG4gICAgcGFkZGluZzogMjBweCAwO1xuICB9XG4gIFxuICBpb24tbWVudS5tZCBpb24tbm90ZSB7XG4gICAgbWFyZ2luLWJvdHRvbTogMzBweDtcbiAgfVxuICBcbiAgaW9uLW1lbnUubWQgaW9uLWxpc3QtaGVhZGVyLFxuICBpb24tbWVudS5tZCBpb24tbm90ZSB7XG4gICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xuICB9XG4gIFxuICBpb24tbWVudS5tZCBpb24tbGlzdCNpbmJveC1saXN0IHtcbiAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgdmFyKC0taW9uLWNvbG9yLXN0ZXAtMTUwLCAjZDdkOGRhKTtcbiAgfVxuICBcbiAgaW9uLW1lbnUubWQgaW9uLWxpc3QjaW5ib3gtbGlzdCBpb24tbGlzdC1oZWFkZXIge1xuICAgIGZvbnQtc2l6ZTogMjJweDtcbiAgICBtaW4taGVpZ2h0OiA3MHB4O1xuICAgIG1hcmdpbi1ib3R0b206IDE2cHg7XG4gIH1cblxuICAuYWxsSXRlbXN7XG4gICBtYXJnaW4tdG9wOiA4cHg7XG4gICBmb250LXNpemU6IDE5cHg7XG4gICBpb24taWNvbntcbiAgICBmb250LXNpemU6IDI5cHg7XG4gICB9XG4gIH1cbiAgXG4gIGlvbi1tZW51Lm1kIGlvbi1saXN0I2xhYmVscy1saXN0IGlvbi1saXN0LWhlYWRlciB7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICBcbiAgICBtYXJnaW4tYm90dG9tOiA5MHB4O1xuICBcbiAgICBjb2xvcjogIzc1NzU3NTtcblxuICAgIG1pbi1oZWlnaHQ6IDIwcHg7XG4gIH1cbiAgXG4gIGlvbi1tZW51Lm1kIGlvbi1pdGVtIHtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDEwcHg7XG4gICAgLS1wYWRkaW5nLWVuZDogMTBweDtcbiAgICBib3JkZXItcmFkaXVzOiA0cHg7XG4gIH1cbiAgXG4gIGlvbi1tZW51Lm1kIGlvbi1pdGVtLnNlbGVjdGVkIHtcbiAgICAtLWJhY2tncm91bmQ6IHJnYmEodmFyKC0taW9uLWNvbG9yLXByaW1hcnktcmdiKSwgMC4xNCk7XG4gIH1cbiAgXG4gIGlvbi1tZW51Lm1kIGlvbi1pdGVtLnNlbGVjdGVkIGlvbi1pY29uIHtcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xuICB9XG4gIFxuICBpb24tbWVudS5tZCBpb24taXRlbSBpb24taWNvbiB7XG4gICAgY29sb3I6ICM2MTZlN2U7XG4gIH1cbiAgXG4gIGlvbi1tZW51Lm1kIGlvbi1pdGVtIGlvbi1sYWJlbCB7XG4gICAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgfVxuICBcbiAgaW9uLW1lbnUuaW9zIGlvbi1jb250ZW50IHtcbiAgICAtLXBhZGRpbmctYm90dG9tOiAyMHB4O1xuICB9XG4gIFxuICBpb24tbWVudS5pb3MgaW9uLWxpc3Qge1xuICAgIHBhZGRpbmc6IDIwcHggMCAwIDA7XG4gIH1cbiAgXG4gIGlvbi1tZW51LmlvcyBpb24tbm90ZSB7XG4gICAgbGluZS1oZWlnaHQ6IDI0cHg7XG4gICAgbWFyZ2luLWJvdHRvbTogMjBweDtcbiAgfVxuICBcbiAgaW9uLW1lbnUuaW9zIGlvbi1pdGVtIHtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDE2cHg7XG4gICAgLS1wYWRkaW5nLWVuZDogMTZweDtcbiAgICAtLW1pbi1oZWlnaHQ6IDUwcHg7XG4gIH1cbiAgXG4gIGlvbi1tZW51LmlvcyBpb24taXRlbS5zZWxlY3RlZCBpb24taWNvbiB7XG4gICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KTtcbiAgfVxuICBcbiAgaW9uLW1lbnUuaW9zIGlvbi1pdGVtIGlvbi1pY29uIHtcbiAgICBmb250LXNpemU6IDI0cHg7XG4gICAgY29sb3I6ICM3Mzg0OWE7XG4gIH1cbiAgXG4gIGlvbi1tZW51LmlvcyBpb24tbGlzdCNsYWJlbHMtbGlzdCBpb24tbGlzdC1oZWFkZXIge1xuICAgIG1hcmdpbi1ib3R0b206IDhweDtcbiAgfVxuICBcbiAgaW9uLW1lbnUuaW9zIGlvbi1saXN0LWhlYWRlcixcbiAgaW9uLW1lbnUuaW9zIGlvbi1ub3RlIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDE2cHg7XG4gICAgcGFkZGluZy1yaWdodDogMTZweDtcbiAgfVxuICBcbiAgaW9uLW1lbnUuaW9zIGlvbi1ub3RlIHtcbiAgICBtYXJnaW4tYm90dG9tOiA4cHg7XG4gIH1cbiAgXG4gIGlvbi1ub3RlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICBcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLW1lZGl1bS1zaGFkZSk7XG4gIH1cbiAgXG4gIGlvbi1pdGVtLnNlbGVjdGVkIHtcbiAgICAtLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG4gIH0iLCJpb24tbWVudSBpb24tY29udGVudCB7XG4gIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWl0ZW0tYmFja2dyb3VuZCwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpKTtcbn1cblxuaW9uLW1lbnUubWQgaW9uLWNvbnRlbnQge1xuICAtLXBhZGRpbmctc3RhcnQ6IDhweDtcbiAgLS1wYWRkaW5nLWVuZDogOHB4O1xuICAtLXBhZGRpbmctdG9wOiAyMHB4O1xuICAtLXBhZGRpbmctYm90dG9tOiAyMHB4O1xufVxuXG5pb24tbWVudS5tZCBpb24tbGlzdCB7XG4gIHBhZGRpbmc6IDIwcHggMDtcbn1cblxuaW9uLW1lbnUubWQgaW9uLW5vdGUge1xuICBtYXJnaW4tYm90dG9tOiAzMHB4O1xufVxuXG5pb24tbWVudS5tZCBpb24tbGlzdC1oZWFkZXIsXG5pb24tbWVudS5tZCBpb24tbm90ZSB7XG4gIHBhZGRpbmctbGVmdDogMTBweDtcbn1cblxuaW9uLW1lbnUubWQgaW9uLWxpc3QjaW5ib3gtbGlzdCB7XG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCB2YXIoLS1pb24tY29sb3Itc3RlcC0xNTAsICNkN2Q4ZGEpO1xufVxuXG5pb24tbWVudS5tZCBpb24tbGlzdCNpbmJveC1saXN0IGlvbi1saXN0LWhlYWRlciB7XG4gIGZvbnQtc2l6ZTogMjJweDtcbiAgbWluLWhlaWdodDogNzBweDtcbiAgbWFyZ2luLWJvdHRvbTogMTZweDtcbn1cblxuLmFsbEl0ZW1zIHtcbiAgbWFyZ2luLXRvcDogOHB4O1xuICBmb250LXNpemU6IDE5cHg7XG59XG4uYWxsSXRlbXMgaW9uLWljb24ge1xuICBmb250LXNpemU6IDI5cHg7XG59XG5cbmlvbi1tZW51Lm1kIGlvbi1saXN0I2xhYmVscy1saXN0IGlvbi1saXN0LWhlYWRlciB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgbWFyZ2luLWJvdHRvbTogOTBweDtcbiAgY29sb3I6ICM3NTc1NzU7XG4gIG1pbi1oZWlnaHQ6IDIwcHg7XG59XG5cbmlvbi1tZW51Lm1kIGlvbi1pdGVtIHtcbiAgLS1wYWRkaW5nLXN0YXJ0OiAxMHB4O1xuICAtLXBhZGRpbmctZW5kOiAxMHB4O1xuICBib3JkZXItcmFkaXVzOiA0cHg7XG59XG5cbmlvbi1tZW51Lm1kIGlvbi1pdGVtLnNlbGVjdGVkIHtcbiAgLS1iYWNrZ3JvdW5kOiByZ2JhKHZhcigtLWlvbi1jb2xvci1wcmltYXJ5LXJnYiksIDAuMTQpO1xufVxuXG5pb24tbWVudS5tZCBpb24taXRlbS5zZWxlY3RlZCBpb24taWNvbiB7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG59XG5cbmlvbi1tZW51Lm1kIGlvbi1pdGVtIGlvbi1pY29uIHtcbiAgY29sb3I6ICM2MTZlN2U7XG59XG5cbmlvbi1tZW51Lm1kIGlvbi1pdGVtIGlvbi1sYWJlbCB7XG4gIGZvbnQtd2VpZ2h0OiA1MDA7XG59XG5cbmlvbi1tZW51LmlvcyBpb24tY29udGVudCB7XG4gIC0tcGFkZGluZy1ib3R0b206IDIwcHg7XG59XG5cbmlvbi1tZW51LmlvcyBpb24tbGlzdCB7XG4gIHBhZGRpbmc6IDIwcHggMCAwIDA7XG59XG5cbmlvbi1tZW51LmlvcyBpb24tbm90ZSB7XG4gIGxpbmUtaGVpZ2h0OiAyNHB4O1xuICBtYXJnaW4tYm90dG9tOiAyMHB4O1xufVxuXG5pb24tbWVudS5pb3MgaW9uLWl0ZW0ge1xuICAtLXBhZGRpbmctc3RhcnQ6IDE2cHg7XG4gIC0tcGFkZGluZy1lbmQ6IDE2cHg7XG4gIC0tbWluLWhlaWdodDogNTBweDtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1pdGVtLnNlbGVjdGVkIGlvbi1pY29uIHtcbiAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KTtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1pdGVtIGlvbi1pY29uIHtcbiAgZm9udC1zaXplOiAyNHB4O1xuICBjb2xvcjogIzczODQ5YTtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1saXN0I2xhYmVscy1saXN0IGlvbi1saXN0LWhlYWRlciB7XG4gIG1hcmdpbi1ib3R0b206IDhweDtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1saXN0LWhlYWRlcixcbmlvbi1tZW51LmlvcyBpb24tbm90ZSB7XG4gIHBhZGRpbmctbGVmdDogMTZweDtcbiAgcGFkZGluZy1yaWdodDogMTZweDtcbn1cblxuaW9uLW1lbnUuaW9zIGlvbi1ub3RlIHtcbiAgbWFyZ2luLWJvdHRvbTogOHB4O1xufVxuXG5pb24tbm90ZSB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgZm9udC1zaXplOiAxNnB4O1xuICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLW1lZGl1bS1zaGFkZSk7XG59XG5cbmlvbi1pdGVtLnNlbGVjdGVkIHtcbiAgLS1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xufSJdfQ== */"]
 });
 
@@ -362,12 +570,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.component */ 5041);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app-routing.module */ 158);
-/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/fire/app */ 9150);
+/* harmony import */ var _angular_fire_app__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/fire/app */ 9150);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../environments/environment */ 2340);
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/fire/auth */ 7759);
-/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/fire/firestore */ 6466);
-/* harmony import */ var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/fire/storage */ 2111);
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/fire/firestore */ 6466);
+/* harmony import */ var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/fire/storage */ 2111);
 /* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @capacitor/core */ 6549);
 /* harmony import */ var firebase_auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! firebase/auth */ 6818);
 /* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! firebase/app */ 2779);
@@ -376,11 +584,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _googlemaps_google_maps_services_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @googlemaps/google-maps-services-js */ 7614);
 /* harmony import */ var _googlemaps_google_maps_services_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_googlemaps_google_maps_services_js__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _autocomplete_autocomplete_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./autocomplete/autocomplete.component */ 5860);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _angular_service_worker__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/service-worker */ 3769);
 /* harmony import */ var _country_search_modal_country_search_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./country-search-modal/country-search-modal.component */ 9568);
-/* harmony import */ var _bot101_capacitor_paystack_plugin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @bot101/capacitor-paystack-plugin */ 8445);
-/* harmony import */ var _enroute_chat_enroute_chat_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./enroute-chat/enroute-chat.component */ 5635);
+/* harmony import */ var _enroute_chat_enroute_chat_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./enroute-chat/enroute-chat.component */ 5635);
+/* harmony import */ var _add_card_add_card_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./add-card/add-card.component */ 671);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 2560);
 
 
@@ -417,35 +625,39 @@ class AppModule {
 AppModule.ɵfac = function AppModule_Factory(t) { return new (t || AppModule)(); };
 AppModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent] });
 AppModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineInjector"]({ providers: [{ provide: _angular_router__WEBPACK_IMPORTED_MODULE_13__.RouteReuseStrategy, useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.IonicRouteStrategy }, _angular_fire_auth__WEBPACK_IMPORTED_MODULE_15__.GoogleAuthProvider,
-        _bot101_capacitor_paystack_plugin__WEBPACK_IMPORTED_MODULE_10__.PaystackPlugin, _angular_fire_auth__WEBPACK_IMPORTED_MODULE_15__.FacebookAuthProvider, _googlemaps_google_maps_services_js__WEBPACK_IMPORTED_MODULE_7__.Client], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__.BrowserModule,
+        _angular_fire_auth__WEBPACK_IMPORTED_MODULE_15__.FacebookAuthProvider, _googlemaps_google_maps_services_js__WEBPACK_IMPORTED_MODULE_7__.Client], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__.BrowserModule,
         ng_otp_input__WEBPACK_IMPORTED_MODULE_17__.NgOtpInputModule,
         _angular_forms__WEBPACK_IMPORTED_MODULE_18__.FormsModule,
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_19__.HttpClientModule,
+        _angular_fire_storage__WEBPACK_IMPORTED_MODULE_19__.StorageModule,
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_20__.HttpClientModule,
         _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.IonicModule.forRoot(),
         _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule,
-        (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_20__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_20__.initializeApp)(_environments_environment__WEBPACK_IMPORTED_MODULE_2__.environment.firebase)),
-        (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_21__.provideAuth)(() => {
+        _angular_forms__WEBPACK_IMPORTED_MODULE_18__.ReactiveFormsModule,
+        (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_21__.provideFirebaseApp)(() => (0,_angular_fire_app__WEBPACK_IMPORTED_MODULE_21__.initializeApp)(_environments_environment__WEBPACK_IMPORTED_MODULE_2__.environment.firebase)),
+        (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_22__.provideAuth)(() => {
             if (_capacitor_core__WEBPACK_IMPORTED_MODULE_3__.Capacitor.isNativePlatform()) {
                 return (0,firebase_auth__WEBPACK_IMPORTED_MODULE_4__.initializeAuth)((0,firebase_app__WEBPACK_IMPORTED_MODULE_5__.getApp)(), {
                     persistence: firebase_auth__WEBPACK_IMPORTED_MODULE_4__.indexedDBLocalPersistence,
                 });
             }
             else {
-                return (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_21__.getAuth)();
+                return (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_22__.getAuth)();
             }
         }),
-        (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_22__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_22__.getFirestore)()),
-        (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_23__.provideStorage)(() => (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_23__.getStorage)()),
+        (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_23__.provideFirestore)(() => (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_23__.getFirestore)()),
+        (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_19__.provideStorage)(() => (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_19__.getStorage)()),
         _angular_service_worker__WEBPACK_IMPORTED_MODULE_24__.ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_2__.environment.production,
             // Register the ServiceWorker as soon as the application is stable
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
         })] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent, _otp_otp_component__WEBPACK_IMPORTED_MODULE_6__.OtpComponent, _autocomplete_autocomplete_component__WEBPACK_IMPORTED_MODULE_8__.AutocompleteComponent, _country_search_modal_country_search_modal_component__WEBPACK_IMPORTED_MODULE_9__.CountrySearchModalComponent, _enroute_chat_enroute_chat_component__WEBPACK_IMPORTED_MODULE_11__.EnrouteChatComponent], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__.BrowserModule,
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent, _otp_otp_component__WEBPACK_IMPORTED_MODULE_6__.OtpComponent, _autocomplete_autocomplete_component__WEBPACK_IMPORTED_MODULE_8__.AutocompleteComponent, _country_search_modal_country_search_modal_component__WEBPACK_IMPORTED_MODULE_9__.CountrySearchModalComponent, _enroute_chat_enroute_chat_component__WEBPACK_IMPORTED_MODULE_10__.EnrouteChatComponent, _add_card_add_card_component__WEBPACK_IMPORTED_MODULE_11__.AddCardComponent], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__.BrowserModule,
         ng_otp_input__WEBPACK_IMPORTED_MODULE_17__.NgOtpInputModule,
         _angular_forms__WEBPACK_IMPORTED_MODULE_18__.FormsModule,
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_19__.HttpClientModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.IonicModule, _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_fire_app__WEBPACK_IMPORTED_MODULE_20__.FirebaseAppModule, _angular_fire_auth__WEBPACK_IMPORTED_MODULE_21__.AuthModule, _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_22__.FirestoreModule, _angular_fire_storage__WEBPACK_IMPORTED_MODULE_23__.StorageModule, _angular_service_worker__WEBPACK_IMPORTED_MODULE_24__.ServiceWorkerModule] }); })();
+        _angular_fire_storage__WEBPACK_IMPORTED_MODULE_19__.StorageModule,
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_20__.HttpClientModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_14__.IonicModule, _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule,
+        _angular_forms__WEBPACK_IMPORTED_MODULE_18__.ReactiveFormsModule, _angular_fire_app__WEBPACK_IMPORTED_MODULE_21__.FirebaseAppModule, _angular_fire_auth__WEBPACK_IMPORTED_MODULE_22__.AuthModule, _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_23__.FirestoreModule, _angular_fire_storage__WEBPACK_IMPORTED_MODULE_19__.StorageModule, _angular_service_worker__WEBPACK_IMPORTED_MODULE_24__.ServiceWorkerModule] }); })();
 
 
 /***/ }),
@@ -857,6 +1069,7 @@ function CountrySearchModalComponent_div_10_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](country_r1.name);
 } }
+//llZ1NBxrJnSEkUZG
 class CountrySearchModalComponent {
     constructor(modalCtrl) {
         this.modalCtrl = modalCtrl;
@@ -1154,6 +1367,88 @@ EnrouteChatComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE
 
 /***/ }),
 
+/***/ 7534:
+/*!***********************************************!*\
+  !*** ./src/app/guards/rider-profile.guard.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RiderProfileGuard": () => (/* binding */ RiderProfileGuard)
+/* harmony export */ });
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 4383);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ 4139);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 9095);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ 6942);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 7418);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _services_avatar_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/avatar.service */ 5083);
+
+
+
+
+
+
+
+
+class RiderProfileGuard {
+    constructor(auth, router, avatar) {
+        this.auth = auth;
+        this.router = router;
+        this.avatar = avatar;
+    }
+    canActivate() {
+        return (0,rxjs__WEBPACK_IMPORTED_MODULE_1__.from)(new Promise((resolve) => {
+            (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.onAuthStateChanged)(this.auth, (user) => {
+                console.log('Auth state changed, user:', user);
+                resolve(user);
+            });
+        })).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.switchMap)((user) => {
+            if (!user) {
+                console.log('User not authenticated, redirecting to login.');
+                this.router.navigate(['login']);
+                return (0,rxjs__WEBPACK_IMPORTED_MODULE_4__.of)(false);
+            }
+            console.log('Authenticated user found:', user);
+            return (0,rxjs__WEBPACK_IMPORTED_MODULE_1__.from)(this.avatar.getUserType(user.uid)).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)((userType) => {
+                if (userType === 'driver') {
+                    console.log('User is a driver, redirecting to login.');
+                    this.signOutAndRedirect();
+                    return false;
+                }
+                else if (!user.displayName || !user.email || !user.photoURL) {
+                    console.log('User profile incomplete, redirecting to details.');
+                    this.router.navigate(['details']);
+                    return false;
+                }
+                console.log('User authenticated and profile complete, allowing access.');
+                return true;
+            }), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.catchError)((error) => {
+                console.error('Error fetching user type:', error);
+                this.router.navigate(['network']);
+                return (0,rxjs__WEBPACK_IMPORTED_MODULE_4__.of)(false);
+            }));
+        }));
+    }
+    signOutAndRedirect() {
+        this.auth.signOut().then(() => {
+            this.router.navigate(['login']);
+        }).catch((error) => {
+            console.error('Error signing out:', error);
+            this.router.navigate(['login']);
+        });
+    }
+}
+RiderProfileGuard.ɵfac = function RiderProfileGuard_Factory(t) { return new (t || RiderProfileGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.Auth), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_services_avatar_service__WEBPACK_IMPORTED_MODULE_0__.AvatarService)); };
+RiderProfileGuard.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjectable"]({ token: RiderProfileGuard, factory: RiderProfileGuard.ɵfac, providedIn: 'root' });
+
+
+/***/ }),
+
 /***/ 3096:
 /*!**************************************!*\
   !*** ./src/app/otp/otp.component.ts ***!
@@ -1184,7 +1479,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const _c0 = function () {
+const _c0 = ["otpInput"];
+function OtpComponent_ion_label_26_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-label");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](1, "Continue");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
+  }
+}
+function OtpComponent_ion_icon_27_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](0, "ion-icon", 16);
+  }
+}
+function OtpComponent_ion_progress_bar_28_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](0, "ion-progress-bar", 17);
+  }
+}
+const _c1 = function () {
   return {
     "width": "70%",
     "height": "70%",
@@ -1192,13 +1505,15 @@ const _c0 = function () {
   };
 };
 class OtpComponent {
-  constructor(modalCtrl, overlay, toastCtrl, auth, router, avatar) {
+  constructor(modalCtrl, overlay, toastCtrl, auth, router, avatar, cdr // Inject ChangeDetectorRef
+  ) {
     this.modalCtrl = modalCtrl;
     this.overlay = overlay;
     this.toastCtrl = toastCtrl;
     this.auth = auth;
     this.router = router;
     this.avatar = avatar;
+    this.cdr = cdr;
     this.isLoading = false;
     this.config = {
       length: 6,
@@ -1207,6 +1522,17 @@ class OtpComponent {
   }
   ngOnInit() {
     console.log(this.phone);
+    this.startCountdown(60); // Start a 60-second countdown
+  }
+  ngAfterViewInit() {
+    // Set the OTP input value after the view is initialized
+    if (this.defaultOtp) {
+      this.setOtp(this.defaultOtp);
+      this.cdr.detectChanges(); // Manually trigger change detection
+    }
+  }
+  ngOnDestroy() {
+    clearInterval(this.countdownInterval); // Clear the interval when the component is destroyed
   }
   onOtpChange(event) {
     this.otp = event;
@@ -1221,6 +1547,7 @@ class OtpComponent {
       try {
         const response = yield _this.auth.signInWithPhoneNumber(_this.countryCode + _this.phone);
         console.log(response);
+        _this.startCountdown(60); // Restart the countdown when resending the OTP
       } catch (e) {
         console.log(e);
       }
@@ -1230,28 +1557,72 @@ class OtpComponent {
     var _this2 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
-        _this2.overlay.showLoader("");
+        _this2.approve2 = true;
         const response = yield _this2.auth.verifyOtp(_this2.otp);
+        _this2.approve2 = false;
         _this2.modalCtrl.dismiss(response);
       } catch (e) {
         console.log(e);
+        _this2.clearOtpInput(); // Clear the OTP input using the new method
+        _this2.overlay.hideLoader(); // Stop the loader
+        _this2.approve2 = false;
+        _this2.showToast('Incorrect OTP. Please try again.'); // Show toast message
       }
     })();
   }
+  showToast(message) {
+    var _this3 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const toast = yield _this3.toastCtrl.create({
+        message: message,
+        duration: 2000,
+        position: 'bottom'
+      });
+      toast.present();
+    })();
+  }
+  startCountdown(seconds) {
+    this.countdown = seconds;
+    clearInterval(this.countdownInterval); // Clear any existing intervals
+    this.countdownInterval = setInterval(() => {
+      this.countdown--;
+      if (this.countdown <= 0) {
+        clearInterval(this.countdownInterval);
+      }
+    }, 1000);
+  }
+  clearOtpInput() {
+    this.otpInput.setValue(''); // Clear the value of ng-otp-input
+    this.otp = ''; // Clear the OTP variable in the component
+  }
+  setOtp(otp) {
+    this.otp = otp;
+    this.otpInput.setValue(otp); // Set the value in the ng-otp-input component
+  }
 }
 OtpComponent.ɵfac = function OtpComponent_Factory(t) {
-  return new (t || OtpComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.ModalController), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_overlay_service__WEBPACK_IMPORTED_MODULE_1__.OverlayService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.ToastController), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_auth_service__WEBPACK_IMPORTED_MODULE_2__.AuthService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_avatar_service__WEBPACK_IMPORTED_MODULE_3__.AvatarService));
+  return new (t || OtpComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.ModalController), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_overlay_service__WEBPACK_IMPORTED_MODULE_1__.OverlayService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_ionic_angular__WEBPACK_IMPORTED_MODULE_5__.ToastController), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_auth_service__WEBPACK_IMPORTED_MODULE_2__.AuthService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_services_avatar_service__WEBPACK_IMPORTED_MODULE_3__.AvatarService), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_4__.ChangeDetectorRef));
 };
 OtpComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineComponent"]({
   type: OtpComponent,
   selectors: [["app-otp"]],
+  viewQuery: function OtpComponent_Query(rf, ctx) {
+    if (rf & 1) {
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵviewQuery"](_c0, 5);
+    }
+    if (rf & 2) {
+      let _t;
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵloadQuery"]()) && (ctx.otpInput = _t.first);
+    }
+  },
   inputs: {
     phone: "phone",
-    countryCode: "countryCode"
+    countryCode: "countryCode",
+    defaultOtp: "defaultOtp"
   },
-  decls: 22,
-  vars: 5,
-  consts: [[1, "ion-no-border", 3, "translucent"], ["slot", "start"], ["color", "primary", 3, "click"], ["slot", "icon-only", "name", "close"], [1, "ion-no-border"], ["lines", "none"], ["align", "center"], ["lines", "none", 1, "ion-margin"], ["align", "center", 1, "ion-padding-top", "ion-padding-bottom"], [3, "ngStyle", "config", "onInputChange"], ["lines", "none", 1, "ion-margin", "ion-padding-top"], ["shape", "round", "size", "large", "expand", "block", "color", "primary", "slot", "start", 3, "click"], ["shape", "round", "size", "large", "expand", "block", "slot", "end", "color", "primary", 3, "disabled", "click"]],
+  decls: 29,
+  vars: 9,
+  consts: [[1, "ion-no-border", 3, "translucent"], ["slot", "start"], ["color", "primary", 3, "click"], ["slot", "icon-only", "name", "close"], [1, "ion-no-border"], ["lines", "none", 1, "ion-padding"], ["align", "center"], ["lines", "none", 1, "ion-margin"], ["align", "center", 1, "ion-padding-top", "ion-padding-bottom"], [3, "ngStyle", "config", "onInputChange"], ["otpInput", ""], ["shape", "round", "fill", "outline", "size", "large", "expand", "block", "color", "primary", "slot", "start", 3, "click"], ["shape", "round", "size", "large", "expand", "block", "slot", "end", "color", "primary", 3, "disabled", "click"], [4, "ngIf"], ["color", "light", "slot", "end", "name", "arrow-forward", 4, "ngIf"], ["color", "light", "type", "indeterminate", 4, "ngIf"], ["color", "light", "slot", "end", "name", "arrow-forward"], ["color", "light", "type", "indeterminate"]],
   template: function OtpComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](0, "ion-header", 0)(1, "ion-toolbar")(2, "ion-buttons", 1)(3, "ion-button", 2);
@@ -1261,38 +1632,51 @@ OtpComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵ
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelement"](4, "ion-icon", 3);
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()();
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](5, "ion-title");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](6, " Back ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](6, "Back");
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](7, "ion-content", 4)(8, "ion-list", 5)(9, "ion-list-header")(10, "ion-label", 6)(11, "h1");
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](12, "Enter Verification Code");
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](13, "ion-item", 7)(14, "ion-label")(15, "div", 8)(16, "ng-otp-input", 9);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](13, "ion-item", 7)(14, "ion-label")(15, "div", 8)(16, "ng-otp-input", 9, 10);
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("onInputChange", function OtpComponent_Template_ng_otp_input_onInputChange_16_listener($event) {
         return ctx.onOtpChange($event);
       });
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](17, "ion-item", 10)(18, "ion-button", 11);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function OtpComponent_Template_ion_button_click_18_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](18, "ion-item", 7)(19, "ion-label")(20, "div", 8)(21, "span");
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](22);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](23, "ion-button", 11);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function OtpComponent_Template_ion_button_click_23_listener() {
         return ctx.resend();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](19, " RESEND OTP ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](24, " Resend OTP ");
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]();
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](20, "ion-button", 12);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function OtpComponent_Template_ion_button_click_20_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementStart"](25, "ion-button", 12);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵlistener"]("click", function OtpComponent_Template_ion_button_click_25_listener() {
         return ctx.verifyOtp();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtext"](21, " Continue ");
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](26, OtpComponent_ion_label_26_Template, 2, 0, "ion-label", 13);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](27, OtpComponent_ion_icon_27_Template, 1, 0, "ion-icon", 14);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtemplate"](28, OtpComponent_ion_progress_bar_28_Template, 1, 0, "ion-progress-bar", 15);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵelementEnd"]()()();
     }
     if (rf & 2) {
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("translucent", true);
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](16);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngStyle", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵpureFunction0"](4, _c0))("config", ctx.config);
-      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](4);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngStyle", _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵpureFunction0"](8, _c1))("config", ctx.config);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](6);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate1"]("", ctx.countdown, " seconds remaining");
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](3);
       _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("disabled", !ctx.otp);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", !ctx.approve2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", !ctx.approve2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", ctx.approve2);
     }
   },
-  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_7__.NgStyle, ng_otp_input__WEBPACK_IMPORTED_MODULE_8__.NgOtpInputComponent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButton, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButtons, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonIcon, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonItem, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonLabel, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonList, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonListHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonTitle, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonToolbar],
+  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_7__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_7__.NgStyle, ng_otp_input__WEBPACK_IMPORTED_MODULE_8__.NgOtpInputComponent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButton, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonButtons, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonContent, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonIcon, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonItem, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonLabel, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonList, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonListHeader, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonProgressBar, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonTitle, _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.IonToolbar],
   styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJvdHAuY29tcG9uZW50LnNjc3MifQ== */"]
 });
 
@@ -1310,9 +1694,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "AuthService": () => (/* binding */ AuthService)
 /* harmony export */ });
 /* harmony import */ var c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 3918);
-/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/fire/auth */ 7759);
-/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/auth */ 7759);
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 2378);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
+
 
 
 
@@ -1320,22 +1706,29 @@ __webpack_require__.r(__webpack_exports__);
 class AuthService {
   constructor(auth) {
     this.auth = auth;
+    this.user$ = new rxjs__WEBPACK_IMPORTED_MODULE_1__.Observable(subscriber => {
+      this.auth.onAuthStateChanged(subscriber);
+    });
   }
+  // Initialize RecaptchaVerifier
   recaptcha() {
-    this.appVerifier = new _angular_fire_auth__WEBPACK_IMPORTED_MODULE_1__.RecaptchaVerifier('sign-in-button', {
+    this.appVerifier = new _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.RecaptchaVerifier('sign-in-button', {
       size: 'invisible',
       callback: response => {
         console.log(response);
       },
-      'expired-callback': () => {}
+      'expired-callback': () => {
+        console.log('Recaptcha expired');
+      }
     }, this.auth);
+    this.appVerifier.render();
   }
   signInWithPhoneNumber(phoneNumber) {
     var _this = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         if (!_this.appVerifier) _this.recaptcha();
-        const confirmationResult = yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.signInWithPhoneNumber)(_this.auth, phoneNumber, _this.appVerifier);
+        const confirmationResult = yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.signInWithPhoneNumber)(_this.auth, phoneNumber, _this.appVerifier);
         _this.confirmationResult = confirmationResult;
         return confirmationResult;
       } catch (e) {
@@ -1343,16 +1736,45 @@ class AuthService {
       }
     })();
   }
-  signInWithGoogle({
-    token
-  }) {
+  get currentUser() {
+    return this.auth.currentUser;
+  }
+  signInWithGoogle() {
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const provider = new _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.GoogleAuthProvider();
+      const auth = (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.getAuth)();
+      return (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.signInWithPopup)(auth, provider);
+    })();
+  }
+  linkGoogleAccount(user) {
     var _this2 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const provider = new _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.GoogleAuthProvider();
       try {
-        const sToken = yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.signInWithCredential)(_this2.auth, token);
-        console.log("its done", sToken);
-      } catch (e) {
-        throw e;
+        const result = yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.signInWithPopup)(_this2.auth, provider);
+        const credential = _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.GoogleAuthProvider.credentialFromResult(result);
+        if (credential) {
+          yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.linkWithCredential)(user, credential);
+        }
+      } catch (error) {
+        if (error.code === 'auth/credential-already-in-use') {
+          console.error('Error during Google sign-in: ', error);
+          if (error.customData && error.customData.email) {
+            const existingSignInMethods = yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.fetchSignInMethodsForEmail)(_this2.auth, error.customData.email);
+            if (existingSignInMethods.includes(_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.GoogleAuthProvider.PROVIDER_ID)) {
+              yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.unlink)(_this2.auth.currentUser, _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.GoogleAuthProvider.PROVIDER_ID);
+              const result = yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.signInWithPopup)(_this2.auth, provider);
+              const credential = _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.GoogleAuthProvider.credentialFromResult(result);
+              if (credential) {
+                yield (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.linkWithCredential)(user, credential);
+              }
+            }
+          } else {
+            console.error('Missing email in error details: ', error);
+          }
+        } else {
+          throw error;
+        }
       }
     })();
   }
@@ -1371,13 +1793,13 @@ class AuthService {
     })();
   }
   logout() {
-    return (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.signOut)(this.auth);
+    return (0,_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.signOut)(this.auth);
   }
 }
 AuthService.ɵfac = function AuthService_Factory(t) {
-  return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__.Auth));
+  return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_3__.Auth));
 };
-AuthService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
+AuthService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
   token: AuthService,
   factory: AuthService.ɵfac,
   providedIn: 'root'
@@ -1397,14 +1819,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "AvatarService": () => (/* binding */ AvatarService)
 /* harmony export */ });
 /* harmony import */ var c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@angular-devkit/build-angular/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 3918);
-/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/fire/firestore */ 6466);
-/* harmony import */ var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/storage */ 2111);
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/firestore */ 6466);
+/* harmony import */ var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/storage */ 2111);
 /* harmony import */ var geofire_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! geofire-common */ 3942);
 /* harmony import */ var geofire_common__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(geofire_common__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 4505);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! uuid */ 2535);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/fire/auth */ 1577);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth.service */ 7556);
+
+
 
 
 
@@ -1417,94 +1843,151 @@ __webpack_require__.r(__webpack_exports__);
 
 class AvatarService {
   constructor(auth, firestore, storage, http, authService) {
+    var _this = this;
     this.auth = auth;
     this.firestore = firestore;
     this.storage = storage;
     this.http = http;
     this.authService = authService;
-    this.auth.onAuthStateChanged(user => {
-      if (user) {
-        this.user = user;
-        this.driverCollection = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(this.firestore, 'Drivers');
-        this.http.get("http://ip-api.com/json").subscribe(res => {
-          console.log('res ', res);
-          this.countryCode = res.countryCode || 'NG';
-        });
-      }
-    });
+    this.driversSubject = new rxjs__WEBPACK_IMPORTED_MODULE_3__.BehaviorSubject([]);
+    this.drivers$ = this.driversSubject.asObservable();
+    this.activeListeners = {};
+    this.auth.onAuthStateChanged( /*#__PURE__*/function () {
+      var _ref = (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (user) {
+        if (user) {
+          _this.user = user;
+          _this.driverCollection = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_this.firestore, 'Drivers');
+          _this.http.get("http://ip-api.com/json").subscribe(res => {
+            console.log('res ', res);
+            _this.countryCode = res.countryCode || 'NG';
+          });
+          yield _this.loadUserProfile();
+        }
+      });
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }());
   }
   bookRide(data) {
     throw new Error('Method not implemented.');
   }
-  getUserProfile(user) {
-    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(this.firestore, `Riders/${user.uid}`);
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.docData)(userDocRef);
-  }
-  //Request a ride with your details and remove the driver from list of available drivers to avoid another request from someone else
-  RequestRideWithRiderDetails(user_Loc_coord, des, loco, user_Des_coord, ID, price, cash) {
-    var _this = this;
+  loadUserProfile() {
+    var _this2 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const profileDoc = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.getDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this2.firestore, 'Riders', _this2.user.uid));
+      if (profileDoc.exists()) {
+        _this2.profile = profileDoc.data();
+      } else {
+        throw new Error('User profile not found');
+      }
+    })();
+  }
+  getCards() {
+    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(this.firestore, `Riders/${this.auth.currentUser.uid}/Cards`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collectionData)(userDocRef);
+  }
+  getUserProfile(user) {
+    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(this.firestore, `Riders/${user.uid}`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.docData)(userDocRef);
+  }
+  getUserType(uid) {
+    var _this3 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this3.firestore, `Drivers/${uid}`);
+      const userDoc = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.getDoc)(userDocRef);
+      if (userDoc.exists()) {
+        return 'driver';
+      }
+      return null;
+    })();
+  }
+  RequestRideWithRiderDetails(requestDetails) {
+    var _this4 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      if (!_this4.profile) {
+        throw new Error('Profile not initialized');
+      }
       try {
+        const driverDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this4.firestore, 'Drivers', requestDetails.driverId);
+        const driverDocSnap = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.getDoc)(driverDocRef);
+        if (!driverDocSnap.exists()) {
+          throw new Error('Driver does not exist');
+        }
+        const driverData = driverDocSnap.data();
+        const requestRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_this4.firestore, 'Request'));
         const loc = {
-          Loc_lat: user_Loc_coord.lat,
-          Loc_lng: user_Loc_coord.lng,
-          Rider_id: _this.user.uid,
-          Rider_name: _this.user.displayName,
-          Rider_phone: _this.user.phoneNumber,
-          Rider_imgUrl: _this.user.photoURL,
-          Rider_rating: _this.profile.Rider_rating,
-          Des_lat: user_Des_coord.lat,
-          Des_lng: user_Des_coord.lng,
-          Rider_Location: loco,
-          Rider_Destination: des,
-          Rider_email: _this.user.email,
+          Loc_lat: requestDetails.latLng.lat,
+          Loc_lng: requestDetails.latLng.lng,
+          Rider_id: _this4.user.uid,
+          Rider_name: _this4.user.displayName,
+          Rider_phone: _this4.user.phoneNumber,
+          Rider_imgUrl: _this4.user.photoURL,
+          Rider_rating: _this4.profile.Rider_rating || 0,
+          Des_lat: requestDetails.dLatLng.lat,
+          Des_lng: requestDetails.dLatLng.lng,
+          Rider_Location: requestDetails.locationAddress,
+          Rider_Destination: requestDetails.destinationAddress,
+          Rider_email: _this4.user.email,
           countDown: 20,
           cancel: false,
-          price: price,
-          cash: cash
+          price: requestDetails.price,
+          cash: requestDetails.cash,
+          status: 'pending',
+          driverDetails: {
+            Driver_id: driverData.Driver_id,
+            Driver_name: driverData.Driver_name,
+            Driver_phone: driverData.Driver_phone,
+            Driver_imgUrl: driverData.Driver_imgUrl,
+            Driver_rating: driverData.Driver_rating,
+            Driver_car: driverData.Driver_car,
+            Driver_cartype: driverData.Driver_cartype,
+            Driver_plate: driverData.Driver_plate
+          },
+          requestId: requestRef.id,
+          driverId: requestDetails.driverId // Include driverId here
         };
-        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this.firestore, 'Drivers', ID);
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.updateDoc)(userDocRef, {
-          onlineState: false
+        const batch = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.writeBatch)(_this4.firestore);
+        batch.update(driverDocRef, {
+          onlineState: false,
+          currentRequestId: requestRef.id
         });
-        console.log('deleted current driver ID');
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this.firestore, "Request", ID), {
-          ...loc
-        });
-        console.log('Added New driver ID');
+        batch.set(requestRef, loc);
+        yield batch.commit();
+        return requestRef.id;
       } catch (e) {
-        throw new Error(e);
+        throw new Error(`Error in RequestRideWithRiderDetails: ${e.message}`);
       }
     })();
   }
   RestartRequestSinceReject(ID) {
-    var _this2 = this;
+    var _this5 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this2.firestore, 'Request', ID);
-      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.updateDoc)(userDocRef, {
+      const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this5.firestore, 'Request', ID);
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.updateDoc)(userDocRef, {
         cancel: false
       });
     })();
   }
   //delete the driver that has a request sent to him.
   deleDriverFromRequest(ID) {
-    var _this3 = this;
+    var _this6 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.deleteDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this3.firestore, "Request", ID));
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.deleteDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this6.firestore, "Request", ID));
     })();
   }
   cancelRide(ID) {
-    var _this4 = this;
+    var _this7 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this4.firestore, 'Request', ID);
-      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.updateDoc)(userDocRef, {
-        cancel: true
+      const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this7.firestore, 'Request', ID);
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.updateDoc)(userDocRef, {
+        status: true
       });
     })();
   }
   //Push driver info into the request database
   PushDriverToRequest(Driver) {
-    var _this5 = this;
+    var _this8 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         const loc = {
@@ -1525,9 +2008,10 @@ class AvatarService {
           cancel: Driver.cancel,
           Driver_cartype: Driver.Driver_cartype,
           Driver_plate: Driver.Driver_plate,
-          time: ''
+          time: '',
+          onlineState: Driver.onlineState
         };
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.updateDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this5.firestore, "Request", Driver.Driver_id), {
+        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.updateDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this8.firestore, "Request", Driver.Driver_id), {
           ...loc
         });
       } catch (e) {
@@ -1550,8 +2034,44 @@ class AvatarService {
       }
     })();
   }
+  getDriverLocation(driverId) {
+    return new Promise((resolve, reject) => {
+      const driverDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(this.firestore, 'Drivers', driverId);
+      (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.onSnapshot)(driverDocRef, doc => {
+        const data = doc.data();
+        if (data && data.Driver_lat) {
+          const driverLocation = {
+            lat: data.Driver_lat,
+            lng: data.Driver_lng
+          };
+          resolve(driverLocation);
+        } else {
+          resolve(null);
+        }
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+  updateLocation(coord) {
+    var _this9 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      try {
+        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this9.firestore, `Riders/${_this9.auth.currentUser.uid}`);
+        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.updateDoc)(userDocRef, {
+          geohash: (0,geofire_common__WEBPACK_IMPORTED_MODULE_1__.geohashForLocation)([coord.lat, coord.lng]),
+          Loc_lat: coord.lat,
+          Loc_lng: coord.lng
+        });
+        return true;
+      } catch (e) {
+        console.error('Error updating driver location:', e);
+        return false;
+      }
+    })();
+  }
   createHistory(Driver) {
-    var _this6 = this;
+    var _this10 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         const loc = {
@@ -1572,23 +2092,25 @@ class AvatarService {
           cancel: Driver.cancel,
           Driver_cartype: Driver.Driver_cartype,
           Driver_plate: Driver.Driver_plate,
-          time: (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.serverTimestamp)()
+          time: (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.serverTimestamp)(),
+          onlineState: Driver.onlineState
         };
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this6.firestore, "Riders", `${_this6.auth.currentUser.uid}/History/${Driver.Driver_id}`), {
+        const historyId = (0,uuid__WEBPACK_IMPORTED_MODULE_5__["default"])(); // Generate a random ID
+        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this10.firestore, "Riders", `${_this10.auth.currentUser.uid}/History/${historyId}`), {
           ...loc
         });
-      } catch (e) {
-        throw new Error(e);
+        console.log('History created successfully');
+      } catch (error) {
+        console.error('Error creating history:', error.message);
       }
-      console.log('done');
     })();
   }
-  UpdateCountDown(time, Driver) {
-    var _this7 = this;
+  UpdateCountDown(time, id) {
+    var _this11 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
-        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this7.firestore, "Request", Driver.Driver_id);
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.updateDoc)(userDocRef, {
+        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this11.firestore, "Request", id);
+        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.updateDoc)(userDocRef, {
           countDown: time
         });
         return true;
@@ -1600,132 +2122,81 @@ class AvatarService {
     })();
   }
   AddKnownPlace(place) {
-    var _this8 = this;
+    var _this12 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      console.log(_this12.auth.currentUser.uid);
+      console.log(place.full);
       try {
-        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this8.firestore, "Riders", `${_this8.auth.currentUser.uid}/KnownPlaces/${place.full}`);
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)(userDocRef, {
+        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this12.firestore, 'Riders', `${_this12.auth.currentUser.uid}/KnownPlaces/${place.full}`);
+        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)(userDocRef, {
           place
         });
         return true;
       } catch (e) {
-        // alert(e)
         console.log(e);
         return null;
       }
     })();
   }
-  ///update driver information
-  CreateandUpdateDriver(coord, ID) {
-    var _this9 = this;
-    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      try {
-        const loc = {
-          geohash: (0,geofire_common__WEBPACK_IMPORTED_MODULE_1__.geohashForLocation)([coord.coords.latitude, coord.coords.longitude]),
-          Driver_lat: coord.coords.latitude,
-          Driver_lng: coord.coords.longitude,
-          Driver_id: ID,
-          Driver_name: 'james',
-          Driver_car: 'Nissan',
-          Driver_imgUrl: '',
-          Driver_rating: 0,
-          distance: 0,
-          duration: 0,
-          seats: 1,
-          start: false,
-          stop: false,
-          intransit: false,
-          cancel: false,
-          Driver_cartype: '',
-          Driver_plate: '',
-          time: ''
-        };
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this9.firestore, "Drivers", ID), {
-          ...loc
-        });
-      } catch (e) {
-        throw new Error(e);
-      }
-      console.log('done');
-    })();
+  calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 0.5 - Math.cos(dLat) / 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * (1 - Math.cos(dLon)) / 2;
+    return R * 2 * Math.asin(Math.sqrt(a));
   }
-  ///create a new driver and publish info to database
-  CreateNewDriver(coord) {
-    var _this10 = this;
-    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      try {
-        const loc = {
-          geohash: (0,geofire_common__WEBPACK_IMPORTED_MODULE_1__.geohashForLocation)([coord.coords.latitude, coord.coords.longitude]),
-          Driver_lat: coord.coords.latitude,
-          Driver_lng: coord.coords.longitude,
-          Driver_id: 'Driver ' + Math.random(),
-          Driver_name: 'james',
-          Driver_car: 'Nissan',
-          Driver_imgUrl: '',
-          Driver_rating: 0,
-          distance: 0,
-          duration: 0,
-          seats: 1,
-          start: false,
-          stop: false,
-          intransit: false,
-          cancel: false,
-          Driver_cartype: '',
-          Driver_plate: '',
-          time: ''
-        };
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this10.firestore, "Drivers", 'Driver ' + Math.random()), {
-          ...loc
-        });
-      } catch (e) {
-        throw new Error(e);
-      }
-    })();
-  }
-  //geoquery, sort drivers within a specified radius and seperate them from the others
   checkDriversWithin(center, radiusInM) {
-    var _this11 = this;
+    var _this13 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
-        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(_this11.firestore, `Drivers`);
-        // Each item in 'bounds' represents a startAt/endAt pair. We have to issue
-        // a separate query for each pair. There can be up to 9 pairs of bounds
-        // depending on overlap, but in most cases there are 4.
+        console.log("Center:", center);
+        console.log("Radius in meters:", radiusInM);
         const bounds = (0,geofire_common__WEBPACK_IMPORTED_MODULE_1__.geohashQueryBounds)(center, radiusInM);
-        const promises = [];
-        for (const b of bounds) {
-          const q = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.query)(userDocRef, (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.orderBy)("geohash"), (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.startAt)(b[0]), (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.endAt)(b[1]));
-          _this11.directory = q;
-          const documentSnapshots = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.getDocs)(q);
-          documentSnapshots.docChanges().forEach(doc => {
-            // alert(JSON.stringify(doc.doc));
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.doc, " => ", doc.doc.data());
-            promises.push(doc.doc.data());
+        const promises = bounds.map((b, index) => {
+          const q = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.query)(_this13.driverCollection, (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.orderBy)("geohash"), (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.startAt)(b[0]), (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.endAt)(b[1]));
+          return new Promise((resolve, reject) => {
+            const unsubscribe = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.onSnapshot)(q, snapshot => {
+              const drivers = snapshot.docs.map(doc => {
+                const data = doc.data();
+                console.log("Driver data from snapshot:", data);
+                return data;
+              });
+              console.log("Query results for bounds", b, drivers);
+              resolve(drivers);
+              unsubscribe(); // Unsubscribe once data is fetched
+              delete _this13.activeListeners[index];
+            }, error => {
+              console.error('Error in onSnapshot:', error);
+              reject(error);
+              unsubscribe(); // Unsubscribe in case of error
+              delete _this13.activeListeners[index];
+            });
+            // Store the unsubscribe function to manage listeners
+            _this13.activeListeners[index] = unsubscribe;
           });
-        }
-        // Collect all the query results together into a single list
-        const j = yield Promise.all(promises).then(snapshots => {
-          const matchingDocs = [];
-          for (const snap of snapshots) {
-            const lat = snap.Driver_lat;
-            const lng = snap.Driver_lng;
-            // We have to filter out a few false positives due to GeoHash
-            // accuracy, but most will match
-            const distanceInKm = (0,geofire_common__WEBPACK_IMPORTED_MODULE_1__.distanceBetween)([lat, lng], center);
-            const distanceInM = distanceInKm * 1000;
-            console.log(snap);
-            snap.distance = distanceInM;
-            snap.duration = _this11.time_convert(distanceInM);
-            console.log(distanceInM, radiusInM);
-            if (distanceInM <= radiusInM) {
-              matchingDocs.push(snap);
-            }
-          }
-          return matchingDocs;
         });
-        if (j) return j;
+        const results = yield Promise.all(promises);
+        const allDrivers = results.flat();
+        console.log("All drivers from queries:", allDrivers);
+        const matchingDrivers = allDrivers.filter(driver => {
+          if (!driver || !driver.Driver_lat || !driver.Driver_lng) {
+            console.error(`Driver ${driver?.Driver_id || 'unknown'} has missing coordinates:`, driver);
+            return false;
+          }
+          const distanceInKm = _this13.calculateDistance(center[0], center[1], driver.Driver_lat, driver.Driver_lng);
+          const distanceInM = distanceInKm * 1000;
+          console.log(`Driver ${driver.Driver_id} distance:`, distanceInM);
+          if (distanceInM <= radiusInM) {
+            driver.duration = distanceInM / (50 / 3.6); // duration in seconds, assuming 50 km/h speed
+            return true;
+          } else {
+            return false;
+          }
+        });
+        console.log("Matching drivers within radius:", matchingDrivers);
+        return matchingDrivers;
       } catch (e) {
+        console.error('Error in checkDriversWithin:', e);
         throw new Error(e);
       }
     })();
@@ -1735,35 +2206,51 @@ class AvatarService {
     return minutes;
   }
   getDriver() {
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collectionData)(this.driverCollection, {
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collectionData)(this.driverCollection, {
       idField: 'id'
     });
   }
   update(pokemon) {
-    const pokemonDocumentReference = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(this.firestore, `pokemon/${pokemon.Driver_id}`);
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.updateDoc)(pokemonDocumentReference, {
+    const pokemonDocumentReference = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(this.firestore, `pokemon/${pokemon.Driver_id}`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.updateDoc)(pokemonDocumentReference, {
       ...pokemon
     });
   }
   uploadImage(cameraFile, uid) {
-    var _this12 = this;
+    var _this14 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const storageRef = (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_4__.ref)(_this12.storage, _this12.pathM);
+      const storageRef = (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_6__.ref)(_this14.storage, `avatars/${uid}`);
       try {
-        yield (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_4__.uploadString)(storageRef, cameraFile.base64String, 'base64');
-        const imageUrl = yield (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_4__.getDownloadURL)(storageRef);
-        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this12.firestore, `Riders/${uid}`);
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)(userDocRef, {
-          imageUrl
-        });
-        return true;
+        // Upload the image as a base64 string
+        yield (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_6__.uploadString)(storageRef, cameraFile.base64String, 'base64');
+        // Get the download URL for the uploaded image
+        const imageUrl = yield (0,_angular_fire_storage__WEBPACK_IMPORTED_MODULE_6__.getDownloadURL)(storageRef);
+        // Reference to the user's document in Firestore
+        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this14.firestore, `Riders/${uid}`);
+        // Check if the document exists
+        const docSnapshot = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.getDoc)(userDocRef);
+        if (docSnapshot.exists()) {
+          // If the document exists, update the photoURL field
+          yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.updateDoc)(userDocRef, {
+            photoURL: imageUrl
+          });
+        } else {
+          // If the document does not exist, create it with the photoURL field
+          yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)(userDocRef, {
+            photoURL: imageUrl
+          }, {
+            merge: true
+          });
+        }
+        return imageUrl;
       } catch (e) {
+        console.error('Error uploading image:', e);
         return null;
       }
     })();
   }
   createUser(name, email, img, phone, uid) {
-    var _this13 = this;
+    var _this15 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
         const loc = {
@@ -1784,7 +2271,7 @@ class AvatarService {
           price: 0,
           cash: true
         };
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this13.firestore, "Riders", uid), {
+        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this15.firestore, "Riders", uid), {
           ...loc
         });
         return true;
@@ -1794,69 +2281,29 @@ class AvatarService {
     })();
   }
   getMessage() {
-    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(this.firestore, `Messages/${this.auth.currentUser.uid}/messages`);
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collectionData)(userDocRef);
+    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(this.firestore, `Messages/${this.auth.currentUser.uid}/messages`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collectionData)(userDocRef);
   }
   getChatMessage(ID) {
-    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(this.firestore, `Request/${ID}/messages`);
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collectionData)(userDocRef);
+    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(this.firestore, `Request/${ID}/messages`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collectionData)(userDocRef);
   }
   addChatEnRouteMessage(msg, iD) {
-    var _this14 = this;
-    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      return yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.addDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(_this14.firestore, `Request/${iD}/messages`), {
-        msg: msg,
-        from: _this14.auth.currentUser.uid,
-        createdAt: (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.serverTimestamp)(),
-        myMsg: true,
-        fromName: _this14.profile.Rider_name
-      });
-    })();
-  }
-  updatChatMessageInfo(id) {
-    var _this15 = this;
-    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      return yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this15.firestore, `Request/${id}/`), {
-        name: _this15.profile.Rider_name,
-        id: _this15.profile.Rider_id,
-        phone: _this15.profile.Rider_phone,
-        email: _this15.profile.Rider_email,
-        new: true
-      });
-    })();
-  }
-  getCards() {
-    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(this.firestore, `Riders/${this.auth.currentUser.uid}/Cards`);
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collectionData)(userDocRef);
-  }
-  getKnownPlaces() {
-    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(this.firestore, `Riders/${this.auth.currentUser.uid}/KnownPlaces`);
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collectionData)(userDocRef);
-  }
-  getAllBlogs() {
-    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(this.firestore, `Blogs`);
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collectionData)(userDocRef);
-  }
-  getDrivers() {
-    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(this.firestore, `Drivers`);
-    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collectionData)(userDocRef);
-  }
-  addChatMessage(msg) {
     var _this16 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      return yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.addDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.collection)(_this16.firestore, `Messages/${_this16.profile.Rider_id}/messages`), {
+      return yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.addDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_this16.firestore, `Request/${iD}/messages`), {
         msg: msg,
         from: _this16.auth.currentUser.uid,
-        createdAt: (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.serverTimestamp)(),
+        createdAt: (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.serverTimestamp)(),
         myMsg: true,
         fromName: _this16.profile.Rider_name
       });
     })();
   }
-  updateMessageInfo() {
+  updatChatMessageInfo(id) {
     var _this17 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      return yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this17.firestore, `Messages/${_this17.profile.Rider_id}`), {
+      return yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this17.firestore, `Request/${id}/`), {
         name: _this17.profile.Rider_name,
         id: _this17.profile.Rider_id,
         phone: _this17.profile.Rider_phone,
@@ -1865,34 +2312,48 @@ class AvatarService {
       });
     })();
   }
-  createCard(name, number, type, id) {
+  getKnownPlaces() {
+    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(this.firestore, `Riders/${this.auth.currentUser.uid}/KnownPlaces`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collectionData)(userDocRef);
+  }
+  getAllBlogs() {
+    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(this.firestore, `Blogs`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collectionData)(userDocRef);
+  }
+  getDrivers() {
+    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(this.firestore, `Drivers`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collectionData)(userDocRef);
+  }
+  addChatMessage(msg) {
     var _this18 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      try {
-        const loc = {
-          name: name,
-          number: number,
-          type: type,
-          id: id,
-          selected: true
-        };
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this18.firestore, "Riders", `${_this18.profile.Rider_id}/Cards/${name}`), {
-          ...loc
-        });
-        return true;
-      } catch (e) {
-        // alert(e)
-        console.log(e);
-        return null;
-      }
+      return yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.addDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_this18.firestore, `Messages/${_this18.profile.Rider_id}/messages`), {
+        msg: msg,
+        from: _this18.auth.currentUser.uid,
+        createdAt: (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.serverTimestamp)(),
+        myMsg: true,
+        fromName: _this18.profile.Rider_name
+      });
+    })();
+  }
+  updateMessageInfo() {
+    var _this19 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this19.firestore, `Messages/${_this19.profile.Rider_id}`), {
+        name: _this19.profile.Rider_name,
+        id: _this19.profile.Rider_id,
+        phone: _this19.profile.Rider_phone,
+        email: _this19.profile.Rider_email,
+        new: true
+      });
     })();
   }
   updateDriverOnlineState(ID) {
-    var _this19 = this;
+    var _this20 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       try {
-        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this19.firestore, 'Drivers', ID);
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.updateDoc)(userDocRef, {
+        const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this20.firestore, 'Drivers', ID);
+        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.updateDoc)(userDocRef, {
           onlineState: true
         });
         return true;
@@ -1903,33 +2364,117 @@ class AvatarService {
       }
     })();
   }
-  updateCArd(name, number, type, id, state) {
-    var _this20 = this;
+  checkCardExistsStripe(email, last4) {
+    var _this21 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      try {
-        const loc = {
-          name: name,
-          number: number,
-          type: type,
-          id: id,
-          selected: state
-        };
-        yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.updateDoc)((0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(_this20.firestore, "Riders", `${_this20.profile.Rider_id}/Cards/${name}`), {
-          ...loc
-        });
-        return true;
-      } catch (e) {
-        // alert(e)
-        console.log(e);
-        return null;
-      }
+      console.log('checkCardExistsStripe called with email:', email, 'and last4:', last4);
+      const cardsCollectionRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_this21.firestore, `Riders/${_this21.user.uid}/cards`);
+      console.log('cardsCollectionRef:', cardsCollectionRef);
+      const cardQuery = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.query)(cardsCollectionRef, (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.where)('last4', '==', last4));
+      const cardDocs = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.getDocs)(cardQuery);
+      console.log('Number of card documents found:', cardDocs.size);
+      cardDocs.forEach(doc => {
+        console.log('Found card:', doc.data());
+      });
+      return !cardDocs.empty;
+    })();
+  }
+  saveCard(cardDetails) {
+    var _this22 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      console.log('Saving card with details:', cardDetails);
+      const cardsCollectionRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_this22.firestore, `Riders/${_this22.user.uid}/cards`);
+      const cardDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(cardsCollectionRef, cardDetails.cardId);
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)(cardDocRef, cardDetails);
+      console.log('Card saved successfully:', cardDetails);
+    })();
+  }
+  checkPaystackAuthCodeExists(authCode) {
+    var _this23 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const authCodeCollectionRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_this23.firestore, 'paystackAuthCodes');
+      const authCodeQuery = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.query)(authCodeCollectionRef, (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.where)('authCode', '==', authCode));
+      const authCodeDocs = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.getDocs)(authCodeQuery);
+      return !authCodeDocs.empty;
+    })();
+  }
+  savePaystackAuthCode(authCode) {
+    var _this24 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const authCodeDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this24.firestore, `paystackAuthCodes/${authCode}`);
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)(authCodeDocRef, {
+        authCode
+      });
+    })();
+  }
+  updateFirestoreAfterPayment(paymentResult) {
+    var _this25 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const paymentDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this25.firestore, `Riders/${_this25.user.uid}/payments/lastpayment`);
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)(paymentDocRef, {
+        paymentResult: paymentResult,
+        paymentDate: new Date()
+      });
+    })();
+  }
+  getSavedPaymentMethods() {
+    var _this26 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const paymentMethodsRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.collection)(_this26.firestore, `Riders/${_this26.user.uid}/cards`);
+      const snapshot = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.getDocs)(paymentMethodsRef);
+      const methods = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      return methods;
+    })();
+  }
+  deleteSavedPaymentMethod(methodId) {
+    var _this27 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const paymentMethodDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this27.firestore, `Riders/${_this27.user.uid}/cards/${methodId}`);
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.deleteDoc)(paymentMethodDocRef);
+    })();
+  }
+  setActiveCard(email, cardId) {
+    var _this28 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this28.firestore, `Riders/${email}`);
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)(userDocRef, {
+        activeCardId: cardId
+      }, {
+        merge: true
+      });
+    })();
+  }
+  getActiveCard(email) {
+    const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(this.firestore, `Riders/${email}`);
+    return (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.docData)(userDocRef);
+  }
+  // Method to add a card for a user
+  addCardStripe(email, cardId, last4) {
+    var _this29 = this;
+    return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const userDocRef = (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.doc)(_this29.firestore, `Riders/${email}`);
+      const userDoc = yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.getDoc)(userDocRef);
+      const userData = userDoc.data();
+      let cards = userData?.cards || [];
+      cards.push({
+        cardId,
+        last4
+      });
+      yield (0,_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.setDoc)(userDocRef, {
+        cards
+      }, {
+        merge: true
+      });
     })();
   }
 }
 AvatarService.ɵfac = function AvatarService_Factory(t) {
-  return new (t || AvatarService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_6__.Auth), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__.Firestore), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_fire_storage__WEBPACK_IMPORTED_MODULE_4__.Storage), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_7__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_auth_service__WEBPACK_IMPORTED_MODULE_2__.AuthService));
+  return new (t || AvatarService)(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_angular_fire_auth__WEBPACK_IMPORTED_MODULE_8__.Auth), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__.Firestore), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_angular_fire_storage__WEBPACK_IMPORTED_MODULE_6__.Storage), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_9__.HttpClient), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_auth_service__WEBPACK_IMPORTED_MODULE_2__.AuthService));
 };
-AvatarService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjectable"]({
+AvatarService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjectable"]({
   token: AvatarService,
   factory: AvatarService.ɵfac,
   providedIn: 'root'
@@ -1998,14 +2543,24 @@ class OverlayService {
   showAlert(header, message) {
     var _this2 = this;
     return (0,c_Users_USER_Downloads_IONIC_PROJECTS_myRider_20240524T040505Z_001_myRider_node_modules_angular_devkit_build_angular_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      if (_this2.currentAlert) {
+        yield _this2.hideAlert();
+      }
       const alert = yield _this2.alertController.create({
         header,
         message,
         cssClass: 'default-alert',
         buttons: ['OK']
       });
-      yield alert.present();
+      _this2.currentAlert = alert;
+      yield _this2.currentAlert.present();
     })();
+  }
+  hideAlert() {
+    if (this.currentAlert) {
+      this.currentAlert.dismiss();
+      this.currentAlert = null;
+    }
   }
 }
 OverlayService.ɵfac = function OverlayService_Factory(t) {
@@ -2016,6 +2571,53 @@ OverlayService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__[
   factory: OverlayService.ɵfac,
   providedIn: 'root'
 });
+
+/***/ }),
+
+/***/ 1863:
+/*!*********************************************!*\
+  !*** ./src/app/services/payment.service.ts ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PaymentService": () => (/* binding */ PaymentService)
+/* harmony export */ });
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 2340);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ 8987);
+
+
+
+class PaymentService {
+    constructor(http) {
+        this.http = http;
+        this.serverUrl = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.serverUrl;
+    }
+    createSetupIntent(email) {
+        return this.http.post(`${this.serverUrl}/setup-intent`, { email });
+    }
+    savePaymentMethod(email, paymentMethodId) {
+        return this.http.post(`${this.serverUrl}/save-payment-method`, { email, paymentMethodId });
+    }
+    retrievePaymentMethod(paymentMethodId) {
+        return this.http.post(`${this.serverUrl}/retrieve-payment-method`, { paymentMethodId });
+    }
+    checkCardExistsStripe(email, last4) {
+        return this.http.post(`${this.serverUrl}/check-card-exists`, { email, last4 });
+    }
+    payWithStripe(amount, currency, paymentMethodId, customerId) {
+        return this.http.post(`${this.serverUrl}/pay/stripe`, { amount, currency, paymentMethodId, customerId });
+    }
+    processPaymentWithCardId(email, amount, cardId) {
+        return this.http.post('/api/process-payment', { email, amount, cardId });
+    }
+}
+PaymentService.ɵfac = function PaymentService_Factory(t) { return new (t || PaymentService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__.HttpClient)); };
+PaymentService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: PaymentService, factory: PaymentService.ɵfac, providedIn: 'root' });
+
 
 /***/ }),
 
@@ -2043,7 +2645,8 @@ const environment = {
         appId: '',
     },
     production: false,
-    apiKey: "AIzaSyAiKWSsMDiK4o7yng6YmR2dX3Yfb7zu_vI",
+    apiKey: "AIzaSyC2VPPqUJdOaeOW8VpNA3Y1iswP_uJ_wrY",
+    serverUrl: "http://localhost:3000",
     CountryJson: [
         {
             "name": "Afghanistan",

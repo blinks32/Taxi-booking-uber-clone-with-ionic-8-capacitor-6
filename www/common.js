@@ -1,6 +1,103 @@
 "use strict";
 (self["webpackChunkapp"] = self["webpackChunkapp"] || []).push([["common"],{
 
+/***/ 4830:
+/*!****************************************************************!*\
+  !*** ./node_modules/@capacitor/camera/dist/esm/definitions.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CameraDirection": () => (/* binding */ CameraDirection),
+/* harmony export */   "CameraResultType": () => (/* binding */ CameraResultType),
+/* harmony export */   "CameraSource": () => (/* binding */ CameraSource)
+/* harmony export */ });
+var CameraSource;
+(function (CameraSource) {
+  /**
+   * Prompts the user to select either the photo album or take a photo.
+   */
+  CameraSource["Prompt"] = "PROMPT";
+  /**
+   * Take a new photo using the camera.
+   */
+  CameraSource["Camera"] = "CAMERA";
+  /**
+   * Pick an existing photo from the gallery or photo album.
+   */
+  CameraSource["Photos"] = "PHOTOS";
+})(CameraSource || (CameraSource = {}));
+var CameraDirection;
+(function (CameraDirection) {
+  CameraDirection["Rear"] = "REAR";
+  CameraDirection["Front"] = "FRONT";
+})(CameraDirection || (CameraDirection = {}));
+var CameraResultType;
+(function (CameraResultType) {
+  CameraResultType["Uri"] = "uri";
+  CameraResultType["Base64"] = "base64";
+  CameraResultType["DataUrl"] = "dataUrl";
+})(CameraResultType || (CameraResultType = {}));
+
+/***/ }),
+
+/***/ 4241:
+/*!**********************************************************!*\
+  !*** ./node_modules/@capacitor/camera/dist/esm/index.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Camera": () => (/* binding */ Camera),
+/* harmony export */   "CameraDirection": () => (/* reexport safe */ _definitions__WEBPACK_IMPORTED_MODULE_1__.CameraDirection),
+/* harmony export */   "CameraResultType": () => (/* reexport safe */ _definitions__WEBPACK_IMPORTED_MODULE_1__.CameraResultType),
+/* harmony export */   "CameraSource": () => (/* reexport safe */ _definitions__WEBPACK_IMPORTED_MODULE_1__.CameraSource)
+/* harmony export */ });
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @capacitor/core */ 6549);
+/* harmony import */ var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitions */ 4830);
+
+const Camera = (0,_capacitor_core__WEBPACK_IMPORTED_MODULE_0__.registerPlugin)('Camera', {
+  web: () => __webpack_require__.e(/*! import() */ "node_modules_capacitor_camera_dist_esm_web_js").then(__webpack_require__.bind(__webpack_require__, /*! ./web */ 1327)).then(m => new m.CameraWeb())
+});
+
+
+
+/***/ }),
+
+/***/ 7909:
+/*!*****************************************************************!*\
+  !*** ./node_modules/@capacitor/network/dist/esm/definitions.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+
+
+/***/ }),
+
+/***/ 4984:
+/*!***********************************************************!*\
+  !*** ./node_modules/@capacitor/network/dist/esm/index.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Network": () => (/* binding */ Network)
+/* harmony export */ });
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @capacitor/core */ 6549);
+/* harmony import */ var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitions */ 7909);
+
+const Network = (0,_capacitor_core__WEBPACK_IMPORTED_MODULE_0__.registerPlugin)('Network', {
+  web: () => __webpack_require__.e(/*! import() */ "node_modules_capacitor_network_dist_esm_web_js").then(__webpack_require__.bind(__webpack_require__, /*! ./web */ 5442)).then(m => new m.NetworkWeb())
+});
+
+
+
+/***/ }),
+
 /***/ 5539:
 /*!*********************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/button-active-a4d897e8.js ***!

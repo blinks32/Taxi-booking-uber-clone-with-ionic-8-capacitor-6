@@ -72,14 +72,13 @@ const routes: Routes = [
       import('./pages/rating/rating.module').then((m) => m.RatingPageModule)
   },
   {
-    path: 'phone-detail',
-    loadChildren: () =>
-      import('./pages/phone-detail/phone-detail.module').then((m) => m.PhoneDetailPageModule)
-  },
-  {
     path: 'network',
     loadChildren: () =>
       import('./pages/network/network.module').then((m) => m.NetworkPageModule)
+  },
+  {
+    path: 'paymentcallback',
+    loadChildren: () => import('./paymentcallback/paymentcallback.module').then( m => m.PaymentcallbackPageModule)
   },
 ];
 

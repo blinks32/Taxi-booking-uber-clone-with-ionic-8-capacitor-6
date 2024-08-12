@@ -33,7 +33,7 @@
               <ion-button shape='round' size="large" (click)="openCountrySearchModal()" slot="start">
                 {{ CountryCode || 'Select Country' }}
               </ion-button>
-              <ion-input
+              <ion-input label="Outline input" label-placement="floating" fill="outline"
                 formControlName="phone"
                 placeholder="Mobile Number"
                 type="tel"
@@ -59,24 +59,6 @@
             <ion-progress-bar *ngIf="approve2" color='light' type="indeterminate"></ion-progress-bar>
           </ion-button>
         </form>
-   
-
-
-
-
-
-
-        <!-- <ion-label class="pm-awesome-divider" color='medium' data-label="or">OR</ion-label>
-
-        <ion-row  class="ion-no-padding">
-          <ion-col>
-            <ion-button shape="round" size="large" type="submit" color="primary" (click)="loginWithGoogle()" expand="block">
-              <ion-icon *ngIf="!approve" color='light' slot="icon-only" name="logo-google"></ion-icon>
-              <ion-label *ngIf="!approve">oogle</ion-label> 
-              <ion-progress-bar *ngIf="approve"color='light' type="indeterminate"></ion-progress-bar>
-            </ion-button>
-          </ion-col>
-        </ion-row> -->
       </ion-item-group>
     </ion-list>
   </ion-row>

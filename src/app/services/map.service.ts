@@ -34,12 +34,10 @@ export class MapService {
           zoom: 15,
           height: 100,
           width: 300,
-            zoomControl: false,
-            mapTypeControl: false,
             scaleControl: false,
             streetViewControl: false,
             rotateControl: false,
-            fullscreenControl: false
+            fullscreenControl: false,
           
         },
       });
@@ -49,8 +47,8 @@ export class MapService {
         lng: coords.coords.longitude
       };
 
-      this.newMap.enableTrafficLayer(true);
-      this.newMap.enableCurrentLocation(true);
+      await this.newMap.enableTrafficLayer(true);
+      await this.newMap.enableCurrentLocation(true);
       await this.newMap.setCamera({
         animate: true,
         animationDuration: 500,
@@ -97,6 +95,27 @@ export class MapService {
   
     return { latitude: avgLat, longitude: avgLng };
   }
+
+  async setCameraToLocation(coordinate: { lat: number; lng: number }, zoom: number, bearing: any) {
+    if (this.newMap) {
+      try {
+        await this.newMap.setCamera({
+          animate: true,
+          animationDuration: 500,
+          zoom: zoom,
+          coordinate: coordinate,
+          bearing: bearing
+        });
+      } catch (error) {
+        console.error('Error setting camera:', error);
+      }
+    } else {
+      console.error('Map is not initialized.');
+    }
+  }
+  
+  // Add other necessary methods like getAddress here
+
   
   
    getBoundsZoomLevel(bounds, mapDim) {
@@ -150,7 +169,7 @@ export class MapService {
     }
   }
 
-  private getAddress(lat: number, lng: number): Promise<any> {
+ getAddress(lat: number, lng: number): Promise<any> {
     const url = `https://maps.googleapis.com/maps/api/geocode/json`;
     const params = new HttpParams()
       .set('latlng', `${lat},${lng}`)

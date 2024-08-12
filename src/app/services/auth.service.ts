@@ -21,7 +21,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  appVerifier: any;
+  appVerifier: RecaptchaVerifier;
   confirmationResult: any;
   user$: Observable<User | null>;
 
@@ -31,14 +31,18 @@ export class AuthService {
     });
   }
 
+  // Initialize RecaptchaVerifier
   recaptcha() {
     this.appVerifier = new RecaptchaVerifier('sign-in-button', {
       size: 'invisible',
       callback: (response) => {
         console.log(response);
       },
-      'expired-callback': () => {}
+      'expired-callback': () => {
+        console.log('Recaptcha expired');
+      }
     }, this.auth);
+    this.appVerifier.render();
   }
 
   async signInWithPhoneNumber(phoneNumber: string) {

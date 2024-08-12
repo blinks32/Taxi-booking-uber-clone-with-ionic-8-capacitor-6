@@ -1,24 +1,23 @@
+import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { LoadingController, ModalController, ModalOptions, ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { OverlayService } from '../services/overlay.service';
 import { AvatarService } from '../services/avatar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.component.html',
   styleUrls: ['./otp.component.scss'],
 })
+export class OtpComponent implements OnInit, OnDestroy, AfterViewInit {
+  @Input() phone: string;
+  @Input() countryCode: string;
+  @Input() defaultOtp: string;  // New input property for default OTP
 
-export class OtpComponent implements OnInit, OnDestroy {
-
-  @Input() phone;
-  @Input() countryCode;
   isLoading = false;
   approve: boolean;
   approve2: boolean;
-
   otp: string;
   config = {
     length: 6,
@@ -35,11 +34,20 @@ export class OtpComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private avatar: AvatarService,
-  ) { }
+    private cdr: ChangeDetectorRef  // Inject ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     console.log(this.phone);
     this.startCountdown(60);  // Start a 60-second countdown
+  }
+
+  ngAfterViewInit() {
+    // Set the OTP input value after the view is initialized
+    if (this.defaultOtp) {
+      this.setOtp(this.defaultOtp);
+      this.cdr.detectChanges();  // Manually trigger change detection
+    }
   }
 
   ngOnDestroy() {
@@ -51,7 +59,7 @@ export class OtpComponent implements OnInit, OnDestroy {
     console.log(this.otp);
   }
 
-  closeModal(){
+  closeModal() {
     this.modalCtrl.dismiss();
   }
 
@@ -60,21 +68,22 @@ export class OtpComponent implements OnInit, OnDestroy {
       const response = await this.auth.signInWithPhoneNumber(this.countryCode + this.phone);
       console.log(response);
       this.startCountdown(60);  // Restart the countdown when resending the OTP
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
   }
 
   async verifyOtp(): Promise<void> {
     try {
-       this.approve2 = true;
+      this.approve2 = true;
       const response = await this.auth.verifyOtp(this.otp);
       this.approve2 = false;
       this.modalCtrl.dismiss(response);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
       this.clearOtpInput();  // Clear the OTP input using the new method
       this.overlay.hideLoader();  // Stop the loader
+      this.approve2 = false;
       this.showToast('Incorrect OTP. Please try again.');  // Show toast message
     }
   }
@@ -83,7 +92,7 @@ export class OtpComponent implements OnInit, OnDestroy {
     const toast = await this.toastCtrl.create({
       message: message,
       duration: 2000,
-      position: 'bottom'
+      position: 'bottom',
     });
     toast.present();
   }
@@ -102,5 +111,10 @@ export class OtpComponent implements OnInit, OnDestroy {
   clearOtpInput() {
     this.otpInput.setValue('');  // Clear the value of ng-otp-input
     this.otp = '';  // Clear the OTP variable in the component
+  }
+
+  setOtp(otp: string) {
+    this.otp = otp;
+    this.otpInput.setValue(otp);  // Set the value in the ng-otp-input component
   }
 }

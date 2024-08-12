@@ -1,24 +1,28 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
 import { Geolocation, Position } from '@capacitor/geolocation';
-import { ModalOptions, ModalController, Platform, NavController, AlertController } from '@ionic/angular';
+import { ModalOptions, ModalController, Platform, NavController, AlertController, ToastController, ActionSheetController } from '@ionic/angular';
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { OverlayService } from '../services/overlay.service';
 import { GeocodeService } from '../services/geocode.service';
 import { MapService } from '../services/map.service';
 import { AvatarService } from '../services/avatar.service';
 import { Drivers } from '../interfaces/drivers';
-import { Observable, timer, interval, BehaviorSubject, throwError } from 'rxjs';
-import { Firestore, onSnapshot, doc } from '@angular/fire/firestore';
+import { Observable, timer, interval, BehaviorSubject, throwError, Subscription } from 'rxjs';
+import { Firestore, onSnapshot, doc, updateDoc, getDoc } from '@angular/fire/firestore';
 import { Marker, Polyline } from '@capacitor/google-maps';
-import { Auth } from '@angular/fire/auth';
 import { AuthService } from '../services/auth.service';
 import { EnrouteChatComponent } from '../enroute-chat/enroute-chat.component';
 import { NetworkService } from '../services/network.service'
 import { Network } from '@capacitor/network';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import { App } from '@capacitor/app';
 import { PaymentService } from '../services/payment.service';
+import { AddCardComponent } from '../add-card/add-card.component';
+import { timeStamp } from 'console';
+import { switchMap } from 'rxjs/operators';
+import { LatLngLiteral } from '@googlemaps/google-maps-services-js';
+import { LatLng } from '@capacitor/google-maps/dist/typings/definitions';
 
 declare var google;
 
@@ -28,6 +32,7 @@ declare var google;
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements AfterViewInit {
+  [x: string]: any;
   profile = null;
   @ViewChild('map',  { static: true }) mapRef: ElementRef<HTMLElement>;
   @ViewChild('topBar', { static: true }) topBar: ElementRef<HTMLElement>;
@@ -52,7 +57,7 @@ export class HomePage implements AfterViewInit {
   showloader: boolean;
   mapClass: any;
   destinationAddress: string = 'Drag To Pick Destination';
-  locationAddress: string = 'Loading...';
+  locationAddress: string = null;
   distance: any;
   direction: any;
   actualDestination: any;
@@ -67,20 +72,20 @@ export class HomePage implements AfterViewInit {
   driver_ID: any;
   bounds: any;
   DriverLatLng: { lat: any; lng: any; };
-  driver_marker: any;
   drivers_Requested: any[];
   current_Request_Number: number = -1;
   Driver_Rejected: any;
   numCalls: any;
   currentDriver: any;
+  private countdownActive = false;
+
   unsubscribe: import("@angular/fire/firestore").Unsubscribe;
   driverInfo: import("@angular/fire/firestore").DocumentData;
   private RIDE_KEY = 'currentRide';
-  duration: any;
+  duration: any = null;
   riderCleared: any;
   updateDriverSubcription: any;
   canCheck: boolean;
-  rider_marker: any;
   marker1: any;
   marker2: any;
   actualLocation: string;
@@ -88,6 +93,10 @@ export class HomePage implements AfterViewInit {
   mapy: boolean;
   AllCarMarkers: Marker[];
   private _carmarkers: { id: string, marker: any }[] = [];
+  private rider_marker: any;
+  private driver_marker: any;
+
+
   cards: import("@angular/fire/firestore").DocumentData[];
   selected: any;
   selectedCard: any;
@@ -101,6 +110,20 @@ export class HomePage implements AfterViewInit {
   pollingInterval: any;
   animatedMarker: any;
   driverImage: any;
+  private permissionCheckInterval: any;
+  savedPaymentMethods: any;
+  requestID: string;
+  rideHasStarted: boolean;
+  driverLocation: { lat: number, lng: number } | null = null;
+  stopPolling: boolean = false;
+  riderMarker: string;
+  routePath: google.maps.MVCArray<google.maps.LatLng> | (google.maps.LatLng | google.maps.LatLngLiteral)[];
+  destinationMarker: any;
+  D_duration: any;
+  routePolyline: any;
+  private routeUpdateSubscription: Subscription;
+
+
 
   constructor(
     private authService: AuthService,
@@ -116,7 +139,9 @@ export class HomePage implements AfterViewInit {
     private overlay: OverlayService,
     private modalCtrl: ModalController,
     private alert: AlertController,
-    private payME: PaymentService
+    private payME: PaymentService,
+    private toastController: ToastController,
+    private actionSheetController: ActionSheetController
   
   ) {
     this.initializeApp();
@@ -124,65 +149,162 @@ export class HomePage implements AfterViewInit {
 
   async ngOnDestroy() {
     window.removeEventListener('resize', this.setMapHeight.bind(this));
+    this.clearSubscriptions();
+    this.unsubscribe();
+    await this.clearPrevMarkers();
+    await this.clearPolyline(this.newPoly);
   }
 
-  async makePay()
-  {
-    try{
-    await this.payME.payWithPaystack('playstudio86@gmail.com',  1000, "dollar")
-    }catch(e){
-       console.log(e)
-    }
-  }
 
   async ngAfterViewInit() {
-   // await this.makePay();
-    console.log('Map container height:', this.mapRef.nativeElement.offsetHeight);
-    this.initializeBackButtonCustomHandler();
-
-    this.setMapHeight();
-    window.addEventListener('resize', this.setMapHeight.bind(this));
-
     try {
+      console.log('Map container height:', this.mapRef.nativeElement.offsetHeight);
+      this.initializeBackButtonCustomHandler();
+  
+      // this.setMapHeight();
+      // window.addEventListener('resize', this.setMapHeight.bind(this));
+
+      await this.initializeNetworkMonitoring();
+      await this.fetchSavedPaymentMethods();
       this.EnterBookingStage();
       await this.initializeGeolocation();
       await this.initializeMap();
       this.initializeDatabaseSubscriptions();
       this.setupMapListeners();
       await this.map.newMap.enableCurrentLocation(true);
-      this.price = null;
 
+
+  
+      this.price = null;
+  
       if (this.LatLng && this.LatLng.lat && this.LatLng.lng) {
-        const center: [number, number] = [this.LatLng.lat, this.LatLng.lng]; // Example center
+        const center: [number, number] = [this.LatLng.lat, this.LatLng.lng];
         const radiusInM = 5000; // Example radius in meters
         await this.fetchAndDisplayDrivers(center, radiusInM);
-      } else {
-        console.error('LatLng is not properly initialized:', this.LatLng);
-        this.overlay.showAlert('Error', 'Geolocation could not be initialized');
       }
+  
+      
     } catch (e) {
-      this.overlay.showAlert('Error', e);
+      console.error('Error in ngAfterViewInit:', e);
+      this.overlay.showAlert('Error in ngAfterViewInit:', 'An error occurred during initialization. Please try again.');
     }
-
-    await this.monitorNetwork();
   }
+  
+  
+  async fetchSavedPaymentMethods() {
+    try {
+      this.savedPaymentMethods = await this.database.getSavedPaymentMethods();
+      console.log('Saved Payment Methods:', this.savedPaymentMethods);
+      
+      // Set default payment method to cash if no cards are saved
+      if (this.savedPaymentMethods.length === 0) {
+        this.selectedCard = 'cash';
+        this.cash = true;
+      } else {
+        this.selectedCard = this.savedPaymentMethods[0].cardId;
+        this.cash = false;
+      }
+    } catch (error) {
+      console.error('Error fetching saved payment methods:', error);
+    }
+  }
+
+  chooseCard(event: any) {
+    this.selectedCard = event.detail.value;
+    this.cash = this.selectedCard === 'cash';
+    if (!this.cash) {
+     // this.processPayment(this.authService.user.email, this.defaultAmount, this.selectedCard);
+    }
+  }
+
+  async processPayment(email: string, amount: number, cardId: any) {
+    this.overlay.showLoader('');
+
+    try {
+      const paymentResult = await this.payME.processPaymentWithCardId(email, amount, cardId).toPromise();
+      console.log('Payment successful:', paymentResult);
+      await this.overlay.showAlert('Success', 'Payment successful!');
+    } catch (error) {
+      console.error('Error during payment:', error);
+      const errorMessage = error.error ? error.error.error : 'An unexpected error occurred.';
+      await this.showPaymentErrorModal(errorMessage);
+    } finally {
+      this.overlay.hideLoader();
+    }
+  }
+
+  async showPaymentErrorModal(errorMessage: string) {
+    const alert = await this.alert.create({
+      header: 'Payment Error',
+      message: errorMessage,
+      buttons: [
+        {
+          text: 'Add New Card',
+          handler: async () => {
+            const modal = await this.modalCtrl.create({
+              component: AddCardComponent, // Create this component to handle adding a new card
+            });
+            await modal.present();
+            const { data } = await modal.onWillDismiss();
+            if (data && data.newCardId) {
+              this.selectedCard = data.newCardId;
+              this.cash = false;
+            }
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 
 
   setMapHeight() {
-    const topBarHeight = this.topBar.nativeElement.offsetHeight;
-    const bottomBarHeight = this.bottomBar.nativeElement.offsetHeight;
-    const availableHeight = window.innerHeight - topBarHeight - bottomBarHeight;
-    this.mapRef.nativeElement.style.height = `${availableHeight}px`;
+    if (this.topBar && this.bottomBar) {
+      const topBarHeight = this.topBar.nativeElement.offsetHeight;
+      const bottomBarHeight = this.bottomBar.nativeElement.offsetHeight;
+      const availableHeight = window.innerHeight - topBarHeight - bottomBarHeight;
+      this.mapRef.nativeElement.style.height = `${availableHeight}px`;
+    }
   }
 
-  async monitorNetwork() {
+  setMapHeightCreateAndAddMarkers() {
+    if (this.topBar && this.bottomBar) {
+      const topBarHeight = this.topBar.nativeElement.offsetHeight;
+      const bottomBarHeight = this.bottomBar.nativeElement.offsetHeight;
+      const availableHeight = window.innerHeight - topBarHeight - bottomBarHeight + 200;
+      this.mapRef.nativeElement.style.height = `${availableHeight}px`;
+    }
+  }
+
+  setMapHeightHandleDrivertoRider() {
+    if (this.bottomBar) {
+      const bottomBarHeight = this.bottomBar.nativeElement.offsetHeight;
+      const availableHeight = window.innerHeight - bottomBarHeight - 14;
+      this.mapRef.nativeElement.style.height = `${availableHeight}px`;
+    }
+  }
+
+  setMapHeightHandleDrivertoDestination() {
+    if (this.bottomBar) {
+      const bottomBarHeight = this.bottomBar.nativeElement.offsetHeight;
+      const availableHeight = window.innerHeight - bottomBarHeight + 90;
+      this.mapRef.nativeElement.style.height = `${availableHeight}px`;
+    }
+  }
+
+  private async initializeNetworkMonitoring() {
     const status = await Network.getStatus();
     this.isConnected = status.connected;
     this.networkStatus$.next(this.isConnected);
-    console.log("Monitor Network Called..");
+    console.log('Network monitoring initialized. Initial status:', this.isConnected);
 
-    Network.addListener('networkStatusChange', async (status) => {
-      console.log("Monitoring Network........");
+    Network.addListener('networkStatusChange', (status) => {
+      console.log('Network status changed:', status);
       this.isConnected = status.connected;
       this.networkStatus$.next(this.isConnected);
     });
@@ -202,25 +324,31 @@ export class HomePage implements AfterViewInit {
       const rideData = await this.getRideState();
       if (rideData) {
         console.log("There is some ridedata in here....");
-        this.restoreRideState(rideData);
+       // this.restoreRideState(rideData);
       }
     });
   }
 
   async saveRideState(rideData: any): Promise<void> {
-    await Storage.set({
-      key: this.RIDE_KEY,
+    const RIDE_KEY = 'rideState';
+
+    await Preferences.set({
+      key: RIDE_KEY,
       value: JSON.stringify(rideData)
     });
   }
-
+  
   async getRideState(): Promise<any> {
-    const { value } = await Storage.get({ key: this.RIDE_KEY });
+    const RIDE_KEY = 'rideState';
+
+    const { value } = await Preferences.get({ key: RIDE_KEY });
     return value ? JSON.parse(value) : null;
   }
-
+  
   async clearRideState(): Promise<void> {
-    await Storage.remove({ key: this.RIDE_KEY });
+    const RIDE_KEY = 'rideState';
+
+    await Preferences.remove({ key: RIDE_KEY });
   }
   // Method to restore the ride state
   restoreRideState(rideData: any) {
@@ -249,56 +377,137 @@ export class HomePage implements AfterViewInit {
   }
 
   
+ 
   async initializeGeolocation() {
     try {
-      const permissionStatus = await Geolocation.checkPermissions();
-      
+      // Check existing permissions
+      let permissionStatus = await Geolocation.checkPermissions();
+  
       if (permissionStatus.location !== 'granted') {
+        // Request permissions
         const permissionRequest = await Geolocation.requestPermissions();
-        
+        permissionStatus = permissionRequest;
+  
         if (permissionRequest.location !== 'granted') {
-          throw new Error('Geolocation permission not granted');
+          // If the user still hasn't granted permission, prompt them to enable location services
+          await this.overlay.showLoader('Enable Device Location...');
+          this.startPermissionPolling();
+          return;
         }
       }
   
+      // If permission is granted, dismiss any alert if shown
+      this.overlay.hideLoader();
+  
+      // Try to get the current position
       const coordinates = await Geolocation.getCurrentPosition();
       this.coordinates = coordinates;
       this.LatLng = {
         lat: coordinates.coords.latitude,
         lng: coordinates.coords.longitude
       };
+      this.database.updateLocation(this.LatLng);
       console.log('Geolocation initialized:', this.LatLng);
   
-      // Start watching the user's position
+      // Start polling the user's position
       this.startPollingPosition();
     } catch (error) {
       console.error('Error initializing geolocation:', error);
-      throw new Error('Geolocation initialization failed');
+      // If any error occurs, prompt the user to enable location services
+      await this.overlay.showLoader('Enable Device Location...');
+      this.startPermissionPolling();
     }
   }
   
+  startPermissionPolling() {
+    this.permissionCheckInterval = setInterval(async () => {
+      const permissionStatus = await Geolocation.checkPermissions();
+      if (permissionStatus.location === 'granted') {
+        this.overlay.hideLoader();
+        clearInterval(this.permissionCheckInterval);
+        // Try to get the current position again if permissions are granted
+        const coordinates = await Geolocation.getCurrentPosition();
+        this.coordinates = coordinates;
+        this.LatLng = {
+          lat: coordinates.coords.latitude,
+          lng: coordinates.coords.longitude
+        };
+        console.log('Geolocation initialized:', this.LatLng);
+  
+        // Start polling the user's position
+        this.startPollingPosition();
+      }
+    }, 1000); // Check every second
+  }
+
+  
   startPollingPosition() {
+    let lastLatLng = { lat: null, lng: null };
+    let lastAddress = null;
+  
     this.pollingInterval = setInterval(async () => {
       try {
         const position = await Geolocation.getCurrentPosition();
-        this.LatLng = {
+        const newLatLng = {
           lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lng: position.coords.longitude,
         };
-        console.log('Position updated:', this.LatLng);
+
+        this.database.updateLocation(newLatLng);
   
-        if (this.networkService.isConnected()) {
-          const center: [number, number] = [this.LatLng.lat, this.LatLng.lng]; // Example center
+        if (this.hasSignificantLocationChange(lastLatLng, newLatLng, 50)) { // Check if moved at least 50 meters
+          lastLatLng = newLatLng;
+  
+          const address = await this.map.getAddress(newLatLng.lat, newLatLng.lng);
+          
+          if (address && address.results && address.results.length > 1) {
+            const components = address.results[1].address_components;
+            if (components.length >= 2) {
+              this.locationAddress = components[0].long_name + ' ' + components[1].long_name;
+              this.actualLocation = address.results[0].formatted_address;
+              if (this.locationAddress !== lastAddress) {
+                console.log('Updated Location Address:', this.locationAddress);
+                lastAddress = this.locationAddress;
+              }
+            }
+          } else {
+            console.log('Unable to update location address');
+          }
+        }
+  
+        if (this.networkService.isConnected() && !this.stopPolling) {
+          const center: [number, number] = [newLatLng.lat, newLatLng.lng];
           const radiusInM = 5000; // Example radius in meters
           await this.fetchAndDisplayDrivers(center, radiusInM);
         } else {
-          this.overlay.showAlert('No Network', 'Please check your network connection.');
+          console.log('No network connection.', this.stopPolling);
         }
       } catch (err) {
         console.error('Error getting position:', err);
+        // Reduce error alerts by not showing specific errors repeatedly
       }
-    }, 10000); // Poll every 10 seconds
+    }, 5000); // Poll every 10 seconds
   }
+  
+  hasSignificantLocationChange(oldLatLng, newLatLng, minDistance) {
+    if (!oldLatLng.lat || !oldLatLng.lng) return true;
+    
+    const R = 6371e3; // Earth radius in meters
+    const φ1 = oldLatLng.lat * Math.PI/180;
+    const φ2 = newLatLng.lat * Math.PI/180;
+    const Δφ = (newLatLng.lat - oldLatLng.lat) * Math.PI/180;
+    const Δλ = (newLatLng.lng - oldLatLng.lng) * Math.PI/180;
+  
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  
+    const distance = R * c; // Distance in meters
+  
+    return distance >= minDistance;
+  }
+
   
   stopPollingPosition() {
     if (this.pollingInterval) {
@@ -315,7 +524,6 @@ export class HomePage implements AfterViewInit {
       await this.map.createMap(this.mapRef.nativeElement, this.coordinates);
       this.mapy = true;
       this.actualLocation = this.map.actualLocation;
-      this.locationAddress = this.map.locationAddress;
      // console.log('Map initialized:', this.actualLocation, this.locationAddress);
     } catch (error) {
       //console.error('Error initializing map:', error);
@@ -324,22 +532,9 @@ export class HomePage implements AfterViewInit {
   }
   
   initializeDatabaseSubscriptions() {
-    this.database.getCards().subscribe((d) => {
-      console.log(d);
-      this.cards = d;
-      this.cards.forEach(element => {
-        if (element.selected) {
-          this.selected = element;
-          this.selectedCard = element.name;
-          if (this.selectedCard === 'cash') this.cash = true;
-          console.log(this.selectedCard);
-        }
-      });
-    });
-  
     this.database.getKnownPlaces().subscribe((d) => {
+      console.log('Received data:', d);
       this.places = d.slice(0, 3);
-      console.log(d);
     });
   }
 
@@ -400,18 +595,22 @@ export class HomePage implements AfterViewInit {
       await this.handleDrivers(drivers);
   
       if (this.drivers_Requested.length > 0) {
+        this.current_Request_Number = 0; // Set to the first available driver
         await this.UpdateCarMarker(this.drivers_Requested);
         this.NoDrivers = false;
       } else {
+        this.current_Request_Number = -1; // No valid driver
         await this.UpdateCarMarker([]); // Clear all markers if no drivers are requested
         this.NoDrivers = true;
       }
     } catch (error) {
       console.error('Error fetching drivers:', error);
+      this.current_Request_Number = -1; // Reset the request number
       await this.UpdateCarMarker([]); // Clear all markers if there's an error
       this.NoDrivers = true;
     }
   }
+  
   
   async handleDrivers(drivers: Drivers[]) {
     this.drivers_Requested = [];
@@ -426,32 +625,37 @@ export class HomePage implements AfterViewInit {
     }
   
     drivers.forEach((driver) => {
-      console.log('Processing driver:', driver);
-      if (driver.duration <= 1000 && driver.onlineState === true) {
-        this.drivers_Requested.push(driver);
-        this.updateDriverInfo(driver);
-      }
+      if (driver) {
+        console.log('Processing driver:', driver);
+        if (driver.duration <= 1000 && driver.onlineState) {
+          this.drivers_Requested.push(driver);
+          this.updateDriverInfo(driver);
+        }
   
-      if (!this.closeDrivers || driver.duration < this.closeDrivers.duration) {
-        this.closeDrivers = driver;
+        if (!this.closeDrivers || driver.duration < this.closeDrivers.duration) {
+          this.closeDrivers = driver;
+        }
+      } else {
+        console.error('Driver is null or undefined:', driver);
       }
     });
   
     if (this.drivers_Requested.length === 0) {
       this.NoDrivers = true;
+    } else {
+      // Ensuring current_Request_Number is within the bounds
+      this.current_Request_Number = Math.min(this.current_Request_Number, this.drivers_Requested.length - 1);
     }
   
     console.log('Final requested drivers list:', this.drivers_Requested);
   }
   
-
    // Unsubscribe from all active listeners (for cleanup)
    cleanupListeners() {
     Object.values(this.database.activeListeners).forEach(unsubscribe => unsubscribe());
     this.database.activeListeners = {};
   }
  
-  
   
   updateDriverInfo(driver) {
     console.log(this.drivers_Requested);
@@ -466,31 +670,29 @@ export class HomePage implements AfterViewInit {
     };
   }
   
-async chooseCard(even) {
-  console.log(even);
-  this.overlay.showLoader('Please wait..');
-  await this.database.updateCArd(this.selected.name, this.selected.number, this.selected.type, this.selected.id, false);
-  this.cards.forEach(async element => {
-      if (element.name == even.detail.value) {
-          await this.database.updateCArd(element.name, element.number, element.type, element.id, true);
-          this.overlay.hideLoader();
-      }
-  });
-}
-
-async StartRide() {
-  try {
+  async StartRide() {
+    try {
+      this.overlay.showLoader('');
       await this.clearPrevMarkers();
+      // Clear any existing polylines
+    await this.clearPolyline(this.newPoly);
+
+    const availableHeight = 1000;
+
+    this.map.newMap.enableTouch();
+
+    // Ensure the map respects the boundaries of the top and bottom bars
+    this.mapRef.nativeElement.style.height = `${availableHeight}px`;
       this.map.newMap.enableCurrentLocation(false);
       await this.BookRide();
-  } catch (e) {
-      this.overlay.showAlert('Marker Error', e);
+    } catch (e) {
+      this.overlay.showAlert('Starting Ride Error', e);
+    }
   }
-}
 
 async clearMarkers() {
   if (this.marker1) {
-    await this.map.newMap.removeMarker(this.marker1.toString());
+    await this.map.newMap.removeMarker(this.marker1);
     this.marker1 = null;
   }
 
@@ -507,147 +709,312 @@ async clearMarkers() {
   }
 }
 
-
 async BookRide() {
-  let driver = this.drivers_Requested[this.current_Request_Number];
-  console.log(driver.Driver_id);
-  const userDocRef = doc(this.firestore, `Request`, driver.Driver_id);
-
-  const unsub = onSnapshot(doc(this.firestore, "Drivers", driver.Driver_id), async (doc) => {
-      await this.handleDriverSnapshot(doc, driver, userDocRef, unsub);
-  });
-}
-
-async handleDriverSnapshot(doc, driver, userDocRef, unsub) {
-  if (this.price && doc.data().onlineState === true) {
-      unsub();
-      await this.database.RequestRideWithRiderDetails(
-          this.LatLng, 
-          this.destinationAddress, 
-          this.locationAddress, 
-          this.D_LatLng, 
-          driver.Driver_id, 
-          this.price, 
-          this.cash
-      );
-      this.currentDriver = driver;
-      await this.handleDriver(userDocRef);
-  } else {
-      await this.handleNoAvailableDriver(driver);
+  try {
+    if (this.hasValidDriver()) {
+      const driver = this.drivers_Requested[this.current_Request_Number];
+      const userDocRef = doc(this.firestore, `Drivers`, driver.Driver_id);
+      
+      // Fetch driver details once
+      const docSnapshot = await getDoc(userDocRef);
+      
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        console.log('Driver is offline', driver);
+        if (data && data.onlineState) {
+          this.driverInfo = data;
+          // Call requestRideWithDriverDetails to generate requestID and handle ride request
+          await this.requestRideWithDriverDetails(driver, userDocRef);
+          this.overlay.hideLoader();
+          this.updateDriverInfo(driver);
+          
+        } else {
+          console.log('Driver is offline');
+          await this.handleNoAvailableDriver();
+        }
+      } else {
+        console.error('Document does not exist.');
+        await this.handleNoAvailableDriver();
+      }
+    } else {
+      this.showNoDriversAlert();
+    }
+  } catch (error) {
+    console.error('Error in BookRide:', error);
+    this.overlay.showAlert('Error in BookRide:', 'An error occurred while booking the ride.');
   }
 }
 
-async handleDriver(userDocRef) {
-  this.DriverLatLng = {
-      lat: this.currentDriver.Driver_lat,
-      lng: this.currentDriver.Driver_lng
-  };
-  await this.createAndMoveMarkersOnRealtime(this.DriverLatLng, false, false);
-  this.overlay.hideLoader();
-  this.EnterSearchingStage();
-  this.startTimer(this.currentDriver, 20);
-
-  this.numCalls = timer(20000).subscribe(async () => {
-      this.countDown.unsubscribe();
-      await this.requestNextDriver();
-  });
-
-  this.unsubscribe = onSnapshot(userDocRef, async (doc) => {
-      await this.handleRideUpdates(doc);
-  });
+hasValidDriver(): boolean {
+  return this.drivers_Requested?.[this.current_Request_Number]?.Driver_id != null;
 }
 
-async handleNoAvailableDriver(driver) {
-  if (this.countDown) this.countDown.unsubscribe();
-  if (this.drivers_Requested[this.current_Request_Number + 1] != null) {
-      this.current_Request_Number++;
-      await this.BookRide();
+async requestRideWithDriverDetails(driver, userDocRef) {
+  try {
+    // Assume that this.database.RequestRideWithRiderDetails returns a Promise that resolves with the requestID
+    const requestDetails = {
+      latLng: this.LatLng,
+      destinationAddress: this.destinationAddress,
+      locationAddress: this.locationAddress,
+      dLatLng: this.D_LatLng,
+      driverId: driver.Driver_id,
+      price: this.price,
+      cash: this.cash
+    };
+
+    this.requestID = await this.database.RequestRideWithRiderDetails(requestDetails);
+
+    // Assuming the request was successful and the requestID was generated
+    if (this.requestID) {
+      this.currentDriver = driver;
+      this.handlePendingState();
+
+      // Optionally listen for updates on the specific ride request document
+      const rideRequestDocRef = doc(this.firestore, `Request`, this.requestID);
+      const unsub = onSnapshot(rideRequestDocRef, async (doc) => {
+        if (doc.exists()) {
+          await this.handleRideUpdates(doc);
+        } else {
+          console.error('Ride request document does not exist.');
+        }
+      });
+
+      // Store the unsubscribe function if you need to clear it later
+      this.unsubscribe = unsub;
+    } else {
+      throw new Error('Failed to generate requestID');
+    }
+  } catch (error) {
+    console.error('Error in requestRideWithDriverDetails:', error);
+    this.overlay.showAlert('Error in requestRideWithDriverDetails', 'An error occurred while requesting the ride.');
+  }
+}
+
+showNoDriversAlert() {
+  console.error('No valid driver available to book a ride.');
+  this.overlay.showAlert('No Drivers ', 'No available drivers found. Please try again later.');
+}
+
+async handleNoAvailableDriver() {
+  console.log('Driver is not available, moving to next.');
+  this.current_Request_Number++;
+  if (this.hasValidDriver()) {
+    await this.BookRide();
   } else {
-      this.GoHome();
-      this.overlay.showAlert('Busy', 'The Requested Driver is currently Busy, Please Try again');
+    this.showNoDriversAlert();
   }
 }
 
 async requestNextDriver() {
-  if (this.drivers_Requested[this.current_Request_Number + 1] != null) {
-      this.current_Request_Number++;
-      await this.BookRide();
+  console.log("Requested Next Driver");
+  this.current_Request_Number++;
+  if (this.hasValidDriver()) {
+    console.log("Continua");
+    await this.BookRide();
   } else {
-      this.GoHome();
-      this.clearPrevMarkers();
+    await this.ReturnHome();
+    this.showNoDriversAlert();
+  }
+}
+
+// Make sure to clear the subscription when it's no longer needed
+clearSubscriptions() {
+  if (this.numCalls) {
+    this.numCalls.unsubscribe();
+  }
+  if (this.countDown) {
+    this.countDown.unsubscribe();
+  }
+  if (this.unsubscribe) {
+    this.unsubscribe();
+  }
+  if (this.routeUpdateSubscription) {
+    this.routeUpdateSubscription.unsubscribe();
   }
 }
 
 async handleRideUpdates(doc) {
-  if (doc.data().cancel === true) {
-      await this.handleRideCancellation();
-  } else if (doc.data().start === true) {
+  const data = doc.data();
+  if (!data) {
+    console.error('No data found in the document.');
+    return;
+  }
+  
+  switch (data.status) {
+    case 'cancelled':
+      await this.handleRideCancellation(data);
+      break;
+    case 'confirmed':
+      await this.handleRideConfirmation(doc);
+      break;
+    case 'started':
       await this.handleRideStart(doc);
-  } else if (doc.data().stop === true) {
+      break;
+    case 'stopped':
       await this.handleRideStop(doc);
-  } else if (!doc.data().cancel && !doc.data().start && !doc.data().stop && doc.data().Driver_name) {
-      await this.handleDriverArrival(doc);
+      break;
+    default:
+      console.error('Unknown ride status:', data.status);
+      break;
   }
 }
 
-async handleRideCancellation() {
-  this.countDown.unsubscribe();
-  this.numCalls.unsubscribe();
-  if (this.drivers_Requested[this.current_Request_Number + 1]) {
-      this.current_Request_Number++;
-      await this.BookRide();
-  } else {
-      this.unsubscribe();
-      this.GoHome();
-  }
+
+async handlePendingState() {
+  console.log("now pending", );
+  await this.getDriverLocation(this.currentDriver.Driver_id); // Fetch the latest driver location
+  console.log("This is the driver location: " + this.DriverLatLng);
+
   await this.clearPrevMarkers();
+  await this.clearPolyline(this.newPoly);
+
+  this.setMapHeightCreateAndAddMarkers();
+  window.addEventListener('resize', this.setMapHeightCreateAndAddMarkers.bind(this));
+
+  // Driver coming to the rider
+  await this.handleDriverToRider(this.DriverLatLng, this.LatLng);
+  this.overlay.hideLoader();
+  this.EnterSearchingStage();
+  await this.startCountdown(20, this.requestID);
 }
+
+
+async presentCancelRideActionSheet() {
+  const actionSheet = await this.actionSheetController.create({
+    header: 'Cancel Ride',
+    buttons: [
+      {
+        text: 'Changed my mind',
+        handler: () => {
+          this.cancelRide('Changed my mind');
+        }
+      },
+      {
+        text: 'Driver took too long',
+        handler: () => {
+          this.cancelRide('Driver took too long');
+        }
+      },
+      {
+        text: 'Found another ride',
+        handler: () => {
+          this.cancelRide('Found another ride');
+        }
+      },
+      {
+        text: 'Other',
+        handler: () => {
+          this.cancelRide('Other');
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      }
+    ]
+  });
+  await actionSheet.present();
+}
+
+async cancelRide(reason: string) {
+  const rideRef = doc(this.firestore, 'Request', this.requestID);
+  await updateDoc(rideRef, {
+    status: 'cancelled',
+    cancellationReason: reason,
+    canceledBy: 'rider'
+  });
+  const toast = await this.toastController.create({
+    message: 'Ride has been cancelled.',
+    duration: 2000
+  });
+  await toast.present();
+}
+
+
+
+async handleRideCancellation(data) {
+  this.stopCountdown();
+  await this.clearPrevMarkers();
+  this.unsubscribe();
+  this.clearSubscriptions();
+  if (this.drivers_Requested[this.current_Request_Number + 1] && !this.rideHasStarted) {
+    this.current_Request_Number++;
+    await this.BookRide();
+  } else {
+    if (data.canceledBy == 'driver') {
+      this.overlay.showAlert('Cancelled', 'Driver cancelled');
+    } 
+    this.ClearRide();
+      this.ReturnHome();
+  }
+}
+
 
 async handleRideStart(doc) {
-  this.driverInfo = doc.data();
-  if (this.canCheck) {
-      this.canCheck = false;
-      this.clearPrevMarkers();
-      this.updateDriverSubcription = timer(4000).subscribe(async () => {
-          await this.createAndMoveMarkersOnRealtime(this.D_LatLng, true, true);
-          this.canCheck = true;
-      });
-  }
-  await this.saveRideState(this.driverInfo);
+  await this.clearPrevMarkers();
+  await this.clearPolyline(this.newPoly);
+  this.currentDriver = doc.data();
+  this.rideHasStarted = true;
+  this.setMapHeightHandleDrivertoDestination();
+    window.addEventListener('resize', this.setMapHeightHandleDrivertoDestination.bind(this));
+      await this.handleRiderToDestination(this.DriverLatLng, this.D_LatLng);
+      this.canCheck = true;
+  
+  await this.saveRideState(this.currentDriver);
   this.EnterDrivingToDestinationStage();
 }
 
 async handleRideStop(doc) {
+  this.clearSubscriptions();
   this.unsubscribe();
-  this.ClearRide();
-  await this.database.createHistory(doc.data());
-  if (this.countDown) this.countDown.unsubscribe();
+  await this.clearPrevMarkers();
+  
+   await this.clearPolyline(this.newPoly);
+  await this.ReturnHome();
+  await this.database.createHistory(this.driverInfo);
+
 }
 
-async handleDriverArrival(doc) {
-  this.driverInfo = doc.data();
-  this.countDown.unsubscribe();
-  this.numCalls.unsubscribe();
+
+async handleRideConfirmation(doc) {
+  this.stopCountdown();
+  console.log("trtryyrry rettete");
+  await this.clearPrevMarkers();
+  await this.clearPolyline(this.newPoly);
+ 
   this.DriverLatLng = {
-      lat: doc.data().Driver_lat,
-      lng: doc.data().Driver_lng
+    lat: this.driverLocation.lat,
+    lng: this.driverLocation.lng
   };
-  if (this.canCheck) {
-      this.canCheck = false;
-      this.clearPrevMarkers();
-      this.updateDriverSubcription = timer(4000).subscribe(async () => {
-          this.canCheck = true;
-          await this.createAndMoveMarkersOnRealtime(this.DriverLatLng, true, false);
-      });
-  }
+  console.log(this.DriverLatLng);
+    // Set map height before calculating zoom level
+    this.setMapHeightHandleDrivertoRider();
+    window.addEventListener('resize', this.setMapHeightHandleDrivertoRider.bind(this));
+
+    await this.handleDriverToRider(this.DriverLatLng, this.LatLng);
+  
   this.EnterTrackingStage();
 }
+
+
+getDriverLocation(driverId: string): void {
+  this.database.getDriverLocation(driverId)
+  .then(location => {
+    this.driverLocation = location;
+    console.log(this.driverLocation); // For testing purposes
+  })
+  .catch(error => {
+    console.error('Error fetching driver location:', error);
+  });
+}
+
+
 
 async EnterChat(): Promise<void> {
 const options: ModalOptions = {
     component: EnrouteChatComponent,
     componentProps: {
-        userId: this.driverInfo.Driver_id,
+        userId: this.requestID,
         message: ""
     },
     swipeToClose: true,
@@ -657,18 +1024,56 @@ const modal = await this.modalCtrl.create(options);
 return await modal.present();
 }
 
-startTimer(driver, sec) {
-this.countDown = interval(1000).subscribe(async () => {
-    await this.database.UpdateCountDown(sec, driver);
-    sec--;
-    if (sec == 0) {
-        this.countDown.unsubscribe();
+async startCountdown(initialTime, requestId) {
+  this.countdownActive = true;
+  let timeRemaining = initialTime;
+
+  const updateCountdown = async () => {
+    if (!this.countdownActive) {
+      console.log('Countdown stopped');
+      return;
     }
-});
+
+    if (timeRemaining > 0) {
+      try {
+        await this.database.UpdateCountDown(timeRemaining, requestId);
+        timeRemaining--;
+        setTimeout(updateCountdown, 1000);
+      } catch (error) {
+        console.error('Error updating countdown:', error);
+        // Retry after a short delay
+        setTimeout(updateCountdown, 2000);
+      }
+    } else {
+      await this.handleCountdownEnd(requestId);
+      console.log('Countdown ended');
+    }
+  };
+
+  updateCountdown();
+}
+
+async handleCountdownEnd(requestId) {
+  try {
+    // Implement a grace period to account for any delays
+    setTimeout(async () => {
+      await this.clearPrevMarkers();
+      await this.requestNextDriver();
+    }, 5000); // 5-second grace period
+  } catch (error) {
+    console.error('Error handling countdown end:', error);
+    // Optionally, retry the operation or notify the user
+  }
+}
+
+
+stopCountdown() {
+  this.countdownActive = false;
 }
 
 async goBackToAutoComplete() {
   try {
+    this.stopPolling = false;
     // Enable current location and set the camera to the initial position
     await this.map.newMap.enableCurrentLocation(true);
     await this.map.newMap.setCamera({
@@ -689,53 +1094,65 @@ async goBackToAutoComplete() {
 }
 
 private async clearPrevMarkers() {
-  try{
-  for (const carMarker of this._carmarkers) {
-    if (carMarker.marker) {
-      await this.clearMarker(carMarker.marker);
-      console.log("Car marker was cleared!!!!!!");
-    }
-  }
-  this._carmarkers = [];
-
-  if (this.driver_marker){
-  await this.clearMarker(this.driver_marker);
-  this.driver_marker = null;
-  }
-
-  if (this.rider_marker){
-  await this.clearMarker(this.rider_marker);
-  this.rider_marker = null;
-  }
-
-  if (this.marker1){
-    await this.clearMarker(this.marker1);
-    this.marker1 = null;
-    }
-  
-    if (this.marker2){
-    await this.clearMarker(this.marker2);
-    this.marker2 = null;
+  try {
+     // Clear other markers
+     if (this.rider_marker) {
+      await this.clearMarker(this.rider_marker);
+      this.rider_marker = null;
     }
 
-  if (this.animatedMarker) {
-    await this.clearMarker(this.animatedMarker);
-    this.animatedMarker = null;
-  }
+    // Clear other markers
+    if (this.driver_marker) {
+      await this.clearMarker(this.driver_marker);
+      this.driver_marker = null;
+    }
 
-}catch(e){
-  throwError(e);
+    // Clear other markers
+    if (this.destinationMarker) {
+      await this.clearMarker(this.destinationMarker);
+      this.destinationMarker = null;
+    }
+
+    // Clear other markers
+    if (this.marker1) {
+      await this.clearMarker(this.marker1);
+      this.marker1 = null;
+    }
+
+    if (this.marker2) {
+      await this.clearMarker(this.marker2);
+      this.marker2 = null;
+    }
+
+    // Clear animated marker
+    if (this.animatedMarker) {
+      await this.clearMarker(this.animatedMarker);
+      this.animatedMarker = null;
+    }
+
+    if (this.routeUpdateSubscription) {
+      this.routeUpdateSubscription.unsubscribe();
+    }
+
+
+  } catch (e) {
+    console.error('Error clearing markers:', e);
+  }
 }
 
-}
 
 private async clearMarker(marker) {
   if (marker) {
-    await this.map.newMap.removeMarker(marker);
-    console.log("Marker was cleared!!!!!!");
-    marker = null;
+    try {
+      await this.map.newMap.removeMarker(marker);
+      console.log("Marker was cleared!");
+    } catch (error) {
+      console.error('Error clearing marker:', error);
+    }
   }
 }
+
+
 
 async clearPolyline(polyline) {
   if (polyline) {
@@ -759,18 +1176,15 @@ async ResetState(){
     // Clear any existing polylines
     await this.clearPolyline(this.newPoly);
 
-    const availableHeight = 1000;
+    const availableHeight = 1024;
 
     this.map.newMap.enableTouch();
 
-    this.setMapHeight();
+    // this.setMapHeight();
     window.addEventListener('resize', this.setMapHeight.bind(this));
 
     // Ensure the map respects the boundaries of the top and bottom bars
     this.mapRef.nativeElement.style.height = `${availableHeight}px`;
-
-    // Start watching the user's position
-    this.startPollingPosition();
 
     // Reset important variables
     this.current_Request_Number = 0;
@@ -786,68 +1200,166 @@ async ResetState(){
 }
 
 async showAutocompleteModal(): Promise<void> {
-  this.stopPollingPosition();
-const options: ModalOptions = {
-    component: AutocompleteComponent,
-    componentProps: {
-        LatLng: this.LatLng,
-        locationAddress: this.locationAddress
-    },
-    swipeToClose: true,
-};
+  const options: ModalOptions = {
+      component: AutocompleteComponent,
+      componentProps: {
+          LatLng: this.LatLng,
+          locationAddress: this.locationAddress,
+      },
+      swipeToClose: true,
+  };
 
-const modal = await this.modalCtrl.create(options);
-modal.present();
+  const modal = await this.modalCtrl.create(options);
+  await modal.present();
 
-const { data } = await modal.onWillDismiss();
-console.log(data);
+  const { data } = await modal.onWillDismiss();
+  console.log('Modal dismissed with data:', data);
 
-this.data = data;
+  this.data = data;
 
-if (data.pinOnMap) {
-    this.EnterMapPinStage();
-    this.mapPinDrag = true;
+  if (data.pinOnMap) {
+      this.EnterMapPinStage();
+      this.mapPinDrag = true;
+      this.stopPolling = true;
+
+  }
+
+  if (data.home) {
+      console.log("Entering Booking Stage...");
+      this.EnterBookingStage();
+      this.stopPolling = false;
+
+  }
+
+  if (data.searching) {
+      this.database.AddKnownPlace(data);
+      this.destinationAddress = data.full;
+      this.actualDestination = data.whole.full;
+
+      try {
+          const latLng = await this.geocode.getLatLng(data.whole.description).toPromise();
+          this.D_LatLng = {
+              lat: latLng.results[0].geometry.location.lat,
+              lng: latLng.results[0].geometry.location.lng,
+          };
+          console.log("Destination LatLng:", this.D_LatLng);
+
+          await this.getDistanceAndDirections();
+      } catch (error) {
+          console.error("Error in geocoding:", error);
+          this.overlay.showAlert('Error in geocoding:', error.message);
+      }
+  }
 }
 
-if (data.home) {
-  console.log("NORMAL!!!!!!!!!");
-    this.EnterBookingStage();
-    this.startPollingPosition();
-}
 
-if (data.searching) {
-    this.database.AddKnownPlace(data);
-    this.destinationAddress = data.full;
-    this.actualDestination = data.whole.full;
-
-    const latLng = await this.geocode.getLatLng(data.whole.description).toPromise();
-    this.D_LatLng = {
-        lat: latLng.results[0].geometry.location.lat,
-        lng: latLng.results[0].geometry.location.lng,
-    };
-    console.log("i was called");
-    this.getDistanceAndDirections();
-}
-}
-
-// Modify your existing method to use fetchAndDisplayDrivers
 async RequestRide(dat) {
   if (!this.NoDrivers) {
     this.destinationAddress = dat.place.full;
     this.actualDestination = dat.place.whole.full;
 
-    const latLng = await this.geocode.getLatLng(dat.place.whole.description).toPromise();
-    this.D_LatLng = {
-      lat: latLng.results[0].geometry.location.lat,
-      lng: latLng.results[0].geometry.location.lng,
-    };
-    console.log("i was called");
-    this.getDistanceAndDirections();
+    try {
+      const latLng = await this.geocode.getLatLng(dat.place.whole.description).toPromise();
+      this.D_LatLng = {
+        lat: latLng.results[0].geometry.location.lat,
+        lng: latLng.results[0].geometry.location.lng,
+      };
+
+      await this.getDistanceAndDirections();
+    } catch (error) {
+      console.error("Error in geocoding:", error);
+      this.overlay.showAlert('Check Your Network', error.message);
+    }
   } else {
     this.EnterNoDriverStage();
     console.log("No drivers available");
   }
 }
+
+async getDistanceAndDirections() {
+  console.log("getDistanceAndDirections called");
+  this.duration = null;
+  await this.clearMarkers();
+  this.cleanupListeners();
+  this.stopPolling = true;
+
+  if (this.D_LatLng && this.D_LatLng.lat) {
+    console.log("D_LatLng is set:", this.D_LatLng);
+
+    if (!this.NoDrivers) {
+      this.EnterConfirmStage();
+    } else {
+      this.EnterNoDriverStage();
+      console.log("No drivers available");
+      return;
+    }
+
+    const origin1 = new google.maps.LatLng(this.LatLng.lat, this.LatLng.lng);
+    const origin2 = new google.maps.LatLng(this.D_LatLng.lat, this.D_LatLng.lng);
+
+    const request = {
+      origin: origin1,
+      destination: origin2,
+      travelMode: google.maps.TravelMode.DRIVING,
+    };
+
+    this.geocode.directions.route(request, async (response, status) => {
+      if (status === 'OK') {
+        this.direction = response;
+        this.distance = response.routes[0].legs[0].distance.value;
+        this.bounds = response.routes[0].bounds;
+        this.price = await this.database.getPriceEstimate(this.distance);
+        this.duration = response.routes[0].legs[0].duration.text;
+
+        await this.createAndAddMarkers(this.LatLng, this.D_LatLng);
+
+        // Call getDistanceAndDirectionsDriver after this part is successful
+        await this.getDistanceAndDirectionsDriver();
+      } else {
+        console.error('Direction ERROR:', response);
+        this.overlay.showAlert('Check Your Network', JSON.stringify(response));
+      }
+    });
+  } else {
+    this.overlay.showAlert('Drag Map', 'Drag the map and stop on your required destination');
+    console.error('D_LatLng or D_LatLng.lat is undefined');
+  }
+}
+
+async getDistanceAndDirectionsDriver() {
+  console.log("getDistanceAndDirectionsDriver called");
+
+  if (!this.NoDrivers) {
+    console.log("Driver LatLng:", this.DriverLatLng);
+
+    if (this.DriverLatLng) {
+      const origin1 = new google.maps.LatLng(this.LatLng.lat, this.LatLng.lng);
+      const origin2 = new google.maps.LatLng(this.DriverLatLng.lat, this.DriverLatLng.lng);
+
+      const request = {
+        origin: origin1,
+        destination: origin2,
+        travelMode: google.maps.TravelMode.DRIVING,
+      };
+
+      this.geocode.directions.route(request, (response, status) => {
+        if (status === 'OK') {
+          this.D_duration = response.routes[0].legs[0].duration.text;
+          console.log("Driver duration:", this.D_duration);
+        } else {
+          console.error('Direction ERROR:', response);
+          this.overlay.showAlert('Direction ERROR:', JSON.stringify(response));
+        }
+      });
+    } else {
+      console.log("DriverLatLng is undefined");
+    }
+  } else {
+    console.log("No drivers available");
+  }
+}
+
+
 
 
 async resetLocation(): Promise<void> {
@@ -861,54 +1373,7 @@ await this.map.newMap.setCamera({
 this.showResetLocationButton = false;
 }
 
-async getDistanceAndDirections() {
- 
-  await this.clearMarkers();
-  this.cleanupListeners();
-  this.stopPollingPosition();
 
-  if (this.D_LatLng && this.D_LatLng.lat) {
-    console.log("This is DLAT: " + this.closeDrivers);
-
-    if (!this.NoDrivers) {
-      this.EnterConfirmStage();
-    } else {
-      this.EnterNoDriverStage();
-      console.log("No drivers available");
-      return
-    }
-
-    const origin1 = new google.maps.LatLng(this.LatLng.lat, this.LatLng.lng);
-    const origin2 = new google.maps.LatLng(this.D_LatLng.lat, this.D_LatLng.lng);
-
-    const request = {
-      origin: origin1,
-      destination: origin2,
-      travelMode: google.maps.TravelMode.DRIVING,
-    };
-
-    this.geocode.directions.route(request, async (response, status) => {
-      if (status == 'OK') {
-        this.direction = response;
-        this.distance = response.routes[0].legs[0].distance.value;
-        this.bounds = response.routes[0].bounds;
-        this.price = await this.database.getPriceEstimate(this.distance);
-
-        // if (this.closeDrivers && this.closeDrivers.length > 0) {
-        //   console.log("closeDrivers:", this.closeDrivers);
-          await this.createAndAddMarkers(this.LatLng, this.D_LatLng);
-        // } else {
-        //   console.error("closeDrivers is undefined or empty.");
-        // }
-      } else {
-        this.overlay.showAlert('Direction ERROR', JSON.stringify(response));
-      }
-    });
-  } else {
-    this.overlay.showAlert('Drag Map', 'Drag the map and stop on your required destination');
-    console.error('D_LatLng or D_LatLng.lat is undefined');
-  }
-}
 
 processAddressResponse(addressResponse) {
   console.log("processAddressResponse : " + addressResponse);
@@ -1040,12 +1505,10 @@ async UpdateCarMarker(elements: Drivers[]) {
 
 
 
-
-
-
 async GoHome() {
   await this.map.newMap.enableCurrentLocation(true);
   this.current_Request_Number = 0;
+  this.stopPolling = false;
   this.price = null;
   this.EnterBookingStage();
   await this.map.newMap.setCamera({
@@ -1064,6 +1527,7 @@ async GotoSupport() {
 async ReturnHome() {
   await this.ResetState();
   this.EnterBookingStage();
+  this.stopPolling = false;
   await this.map.newMap.setCamera({
       animate: true,
       animationDuration: 500,
@@ -1074,14 +1538,14 @@ async ReturnHome() {
 
 async CancelRide() {
   this.overlay.showLoader('Please Wait..');
-  this.clearPrevMarkers();
-
-  //await this.clearPolyline(this.newPoly);
+  await this.clearPrevMarkers();
+  // Clear any existing polylines
+   await this.clearPolyline(this.newPoly);
 
   this.unsubscribe();
   this.numCalls.unsubscribe();
   this.riderCleared = true;
-  await this.database.cancelRide(this.currentDriver.Driver_id);
+  await this.database.cancelRide(this.requestID);
   await this.map.newMap.enableCurrentLocation(true);
   this.current_Request_Number = 0;
   this.price = null;
@@ -1120,116 +1584,251 @@ async CallDriver() {
   // Implement CallDriver logic
 }
 
-async createAndMoveMarkersOnRealtime(otherLatLng, state, isDestination) {
-  const origin1 = new google.maps.LatLng(this.LatLng.lat, this.LatLng.lng);
-  const origin2 = new google.maps.LatLng(otherLatLng.lat, otherLatLng.lng);
 
-  const request = {
-    origin: origin2,
-    destination: origin1,
-    travelMode: google.maps.TravelMode.DRIVING,
-  };
+// Interval in milliseconds for updating the route
+UPDATE_INTERVAL = 10000; // Update every 10 seconds
 
-  this.geocode.directions.route(request, async (response, status) => {
-    if (status == 'OK') {
-      this.bounds = response.routes[0].bounds;
-      this.duration = response.routes[0].legs[0].duration.text;
+async handleDriverToRider(driverLatLng, riderLatLng) {
+  const markerSize = { width: 30, height: 30 };
+  const iconAnchor = { x: 10, y: 0 }; // Center bottom of the icon
 
-      const markerUrl = isDestination ? 'https://i.ibb.co/bWx9V64/favourite.png' : 'https://i.ibb.co/KDy365b/hatchback.png';
-      const markerSize = { width: 30, height: 30 };
+  try {
+    // Add driver marker at the starting position
+    const driverMarker = await this.map.newMap.addMarker({
+      coordinate: driverLatLng,
+      iconUrl: 'assets/icon/car.png',
+      title: 'Driver',
+      iconSize: markerSize,
+      iconAnchor: iconAnchor,
+      iconOrigin: { x: 2, y: 0 },
+    });
+    this.driver_marker = driverMarker;
 
-      try {
-        // Add driver marker
-        this.marker1 = await this.map.newMap.addMarker({
-          coordinate: otherLatLng,
-          iconUrl: markerUrl,
-          title: 'Driver',
-          iconSize: markerSize
-        });
+    // Add rider marker at the destination position
+    const riderMarker = await this.map.newMap.addMarker({
+      coordinate: riderLatLng,
+      iconUrl: this.database.user.photoURL, // Change this to your rider icon URL
+      title: 'Rider',
+      iconSize: markerSize,
+      iconAnchor: iconAnchor,
+      iconOrigin: { x: 2, y: 0 },
+    });
+    this.rider_marker = riderMarker;
 
-        // Add rider marker
-        this.marker2 = await this.map.newMap.addMarker({
-          coordinate: this.LatLng,
-          iconUrl: "https://i.ibb.co/N9LXGk3/home-1.png",
-          title: 'Rider',
-          iconSize: markerSize
-        });
+    // Function to update route, duration, and distance
+    const updateRoute = async () => {
+      const request = {
+        origin: driverLatLng,
+        destination: riderLatLng,
+        travelMode: google.maps.TravelMode.DRIVING,
+      };
 
-        // Calculate the center point between the driver and rider
-        const locs = [
-          {
-            geoCode: {
-              latitude: this.LatLng.lat,
-              longitude: this.LatLng.lng
-            }
-          },
-          {
-            geoCode: {
-              latitude: otherLatLng.lat,
-              longitude: otherLatLng.lng
-            }
-          }
-        ];
+      this.geocode.directions.route(request, async (response, status) => {
+        if (status === 'OK') {
+          const path = response.routes[0].overview_path.map(latlng => ({
+            lat: latlng.lat(),
+            lng: latlng.lng()
+          }));
+          this.duration = response.routes[0].legs[0].duration.text;
+          this.distance = response.routes[0].legs[0].distance.text;
 
-        const center = this.map.calculateCenter(locs);
+          console.log(`Duration: ${this.duration}, Distance: ${this.distance}`);
 
-        // Set map padding if state is true
-        if (state) {
-          await this.map.newMap.setPadding({
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 600
-          });
+          const locs = [
+            { geoCode: { latitude: driverLatLng.lat, longitude: driverLatLng.lng } },
+            { geoCode: { latitude: riderLatLng.lat, longitude: riderLatLng.lng } },
+          ];
+
+          const center = this.map.calculateCenter(locs);
+
+
+          const bounds = new google.maps.LatLngBounds();
+          bounds.extend(new google.maps.LatLng(driverLatLng.lat, driverLatLng.lng));
+          bounds.extend(new google.maps.LatLng(riderLatLng.lat, riderLatLng.lng));
+  
+        
+          const availableHeight = this.mapRef.nativeElement.offsetHeight;
+  
+          // Prepare map dimensions for calculating zoom level
+          const mapDim = {
+            height: availableHeight,
+            width: this.mapRef.nativeElement.offsetWidth,
+          };
+  
+          // Calculate zoom level
+          const zoomLevel = this.map.getBoundsZoomLevel(bounds, mapDim);
+  
+          // Manually set zoom level if needed
+          const adjustedZoomLevel = zoomLevel - 1; // Adjust as necessary
+
+          await this.map.setCameraToLocation({ lat: center.latitude, lng: center.longitude }, adjustedZoomLevel, this.map.calculateBearing(driverLatLng, riderLatLng));
+  
+
+          // Update polyline for the route
+           // Update polyline for the route
+           if (this.newPoly) {
+            await this.clearPolyline(this.newPoly);
+           }
+           await this.addPolyline(driverLatLng, riderLatLng);
+          // Animate the driver marker along the path to the rider
+          await this.animateMarker(this.driver_marker, path, 'assets/icon/car.png');
+        } else {
+          console.error('Direction ERROR:', response);
+          this.overlay.showAlert('Direction ERROR', JSON.stringify(response));
         }
+      });
+    };
 
-        // Prepare map dimensions for calculating zoom level
-        const mapDim = {
-          height: this.mapRef.nativeElement.offsetHeight / 2,
-          width: this.mapRef.nativeElement.offsetWidth
-        };
+    // Start updating the route periodically
+    const routeUpdate$ = interval(this.UPDATE_INTERVAL).pipe(
+      switchMap(() => updateRoute())
+    );
 
-        // Set the camera to focus on the center point with appropriate zoom level
-        await this.map.newMap.setCamera({
-          animate: true,
-          animationDuration: 500,
-          zoom: this.map.getBoundsZoomLevel(this.bounds, mapDim),
-          coordinate: { lat: center.latitude, lng: center.longitude },
-          bearing: 0
-        });
+    // Subscribe to the interval observable to start updating
+    this.routeUpdateSubscription = routeUpdate$.subscribe();
 
-        this.canCheck = true;
-      } catch (error) {
-        console.error('Error adding markers:', error);
-      }
-    } else {
-      console.error('Direction ERROR:', response);
-    }
-  });
+    // Cleanup subscription when the component or context is destroyed
+    // Call routeUpdateSubscription.unsubscribe() when needed
+
+  } catch (error) {
+    console.error('Error handling driver to rider:', error);
+  }
 }
 
+async handleRiderToDestination(driverLatLng, destinationLatLng) {
+  const markerSize = { width: 30, height: 30 };
+  const iconAnchor = { x: 10, y: 0 }; // Center bottom of the icon
+
+  try {
+    // Update driver marker to driver's current position
+    const driverMarker = await this.map.newMap.addMarker({
+      coordinate: driverLatLng,
+      iconUrl: 'assets/icon/car.png',
+      title: 'Driver',
+      iconSize: markerSize,
+      iconAnchor: iconAnchor,
+      iconOrigin: { x: 0, y: 0 },
+    });
+    this.driver_marker = driverMarker;
+
+    // Add destination marker
+    const destinationMarker = await this.map.newMap.addMarker({
+      coordinate: destinationLatLng,
+      iconUrl: 'assets/icon/flag.png',
+      title: 'Destination',
+      iconSize: markerSize,
+      iconAnchor: iconAnchor,
+      iconOrigin: { x: 0, y: 0 },
+    });
+    this.destinationMarker = destinationMarker;
+
+    // Function to update route, duration, and distance
+    const updateRoute = async () => {
+      const request = {
+        origin: driverLatLng,
+        destination: destinationLatLng,
+        travelMode: google.maps.TravelMode.DRIVING,
+      };
+
+      this.geocode.directions.route(request, async (response, status) => {
+        if (status === 'OK') {
+          const path = response.routes[0].overview_path.map(latlng => ({
+            lat: latlng.lat(),
+            lng: latlng.lng()
+          }));
+          this.duration = response.routes[0].legs[0].duration.text;
+          this.distance = response.routes[0].legs[0].distance.text;
+
+          console.log(`Duration: ${this.duration}, Distance: ${this.distance}`);
+
+          const locs = [
+            { geoCode: { latitude: driverLatLng.lat, longitude: driverLatLng.lng } },
+            { geoCode: { latitude: destinationLatLng.lat, longitude: destinationLatLng.lng } },
+          ];
+
+          const center = this.map.calculateCenter(locs);
+
+
+          const bounds = new google.maps.LatLngBounds();
+          bounds.extend(new google.maps.LatLng(driverLatLng.lat, driverLatLng.lng));
+          bounds.extend(new google.maps.LatLng(destinationLatLng.lat, destinationLatLng.lng));
+  
+        
+          const availableHeight = this.mapRef.nativeElement.offsetHeight;
+  
+          // Prepare map dimensions for calculating zoom level
+          const mapDim = {
+            height: availableHeight,
+            width: this.mapRef.nativeElement.offsetWidth,
+          };
+  
+          // Calculate zoom level
+          const zoomLevel = this.map.getBoundsZoomLevel(bounds, mapDim);
+  
+          // Manually set zoom level if needed
+          const adjustedZoomLevel = zoomLevel - 1; // Adjust as necessary
+  
+          // Set the camera to focus on the center point with appropriate zoom leve
+          await this.map.setCameraToLocation({ lat: center.latitude, lng: center.longitude }, adjustedZoomLevel, this.map.calculateBearing(driverLatLng, destinationLatLng));
+  
+
+
+          // Update polyline for the route
+          if (this.newPoly) {
+           await this.clearPolyline(this.newPoly);
+          }
+          await this.addPolyline(driverLatLng, destinationLatLng);
+          
+          // Animate the driver marker along the path to the destination
+          await this.animateMarker(this.driver_marker, path, 'assets/icon/car.png');
+        } else {
+          console.error('Direction ERROR:', response);
+          this.overlay.showAlert('Direction ERROR', JSON.stringify(response));
+        }
+      });
+    };
+
+    // Start updating the route periodically
+    const routeUpdate$ = interval(this.UPDATE_INTERVAL).pipe(
+      switchMap(() => updateRoute())
+    );
+
+    // Subscribe to the interval observable to start updating
+    this.routeUpdateSubscription = routeUpdate$.subscribe();
+
+    // Cleanup subscription when the component or context is destroyed
+    // Call routeUpdateSubscription.unsubscribe() when needed
+
+  } catch (error) {
+    console.error('Error handling rider to destination:', error);
+  }
+}
 
 async addPolyline(loc: { lat: number, lng: number }, des: { lat: number, lng: number }) {
-  const polylineColor = "#007bff";
-  const polylines: Polyline[] = [
-    {
-      path: [
-        { lat: loc.lat, lng: loc.lng },
-        { lat: des.lat, lng: des.lng }
-      ],
-      strokeColor: polylineColor,
-      strokeWeight: 10,
-      geodesic: true
-    }
-  ];
+  try {
+    const polylineColor = "#007bff";
+    const polylines: Polyline[] = [
+      {
+        path: [
+          { lat: loc.lat, lng: loc.lng },
+          { lat: des.lat, lng: des.lng }
+        ],
+        strokeColor: polylineColor,
+        strokeWeight: 8,
+        geodesic: true
+      }
+    ];
 
-  this.newPoly = await this.map.newMap.addPolylines(polylines);
-  return polylines[0].path; // Return the path directly
+    this.newPoly = await this.map.newMap.addPolylines(polylines);
+    return polylines[0].path as (LatLng | LatLngLiteral)[]; // Ensure the return type is always an array
+  } catch (e) {
+    console.log('Error Adding Polyline: ', e);
+  }
 }
 
 async createAndAddMarkers(loc, des) {
-  const markerSize = { width: 50, height: 50 };
-  const iconAnchor = { x: 25, y: 50 }; // Center bottom of the icon
+  const markerSize = { width: 30, height: 30 };
+  const iconAnchor = { x: 10, y: 0 }; // Center bottom of the icon
 
   try {
     this.map.newMap.disableTouch();
@@ -1237,21 +1836,21 @@ async createAndAddMarkers(loc, des) {
     // Add start marker
     this.marker1 = await this.map.newMap.addMarker({
       coordinate: loc,
-      iconUrl: 'https://i.imgur.com/UyFqT7E.png',
+      iconUrl: 'assets/icon/point.png',
       title: 'Start',
       iconSize: markerSize,
       iconAnchor: iconAnchor,
-      iconOrigin: { x: 0, y: 0 },
+      iconOrigin: { x: 1, y: 0 },
     });
 
     // Add destination marker
     this.marker2 = await this.map.newMap.addMarker({
       coordinate: des,
-      iconUrl: 'https://i.imgur.com/csK5kcM.png',
+      iconUrl: 'assets/icon/flag.png',
       title: 'Destination',
       iconSize: markerSize,
       iconAnchor: iconAnchor,
-      iconOrigin: { x: 0, y: 0 },
+      iconOrigin: { x: 1, y: 0 },
     });
 
     // Calculate the center point between the start and destination
@@ -1284,60 +1883,55 @@ async createAndAddMarkers(loc, des) {
     const adjustedZoomLevel = zoomLevel - 1; // Adjust as necessary
 
     // Set the camera to focus on the center point with appropriate zoom level
-    await this.map.newMap.setCamera({
-      animate: true,
-      animationDuration: 500,
-      zoom: adjustedZoomLevel,
-      coordinate: { lat: center.latitude, lng: center.longitude },
-      bearing: this.map.calculateBearing(loc, des),
-    });
+    await this.map.setCameraToLocation({ lat: center.latitude, lng: center.longitude }, adjustedZoomLevel, this.map.calculateBearing(loc, des));
 
-    // Add polyline between the start and destination
-    const path = await this.addPolyline(loc, des);
+    // Add polyline for the route
+    const polylineColor = "#007bff";
+    const polylines: Polyline[] = [
+      {
+        path: [
+          { lat: loc.lat, lng: loc.lng },
+          { lat: des.lat, lng: des.lng }
+        ],
+        strokeColor: polylineColor,
+        strokeWeight: 8,
+        geodesic: true
+      }
+    ];
 
-    // Convert path to an array if necessary
-    const plainPath = Array.isArray(path) ? path : path.getArray();
+    // Add polyline to the map
+    this.newPoly = await this.map.newMap.addPolylines(polylines);
+  } catch (error) {
+    console.error('Error creating and adding markers:', error);
+  }
+}
 
-    // Ensure the path is in the correct order (from start to destination)
-    const forwardPath = plainPath.slice(); // Create a copy of the path array
 
-    // Create marker for animation with user photo URL starting from the start location
-    this.animatedMarker = await this.map.newMap.addMarker({
-      coordinate: loc, // Start from the start marker's position
-      iconUrl: this.database.user.photoURL,
+
+async animateMarker(marker, path, iconUrl) {
+  const markerSize = { width: 50, height: 50 };
+  const iconAnchor = { x: 25, y: 50 }; // Center bottom of the icon
+
+  for (let i = 0; i < path.length; i++) {
+    await this.map.newMap.removeMarker(marker);
+    const coordinate = path[i] instanceof google.maps.LatLng ? 
+                       { lat: path[i].lat(), lng: path[i].lng() } : 
+                       { lat: path[i].lat, lng: path[i].lng };
+    marker = await this.map.newMap.addMarker({
+      coordinate: coordinate,
+      iconUrl: iconUrl,
       title: 'Moving Marker',
       iconSize: markerSize,
       iconAnchor: iconAnchor,
       iconOrigin: { x: 0, y: 0 },
     });
-
-    const animateMarker = async (marker, path) => {
-      for (let i = 0; i < path.length; i++) {
-        await this.map.newMap.removeMarker(marker);
-        const coordinate = path[i] instanceof google.maps.LatLng ? 
-                           { lat: path[i].lat(), lng: path[i].lng() } : 
-                           { lat: path[i].lat, lng: path[i].lng };
-        marker = await this.map.newMap.addMarker({
-          coordinate: coordinate,
-          iconUrl: this.database.user.photoURL,
-          title: 'Moving Marker',
-          iconSize: markerSize,
-          iconAnchor: iconAnchor,
-          iconOrigin: { x: 0, y: 0 },
-        });
-        await new Promise(resolve => setTimeout(resolve, 100)); // Adjust the interval as needed
-      }
-      // Store the last position of the animated marker
-      this.animatedMarker = marker;
-    };
-
-    // Animate marker along the forward path (from start to destination)
-    await animateMarker(this.animatedMarker, forwardPath);
-
-  } catch (error) {
-    console.error('Error adding markers and polyline:', error);
+    await new Promise(resolve => setTimeout(resolve, 100)); // Adjust the interval as needed
   }
+
+  // Store the last position of the animated marker
+  this.animatedMarker = marker;
 }
+
 
 
 async ShowDriverInfoPop() {

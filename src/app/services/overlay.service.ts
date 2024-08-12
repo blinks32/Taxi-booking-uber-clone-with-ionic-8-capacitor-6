@@ -6,7 +6,7 @@ import { AlertController, LoadingController, ToastController } from '@ionic/angu
 })
 export class OverlayService {
   isLoading: any;
-
+  private currentAlert: HTMLIonAlertElement;
   constructor(private loadingCtrl: LoadingController,private toast: ToastController,  private alertController: AlertController) { }
 
 
@@ -49,13 +49,25 @@ export class OverlayService {
     await alert.present();
   }
 
-  async showAlert(header, message) {
+
+  async showAlert(header: string, message: string) {
+    if (this.currentAlert) {
+      await this.hideAlert();
+    }
     const alert = await this.alertController.create({
       header,
       message,
       cssClass: 'default-alert',
       buttons: ['OK'],
     });
-    await alert.present();
+    this.currentAlert = alert;
+    await this.currentAlert.present();
+  }
+  
+  hideAlert() {
+    if (this.currentAlert) {
+      this.currentAlert.dismiss();
+      this.currentAlert = null;
+    }
   }
 }

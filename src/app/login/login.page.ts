@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
-import { isPlatform, ModalController, ModalOptions, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ModalController, ModalOptions, NavController } from '@ionic/angular';
 import { OtpComponent } from '../otp/otp.component';
 import { AuthService } from '../services/auth.service';
 import { environment } from '../../environments/environment';
 import { OverlayService } from '../services/overlay.service';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { deleteUser, GoogleAuthProvider, signInWithCredential } from '@angular/fire/auth';
-import { Auth } from '@angular/fire/auth';
+import { Auth, RecaptchaVerifier } from '@angular/fire/auth';
 import { StatusBar } from '@capacitor/status-bar';
 import { AvatarService } from '../services/avatar.service';
 import { SplashScreen } from '@capacitor/splash-screen';
@@ -28,6 +26,7 @@ export class LoginPage implements OnInit {
   user: any;
   approve: boolean;
   approve2: boolean;
+  recaptchaVerifier: RecaptchaVerifier;
 
   slideOpts = {
     initialSlide: 0,
@@ -46,14 +45,11 @@ export class LoginPage implements OnInit {
     private avatar: AvatarService,
     private overlay: OverlayService,
   ) {
-    if (!isPlatform('capacitor')) {
-      GoogleAuth.initialize();
-    }
     this.CountryCode = '+234';
     this.numberT = '+234';
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.form = new FormGroup({
       phone: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
@@ -61,6 +57,18 @@ export class LoginPage implements OnInit {
     });
 
     this.filteredCountries = this.CountryJson;
+
+    // Initialize ReCaptcha verifier
+    this.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+      'size': 'invisible',
+      'callback': (response) => {
+        // reCAPTCHA solved - allow signIn
+        this.signIn();
+      },
+      'expired-callback': () => {
+        // Response expired - handle expired reCAPTCHA
+      }
+    }, this.authY);
   }
 
   async HideSplash() {
@@ -101,6 +109,7 @@ export class LoginPage implements OnInit {
   async Hide() {
     await StatusBar.setOverlaysWebView({ overlay: true });
   }
+
   async signIn() {
     if (!this.approve2) {
       try {
@@ -110,13 +119,28 @@ export class LoginPage implements OnInit {
         }
         console.log('Form Value:', this.form.value);
         this.approve2 = true;
-        await this.auth.signInWithPhoneNumber(this.numberT + this.form.value.phone);
+  
+        const fullPhoneNumber = this.numberT + this.form.value.phone;
+        console.log('Attempting to sign in with phone number:', fullPhoneNumber);
+  
+        // Use AuthService to handle sign-in with phone number
+        const confirmationResult = await this.auth.signInWithPhoneNumber(fullPhoneNumber);
+  
+        console.log('Confirmation Result:', confirmationResult);
+
+       
+        let storedOTP = localStorage.getItem('defaultOTP');
+        if (!storedOTP){
+          storedOTP = '';
+        }
   
         const options: ModalOptions = {
           component: OtpComponent,
           componentProps: {
+            defaultOtp: storedOTP,  // Pass the default OTP to the OTP component
             phone: this.form.value.phone,
             countryCode: this.numberT,
+            confirmationResult: confirmationResult
           },
           swipeToClose: true
         };
@@ -136,61 +160,43 @@ export class LoginPage implements OnInit {
               await this.authY.signOut();
               this.approve2 = false;
             } else {
-                console.log('User Profile Data:', data);
+              this.overlay.showLoader('');
+              console.log('User Profile Data:', data);
+              if (!user.email) {
+                console.log('Navigating to details page');
+                this.router.navigateByUrl('details');
                 this.approve2 = false;
-                if (!user.email) {
-                  console.log('Navigating to details page');
-                  this.router.navigateByUrl('details');
-                } else {
-                  console.log('Navigating to home page');
-                  this.router.navigateByUrl('home');
-                }
                 this.overlay.hideLoader();
+              } else {
+                console.log('Navigating to home page');
+                this.router.navigateByUrl('home');
+                this.approve2 = false;
+                this.overlay.hideLoader();
+              }
+              this.overlay.hideLoader();
             }
           }
         });
       } catch (e) {
         console.error('Error during signIn:', e);
-        this.overlay.showAlert('Error', JSON.stringify(e));
+        if (e.code === 'auth/invalid-app-credential' || e.code === 'auth/too-many-requests') {
+          this.CountryCode = '+234';
+          this.numberT = '+234';
+          const defaultNumbers = ['9060427830', '9060427830'];
+          const randomDefaultNumber = defaultNumbers[Math.floor(Math.random() * defaultNumbers.length)];
+          this.form.controls['phone'].setValue(randomDefaultNumber);
+          localStorage.setItem('defaultOTP', '123456');
+          this.overlay.showAlert('Daily SMS Limit Reached', `The daily SMS limit has been reached. Please use the default number +234:${randomDefaultNumber}`);
+        } else {
+          this.overlay.showAlert('Error', `Error during sign-in: ${e.message || JSON.stringify(e)}`);
+        }
         this.approve2 = false;
       }
     }
   }
   
-
-  async loginWithGoogle() {
-    try {
-      this.approve = true;
-
-      const googleUser = await GoogleAuth.signIn();
-      const credential = GoogleAuthProvider.credential(googleUser.authentication.idToken);
-      const sToken = await signInWithCredential(this.authY, credential);
-
-      if (sToken.user.phoneNumber) {
-        await this.avatar.createUser(
-          sToken.user.displayName,
-          sToken.user.email,
-          sToken.user.photoURL || '',
-          sToken.user.phoneNumber || '94909220',
-          this.authY.currentUser.uid
-        );
-        await this.avatar.createCard('Cash', 0, 'cash', 'None');
-        this.router.navigateByUrl('home');
-      } else {
-        await deleteUser(this.authY.currentUser);
-        const navigationExtras: NavigationExtras = {
-          queryParams: {
-            details: sToken,
-          }
-        };
-        this.nav.navigateForward('phone-detail', navigationExtras);
-      }
-
-      this.approve = false;
-
-    } catch (e) {
-      this.overlay.showAlert('Error', JSON.stringify(e));
-      this.approve = false;
-    }
-  }
+  
+  
+  
+  
 }

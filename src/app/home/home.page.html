@@ -13,21 +13,25 @@
     </ion-buttons>
     <ion-title> Cancel </ion-title>
     <ion-buttons slot="end">
-      <ion-title> Arrives in {{driver_duration_apart}} mins </ion-title>
+      <ion-item fill="outline" class="duration" color="primary" lines="none">
+        <ion-icon slot="icon-only" name="flag" color="primary"></ion-icon>
+        <ion-label *ngIf="duration" color="primary"><h1>{{duration}}</h1></ion-label>
+      </ion-item>
     </ion-buttons>
   </ion-toolbar>
 
   
-  <ion-row class='top_bar' *ngIf="confirmStage">
-    <ion-list  lines="none">
-    <ion-item-group  class="ion-margin-horizontal ion-margin-bottom" >
-      <ion-button shape="round" class="main-button" size="large" type="submit" (click)="goBackToAutoComplete()" expand="block">
-        <ion-icon slot="start" color='primary' name="create"></ion-icon>
-        <ion-label>{{destinationAddress}}</ion-label>
-      </ion-button>
-    </ion-item-group>
-    </ion-list>
-  </ion-row>
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col size="12"> -->
+        <ion-item lines="none" color='light' class="main-buttons ion-no-padding" class='top_bar'  (click)="goBackToAutoComplete()" *ngIf="confirmStage">
+            <ion-icon slot="start" color='primary' name="pencil"></ion-icon>
+            <ion-label color='primary' >{{destinationAddress}}</ion-label>
+        </ion-item>
+      <!-- </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  
 
   <!--menu button-->
   <ion-fab *ngIf="bookingStage" vertical="top" horizontal="start">
@@ -37,7 +41,7 @@
   </ion-fab>
 
   <!--sos button-->
-  <ion-fab  *ngIf="!confirmStage" vertical="top" horizontal="end" (click)="GotoSupport()">
+  <ion-fab  *ngIf="bookingStage" vertical="top" horizontal="end" (click)="GotoSupport()">
     <ion-fab-button color="light">
       <ion-icon color="primary" name="chatbubble-ellipses"></ion-icon>
     </ion-fab-button>
@@ -50,13 +54,16 @@
     </ion-fab-button>
   </ion-fab>
 
+  <ion-item *ngIf="searchingStage" lines="none" color='primary' class="main-buttons ion-no-padding" class='top_bar'>
+    <ion-icon slot="start" color='light' name="flag"></ion-icon>
+    <ion-label color='light' ><h1>Driver Arrives In {{duration}}</h1></ion-label>
+    <ion-button  fill="outline" shape="round" color="danger"  class='main-button' size="large" type="submit" expand="block" (click)="presentCancelRideActionSheet()">
+      <ion-label></ion-label>
+      <ion-icon slot="start" slot="icon-only" name="close-sharp" color="danger"></ion-icon>
+    </ion-button>
+</ion-item>
 
-  <!--back button if map Pin-->
-  <ion-fab color="danger" *ngIf="searchingStage" vertical="top" (click)="CancelRide()" horizontal="start">
-    <ion-fab-button color="light">
-      <ion-icon name="trash-sharp" color="primary"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
 
   <!--Search Bar-->
  
@@ -66,11 +73,19 @@
 
 <!--Capacitor Google Map-->
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" scroll-y="false">
   
   <capacitor-google-maps #map>
    
   </capacitor-google-maps>
+
+
+  <ion-fab *ngIf="bookingStage && showResetLocationButton" vertical="bottom" horizontal="end" >
+    <ion-fab-button color="light" (click)="resetLocation()">
+      <ion-icon name="locate"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   
 </ion-content>
 
@@ -88,14 +103,6 @@
 
   <ion-footer  [translucent]="true" class="ion-no-border">
     <div #bottomBar>
-    <!--location Button-->
-    <ion-fab *ngIf="bookingStage && showResetLocationButton" vertical="top" horizontal="end" >
-      <ion-fab-button color="light" (click)="resetLocation()">
-        <ion-icon name="locate"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-
-
     <ion-row>
 
 
@@ -103,18 +110,28 @@
       <ion-list class="bottomItems shadow-top" *ngIf="bookingStage" lines="full">
   
         <ion-item-group class="ion-margin-horizontal ion-margin-bottom ">
-          <ion-button shape="round" class="main-button" size="large" type="submit" (click)="showAutocompleteModal()" expand="block">
-            <ion-icon slot="start" name="search" color="primary"></ion-icon>
-            <ion-label>Where To?</ion-label>
-          </ion-button>
+          <ion-button 
+          [disabled]="!locationAddress" 
+          shape="round" 
+          class="main-button" 
+          size="large" 
+          type="submit" 
+          (click)="showAutocompleteModal()" 
+          expand="block">
+          <ion-icon slot="start" name="search" color="primary"></ion-icon>
+          <ion-label>{{ locationAddress ? 'Where To?' : 'Waiting for address...' }}</ion-label>
+        </ion-button>
+        
 
-          <ion-item *ngFor="let place of places"  class="bottomItems ion-margin"  (click)="RequestRide(place)">
-            <ion-icon name="pin" color='primary' slot="start"></ion-icon>
-            <ion-label>
-              <h1>{{ place.place.place}}</h1>
-              <p>{{place.place.city}}</p>
-            </ion-label>
-         </ion-item>
+        <ion-item *ngFor="let place of places" class="bottomItems ion-margin" (click)="RequestRide(place)">
+          <ion-icon name="pin" color="primary" slot="start"></ion-icon>
+          <ion-label>
+            <h1>{{ place.place.place }}</h1>  <!-- Accessing the 'place' field inside 'place' object -->
+            <p>{{ place.place.city }}</p>
+          </ion-label>
+        </ion-item>
+        
+        
         
         </ion-item-group>
 
@@ -165,7 +182,7 @@
                   </ion-avatar>
                   <ion-label>
                     <h1>{{carname}} <ion-icon slot="icon-only" color='primary' name="information-circle" ></ion-icon></h1>
-                    <p>{{driver_duration_apart}} mins <ion-icon slot="icon-only" color='primary' name="person"></ion-icon> {{driver_number_of_seats}} seats</p>
+                    <p> <ion-icon slot="icon-only" color='primary' name="time" ></ion-icon> {{D_duration}} <ion-icon slot="icon-only" color='primary' name="person"></ion-icon> {{driver_number_of_seats}} seats</p>
                   </ion-label>
                 </ion-item>
                 
@@ -201,18 +218,22 @@
           </ion-item>
 
      </ion-list-header>
-     
-        <!--payment type select-->
-      <div class="card">
-        <ion-item>
-          <ion-icon *ngIf="cash" color="primary" slot="start" name="cash-sharp"></ion-icon>
-          <ion-icon *ngIf="!cash" color="primary" slot="start" name="card-sharp"></ion-icon>
-          <ion-label position="floating">Select Payment</ion-label>
-          
-          <ion-select [value]="selectedCard" (ionChange)="chooseCard($event)">
-            <ion-select-option *ngFor="let card of cards" [value]="card.name">{{card.name}}</ion-select-option>
-          </ion-select>
-        </ion-item>
+
+  
+    <div class="card">
+      <ion-item>
+        <ion-label>Change Payment</ion-label>
+        <ion-select [value]="selectedCard" (ionChange)="chooseCard($event)">
+          <ion-select-option value="cash">Cash</ion-select-option>
+          <ion-select-option *ngFor="let card of savedPaymentMethods" [value]="card.cardId">
+            Card {{ card.last4 }}
+          </ion-select-option>
+          <ion-button shape="round" color="primary" size="large" type="submit" (click)="StartRide()" expand="block">
+            <ion-icon slot="start" name="checkmark-sharp"></ion-icon>
+            <ion-label>Change Payment</ion-label>
+          </ion-button>
+        </ion-select>
+      </ion-item>
 
 
         <!--Base Select Button-->
@@ -250,6 +271,8 @@
                   <!-- <ion-icon slot="start" name="close-sharp" color="danger"></ion-icon> -->
                   <ion-progress-bar type="indeterminate"></ion-progress-bar>
                 </ion-button>
+                 
+               
              
         </ion-item-group>
        
@@ -354,7 +377,7 @@
                 </ion-button>
                 
               
-                    <ion-button shape="round"  class='main-button' size="large" expand="block"  (click)="ClearRide()"> 
+                    <ion-button shape="round"  class='main-button' size="large" expand="block"  (click)="presentCancelRideActionSheet()"> 
                       <ion-icon color='primary' slot="start" name="close"></ion-icon>
                       <ion-label>Cancel ride</ion-label>
                     </ion-button>

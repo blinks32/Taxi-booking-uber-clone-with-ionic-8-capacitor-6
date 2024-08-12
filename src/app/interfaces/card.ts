@@ -1,7 +1,7 @@
 export interface Card {
-    name: string,
-    number: string,
-    type: string,
-    id: string,
-    selected: boolean
+  cardId: string;
+  id: string;
+  email: string
+  last4: number
+  // Add any other relevant properties
 }

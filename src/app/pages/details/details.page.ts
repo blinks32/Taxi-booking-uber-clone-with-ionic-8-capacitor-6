@@ -62,58 +62,78 @@ export class DetailsPage implements OnInit {
   }
 
   async changeImage(source: CameraSource) {
-  try {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Base64,
-      source: source,
-    });
-
-    if (image) {
-      const loading = await this.loadingController.create();
-      await loading.present();
-
-      if (!this.avatar.profile?.uid) {
-       loading.dismiss();
-        const alert = await this.alertController.create({
-          header: 'Upload failed',
-          message: 'Profile UID is missing.',
-          buttons: ['OK'],
-        });
-        await alert.present();
-        return;
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source: source,
+      });
+  
+      if (image) {
+        const loading = await this.loadingController.create();
+        await loading.present();
+  
+        if (!this.avatar.profile?.uid) {
+          loading.dismiss();
+          const alert = await this.alertController.create({
+            header: 'Upload failed',
+            message: 'Profile UID is missing.',
+            buttons: ['OK'],
+          });
+          await alert.present();
+          return;
+        }
+  
+        try {
+          const result = await this.avatar.uploadImage(image, this.avatar.profile.uid);
+          loading.dismiss();
+  
+          if (!result) {
+            const alert = await this.alertController.create({
+              header: 'Upload failed',
+              message: 'There was a problem uploading your avatar.',
+              buttons: ['OK'],
+            });
+            await alert.present();
+          } else {
+            this.imageUrl = result; // Ensure imageUrl is updated
+            const alert = await this.alertController.create({
+              header: 'Upload Successful',
+              message: 'Your avatar has been successfully uploaded.',
+              buttons: ['OK'],
+            });
+            await alert.present();
+          }
+        } catch (uploadError) {
+          loading.dismiss();
+          if (uploadError.message.includes('Photo URL is required and must be less than 1000 characters')) {
+            const alert = await this.alertController.create({
+              header: 'Upload failed',
+              message: 'The image is too big. Please try another image with a smaller size.',
+              buttons: ['OK'],
+            });
+            await alert.present();
+          } else {
+            const alert = await this.alertController.create({
+              header: 'Upload failed',
+              message: `There was a problem uploading your avatar: ${uploadError.message}`,
+              buttons: ['OK'],
+            });
+            await alert.present();
+          }
+        }
       }
-
-      const result = await this.avatar.uploadImage(image, this.avatar.profile.uid);
-      loading.dismiss();
-
-      if (!result) {
-        const alert = await this.alertController.create({
-          header: 'Upload failed',
-          message: 'There was a problem uploading your avatar.',
-          buttons: ['OK'],
-        });
-        await alert.present();
-      } else {
-        this.imageUrl = result; // Ensure imageUrl is updated
-        const alert = await this.alertController.create({
-          header: 'Upload Successful',
-          message: 'Your avatar has been successfully uploaded.',
-          buttons: ['OK'],
-        });
-        await alert.present();
-      }
+    } catch (error) {
+      const alert = await this.alertController.create({
+        header: 'Upload failed',
+        message: `There was a problem uploading your avatar: ${error.message}`,
+        buttons: ['OK'],
+      });
+      await alert.present();
     }
-  } catch (error) {
-    const alert = await this.alertController.create({
-      header: 'Upload failed',
-      message: `There was a problem uploading your avatar: ${error.message}`,
-      buttons: ['OK'],
-    });
-    await alert.present();
   }
-}
+  
 
 
   async presentImageSourceActionSheet() {
@@ -233,6 +253,10 @@ export class DetailsPage implements OnInit {
           throw new Error('Verification ID is missing in the verification result');
         }
   
+        const storedOTP = localStorage.getItem('defaultOTP');
+        const userVerificationCode = storedOTP;
+        console.log("This is number: " + userVerificationCode)
+  
         console.log('Prompting user for verification code');
         const alert = await this.alertController.create({
           header: 'Verification',
@@ -240,7 +264,8 @@ export class DetailsPage implements OnInit {
             {
               name: 'verificationCode',
               type: 'text',
-              placeholder: 'Enter verification code'
+              placeholder: 'Enter verification code',
+              value: userVerificationCode // Set default value if isRandom is true
             }
           ],
           buttons: [
@@ -255,14 +280,17 @@ export class DetailsPage implements OnInit {
             {
               text: 'Verify',
               handler: async (data) => {
-                if (!data.verificationCode) {
+                const verificationCode = data.verificationCode;
+                if (!verificationCode) {
                   reject(new Error('Verification code is required'));
                   return;
                 }
                 try {
                   console.log('Attempting to verify phone number with verification code');
-                  const phoneCredential = PhoneAuthProvider.credential(verificationResult.verificationId, data.verificationCode);
+                  const phoneCredential = PhoneAuthProvider.credential(verificationResult.verificationId, verificationCode);
                   await reauthenticateWithCredential(user, phoneCredential);
+                  localStorage.removeItem('defaultOTP');
+                  await this.updateProfile();
                   console.log('User re-authenticated with phone number');
                   resolve();
                 } catch (error) {
@@ -282,6 +310,7 @@ export class DetailsPage implements OnInit {
       }
     });
   }
+  
   
   
   
@@ -311,6 +340,7 @@ export class DetailsPage implements OnInit {
           displayName: `${this.form.value.fullname} ${this.form.value.lastname}`,
           photoURL: this.imageUrl,
         });
+        await this.avatar.createUser(`${this.form.value.fullname} ${this.form.value.lastname}`, this.form.value.email, this.imageUrl, user.phoneNumber, user.uid)
         console.log('Profile updated');
   
         this.approve2 = false;

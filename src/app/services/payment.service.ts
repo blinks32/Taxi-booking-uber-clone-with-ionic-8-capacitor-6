@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { AvatarService } from './avatar.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,78 +9,30 @@ import { AvatarService } from './avatar.service';
 export class PaymentService {
   private serverUrl = environment.serverUrl;
 
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient, private avatar: AvatarService) {}
-
-  payWithStripe(amount: any, currency: string, source: string) {
-    console.log(amount, currency, source);
-    return this.http.post(`${this.serverUrl}/pay/stripe`, { amount, currency, source });
+  createSetupIntent(email: string) {
+    return this.http.post<{ client_secret: string }>(`${this.serverUrl}/setup-intent`, { email });
   }
 
-  payWithPaystack(email: string, amount: number, currency: string) {
-    return this.http.post(`${this.serverUrl}/pay/paystack`, { email, amount, currency });
+  savePaymentMethod(email: string, paymentMethodId: string) {
+    return this.http.post<{ paymentMethodId: string }>(`${this.serverUrl}/save-payment-method`, { email, paymentMethodId });
   }
 
-  payWithFlutterwave(email: string, amount: number, currency: string) {
-    return this.http.post(`${this.serverUrl}/pay/flutterwave`, { email, amount, currency });
+  retrievePaymentMethod(paymentMethodId: string) {
+    return this.http.post<any>(`${this.serverUrl}/retrieve-payment-method`, { paymentMethodId });
   }
 
-  payWithRazorpay(amount: number, currency: string, receipt: string) {
-    return this.http.post(`${this.serverUrl}/pay/razorpay`, { amount, currency, receipt });
+  checkCardExistsStripe(email: string, last4: string) {
+    return this.http.post<{ exists: boolean }>(`${this.serverUrl}/check-card-exists`, { email, last4 });
   }
 
-
-  async splitPayment(totalAmount: number, currency: string, paymentMethods: { provider: string, amount: number, details: any }[]) {
-    try {
-      const paymentResults = [];
-
-      for (const paymentMethod of paymentMethods) {
-        let result;
-        switch (paymentMethod.provider) {
-          case 'stripe':
-            result = await this.payWithStripe(paymentMethod.amount, currency, paymentMethod.details.source).toPromise();
-            break;
-          case 'paystack':
-            result = await this.payWithPaystack(paymentMethod.details.email, paymentMethod.amount, currency).toPromise();
-            break;
-          case 'flutterwave':
-            result = await this.payWithFlutterwave(paymentMethod.details.email, paymentMethod.amount, currency).toPromise();
-            break;
-          case 'razorpay':
-            result = await this.payWithRazorpay(paymentMethod.amount, currency, paymentMethod.details.receipt).toPromise();
-            break;
-          default:
-            throw new Error('Unsupported payment provider');
-        }
-        paymentResults.push(result);
-      }
-
-      await this.avatar.updateFirestoreAfterPayment(paymentResults);
-
-      return paymentResults;
-    } catch (error) {
-      console.error('Error during split payment:', error);
-      throw error;
-    }
+  payWithStripe(amount: number, currency: string, paymentMethodId: string, customerId: string) {
+    return this.http.post<{ paymentIntent: any }>(`${this.serverUrl}/pay/stripe`, { amount, currency, paymentMethodId, customerId });
   }
 
-
-  async initiateSplitPayment() {
-    const totalAmount = 100; // Example total amount
-    const currency = 'USD';  // Example currency
-
-    const paymentMethods = [
-      { provider: 'stripe', amount: 40, details: { source: 'stripe_source_id' } },
-      { provider: 'paystack', amount: 30, details: { email: 'user@example.com' } },
-      { provider: 'flutterwave', amount: 20, details: { email: 'user@example.com' } },
-      { provider: 'razorpay', amount: 10, details: { receipt: 'razorpay_receipt_id' } },
-    ];
-
-    try {
-      const paymentResults = await this.splitPayment(totalAmount, currency, paymentMethods);
-      console.log('Payment results:', paymentResults);
-    } catch (error) {
-      console.error('Error initiating split payment:', error);
-    }
+  processPaymentWithCardId(email: string, amount: number, cardId: string): Observable<any> {
+    return this.http.post('/api/process-payment', { email, amount, cardId });
   }
+
 }
