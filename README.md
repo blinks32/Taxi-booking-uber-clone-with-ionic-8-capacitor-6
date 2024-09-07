@@ -1,19 +1,69 @@
-
 <a href="https://youtu.be/qkymCs6F2f8" target="_blank">
  <img src="https://user-images.githubusercontent.com/7928001/188144579-62391f1e-27a4-438d-8574-e98df9c71ea5.png" alt="Watch the video" width="auto" height="auto" border="10" />
 </a>
 
-# This is a complete taxi booking system similar to Uber and Bolt. which can be converted to vendor projects; like food delivery or restuarant app.
+# RideBooking App System
 
-# If you need a similar project for learning or real world product, Reach out to me here:
+## Rider App (Open Source)
+This repository contains the open-source rider app for our RideBooking system, a complete taxi booking system similar to Uber and Bolt. The system can be converted to vendor projects like food delivery or restaurant apps.
 
-## EMAIL: playstudio86@gmail.com
-## SKYPE: chndth@live.com
-## PHONE: +2347041684556
-## WHATSAPP: +2347089930308
+### Features
+- User registration and login
+- Ride booking interface
+- Real-time ride tracking
+- Payment integration (demo only)
 
+### Installation
+[Provide installation instructions]
+
+### Usage
+[Provide usage instructions and any necessary API keys for demo functionality]
+
+## Full RideBooking System (Commercial)
+For businesses looking to implement a complete ride-booking solution, we offer a full system including:
+
+- Customizable rider app
+- Driver app
+- Admin dashboard
+- Backend services
+- API documentation
+- Technical support
+
+### Benefits of the Full System
+- Scalable architecture
+- Customization options
+- Regular updates and improvements
+- Priority support
+
+### Get a Quote
+Interested in the full RideBooking system for your business? Contact us for a personalized quote and demo.
+
+## Learn More and Purchase
+
+For detailed information about the full RideBooking system, including features, pricing, and purchase options, please visit our landing page:
+
+<a href="https://your-landing-page-url.com" target="_blank">
+ <img src="https://path-to-your-landing-page-screenshot.png" alt="RideBooking System Landing Page" width="300" height="150" border="10" />
+</a>
+
+[Visit Our Landing Page](https://your-landing-page-url.com)
+
+Here you can explore all the features of our complete ride-booking solution, see detailed pricing information, and initiate the purchase process.
+
+## License
+The rider app in this repository is released under the MIT License. See [LICENSE](LICENSE) for details.
+
+The full RideBooking system is available under a commercial license. Contact us for licensing information.
+
+## Contact Information
+- EMAIL: playstudio86@gmail.com
+- SKYPE: chndth@live.com
+- PHONE: +2347041684556
+- WHATSAPP: +2347089930308
 
 <a href="https://buymeacoffee.com/chinedu30/e/269444" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
+## Demo Links
 
 <a href="https://voluble-crisp-805982.netlify.app" target="_blank">
  <img src="https://user-images.githubusercontent.com/7928001/188303453-98a89b72-00f8-4b0e-9927-faa4e4dc0dfe.png" alt="Watch the video" width="250" height="120" border="10" />
@@ -31,6 +81,7 @@
  <img src="https://user-images.githubusercontent.com/7928001/188158604-cbdc69ce-2132-483e-b2d6-8cb2f19c9926.png" alt="Watch the video" width="250" height="120" border="10" />
 </a>
 
+## Screenshots
 
 ![layer1](https://user-images.githubusercontent.com/7928001/188022294-cb20bb25-989f-4a6d-9b77-de3eb7e13bdb.png)
 ![layer2](https://user-images.githubusercontent.com/7928001/188022570-af0d7d47-5761-4c62-a6ed-71326dc28d8e.png)
@@ -65,5 +116,3 @@
 <a href="https://stripe.com/en-gb-us" target="_blank">
  <img src="https://user-images.githubusercontent.com/7928001/188193446-ad79ba40-bd3a-4985-9687-1956e594f9c6.png" alt="Watch the video" width="300" height="120" border="10" />
 </a>
-
-
