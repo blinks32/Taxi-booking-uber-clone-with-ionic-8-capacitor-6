@@ -56,10 +56,25 @@ The rider app in this repository is released under the MIT License. See [LICENSE
 The full RideBooking system is available under a commercial license. Contact us for licensing information.
 
 ## Contact Information
-- EMAIL: playstudio86@gmail.com
-- SKYPE: chndth@live.com
-- PHONE: +2347041684556
-- WHATSAPP: +2347089930308
+## Contact Information
+
+Get in touch with us through any of these channels:
+
+<a href="https://wa.me/2347089930308" target="_blank">
+  <img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp" />
+</a>
+
+<a href="mailto:playstudio86@gmail.com" target="_blank">
+  <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+</a>
+
+<a href="tel:+2347041684556" target="_blank">
+  <img src="https://img.shields.io/badge/Phone-4285F4?style=for-the-badge&logo=google-voice&logoColor=white" alt="Phone" />
+</a>
+
+<a href="skype:chndth@live.com?chat" target="_blank">
+  <img src="https://img.shields.io/badge/Skype-00AFF0?style=for-the-badge&logo=skype&logoColor=white" alt="Skype" />
+</a>
 
 <a href="https://buymeacoffee.com/chinedu30/e/269444" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
