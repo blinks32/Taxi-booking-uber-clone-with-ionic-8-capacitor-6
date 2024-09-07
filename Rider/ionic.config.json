@@ -1,7 +1,0 @@
-{
-  "name": "userUpdate",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}
