@@ -104,8 +104,8 @@
             "cordova-plugin-paystack": {},
             "cordova-plugin-vibration": {},
             "cordova-plugin-googlemaps": {
-                "API_KEY_FOR_ANDROID": "AIzaSyC2VPPqUJdOaeOW8VpNA3Y1iswP_uJ_wrY",
-                "API_KEY_FOR_IOS": "AIzaSyC2VPPqUJdOaeOW8VpNA3Y1iswP_uJ_wrY"
+                "API_KEY_FOR_ANDROID": "XXXXXXXXXXXXXXXX",
+                "API_KEY_FOR_IOS": "XXXXXXXXXXXXXXXXX"
             },
             "call-number": {}
         },
