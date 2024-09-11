@@ -43,7 +43,7 @@ For detailed information about the full RideBooking system, including features, 
  <img src="https://path-to-your-landing-page-screenshot.png" alt="RideBooking System Landing Page" width="300" height="150" border="10" />
 </a>
 
-[Visit Our Landing Page](https://your-landing-page-url.com)
+[Visit Our Landing Page](https://my-website-91lv.vercel.app/home)
 
 Here you can explore all the features of our complete ride-booking solution, see detailed pricing information, and initiate the purchase process.
 
