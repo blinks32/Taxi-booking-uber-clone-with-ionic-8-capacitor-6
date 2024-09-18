@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center ion-padding">
+  <ion-card class="ion-no-border no-shadow">
+    <ion-card-content class="no-shadow">
+      <div class="payment-details" [ngClass]="{'slide-down': selectedProvider !== ''}">
+        <form [formGroup]="paymentForm" (ngSubmit)="processPayment()">
+          <div *ngIf="selectedProvider === 'stripe'">
+            <div #cardElement class="stripe-element"></div>
+            <div id="card-errors" role="alert"></div>
+          </div>
+          <ion-button color="success" shape="round" expand="block" size="large" type="submit" 
+          [disabled]="!paymentForm.valid || !isCardComplete">
+          Add Card
+        </ion-button>
+        </form>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="savedPaymentMethods.length > 0" class="no-shadow">
+    <ion-card-header>
+      <ion-card-title>Saved Payment Methods</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="no-shadow">
+      <ion-radio-group [(ngModel)]="selectedCardId" (ionChange)="setActiveCard($event)">
+        <ion-item *ngFor="let method of savedPaymentMethods">
+          <ion-label>{{ method.last4 }}</ion-label>
+          <ion-radio slot="start" [value]="method.cardId"></ion-radio>
+          <ion-button slot="end" color="danger" (click)="deletePaymentMethod(method.cardId)">
+            Delete
+          </ion-button>
+        </ion-item>
+      </ion-radio-group>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

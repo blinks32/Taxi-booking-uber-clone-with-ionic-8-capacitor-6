@@ -1,0 +1,69 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-list lines="none">
+    <ion-list-header class="ion-padding">
+      <ion-label color="primary" class="ion-text-center">
+        <h1>PANA RIDER</h1>
+        <p>Ride With Confidence and integrity</p>
+      </ion-label>
+    </ion-list-header>
+  </ion-list>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide>
+      <ion-img src="../assets/imgs/main.svg"></ion-img>
+    </ion-slide>
+    <ion-slide>
+      <ion-img src="../assets/imgs/main1.svg"></ion-img>
+    </ion-slide>
+    <ion-slide>
+      <ion-img src="../assets/imgs/main2.svg"></ion-img>
+    </ion-slide>
+  </ion-slides>
+  <ion-row class="ion-no-padding">
+    <ion-list class="ion-no-padding">
+      <ion-item-group class="ion-margin-horizontal">
+        <form [formGroup]="form" class="ion-padding">
+          <div id="sign-in-button"></div>
+          <div class="ion-margin-vertical">
+            <ion-item lines="none">
+              <ion-button shape='round' size="large" (click)="openCountrySearchModal()" slot="start">
+                {{ CountryCode || 'Select Country' }}
+              </ion-button>
+              <ion-input label="Outline input" label-placement="floating" fill="outline"
+                formControlName="phone"
+                placeholder="Mobile Number"
+                type="tel"
+                clearInput
+                minlength="10"
+                maxlength="10"
+                (ionFocus)="Show()"
+                (ionBlur)="Hide()">
+              </ion-input>
+            </ion-item>
+            <ion-text class="ion-text-center" *ngIf="!form.get('phone').valid && form.get('phone').touched">
+              <ion-text class="error" *ngIf="form.get('phone').hasError('required')" color="danger">
+                * Please enter the Mobile Number
+              </ion-text>
+              <ion-text class="error" *ngIf="form.get('phone').hasError('minlength') && !form.get('phone').hasError('required')" color="danger">
+                * Please enter a valid Mobile Number
+              </ion-text>
+            </ion-text>
+          </div>
+          <ion-button shape='round' size="large" type="submit" [disabled]="!form.get('phone').valid" color="primary" (click)="signIn()" expand="block">
+            <ion-label *ngIf="!approve2">Continue</ion-label>
+            <ion-icon *ngIf="!approve2" color='light' slot="end" name="arrow-forward"></ion-icon>
+            <ion-progress-bar *ngIf="approve2" color='light' type="indeterminate"></ion-progress-bar>
+          </ion-button>
+        </form>
+      </ion-item-group>
+    </ion-list>
+  </ion-row>
+
+
+</ion-content>
+<ion-footer>
+  <!-- Add this at the end of your template -->
+  <div id="recaptcha-container"></div>
+</ion-footer>

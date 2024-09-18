@@ -1,0 +1,37 @@
+ion-content {
+    ion-item {
+      --padding-start: 15px;
+      --padding-end: 15px;
+      --border-radius: 8px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+  
+    ion-avatar {
+      --border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      ion-skeleton-text {
+        width: 100%;
+        height: 100%;
+        --border-radius: 50%;
+      }
+    }
+  
+    ion-label {
+      h2 {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #666;
+      }
+  
+      ion-skeleton-text {
+        margin-top: 5px;
+      }
+    }
+  }
+  

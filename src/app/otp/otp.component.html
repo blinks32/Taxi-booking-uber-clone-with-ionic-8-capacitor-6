@@ -1,0 +1,68 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Verify OTP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-border">
+  <ion-list lines="none" class="ion-padding">
+    <ion-list-header>
+      <ion-label align="center"><h1>Enter Verification Code</h1></ion-label>
+    </ion-list-header>
+
+    <ion-item class="ion-margin" lines="none">
+      <ion-label>
+        <div class="ion-padding-top ion-padding-bottom" align="center">
+          <ng-otp-input #otpInput
+            (onInputChange)="onOtpChange($event)"
+            [config]="{
+              length: 6,
+              inputStyles: {
+                'width': '50px',
+                'height': '50px',
+                'font-size': '24px',
+                'font-weight': '600',
+                'background-color': '#ffffff',
+                'color': '#333333',
+                'border': '1px solid #cccccc',
+                'border-radius': '8px'
+              }
+            }">
+          </ng-otp-input>
+        </div>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="ion-margin" lines="none">
+      <ion-label>
+        <div class="ion-padding-top ion-padding-bottom" align="center">
+          <span class="countdown">{{ countdown }} seconds remaining</span>
+        </div>
+      </ion-label>
+    </ion-item>
+
+    <ion-button 
+      shape='round' 
+      fill="outline" 
+      size="large" 
+      expand="block" 
+      color="primary" 
+      slot="start" 
+      (click)="resend()"
+      [disabled]="countdown > 0">
+      Resend OTP
+    </ion-button>
+    <ion-button shape='round' size="large" expand="block" slot="end" [disabled]="!otp || otp.length !== 6" color="primary" (click)="verifyOtp()">
+      <ng-container *ngIf="!approve2">
+        <ion-label>Continue</ion-label>
+        <ion-icon color='light' slot="end" name="arrow-forward"></ion-icon>
+      </ng-container>
+      <ion-progress-bar *ngIf="approve2" color='light' type="indeterminate"></ion-progress-bar>
+    </ion-button>
+  </ion-list>
+</ion-content>

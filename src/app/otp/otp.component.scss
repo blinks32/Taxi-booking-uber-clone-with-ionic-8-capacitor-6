@@ -1,0 +1,44 @@
+ion-content {
+  --background: #ffffff;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-list-header {
+  padding-bottom: 15px;
+
+  ion-label {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+ion-item {
+  --background: transparent;
+}
+
+::ng-deep {
+  .otp-input {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    border: 1px solid #cccccc !important;
+    border-radius: 8px !important;
+    margin: 0 5px;
+  }
+}
+
+.countdown {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333333;
+}
+
+ion-button {
+  margin-top: 20px;
+}

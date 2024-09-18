@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select Country</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar (ionInput)="filterCountries($event)" placeholder="Search country"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let country of filteredCountries" class="country-item">
+      <ion-item (click)="selectCountry(country)">
+        <ion-avatar slot="start">
+          <img [src]="country.flag" [alt]="country.name + ' flag'">
+        </ion-avatar>
+        <ion-label>{{ country.name }}</ion-label>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

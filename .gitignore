@@ -1,0 +1,4 @@
+/android
+/node_modules
+/.angular
+resources/android/**/*

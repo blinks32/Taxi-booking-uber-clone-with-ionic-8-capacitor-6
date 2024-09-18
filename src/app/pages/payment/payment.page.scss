@@ -1,0 +1,48 @@
+@keyframes slide-top {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.slide-top {
+  animation: slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ion-item {
+  animation-name: slide-top;
+  animation-duration: 0.5s;
+}
+.payment-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.payment-details.slide-down {
+  max-height: 500px; /* Adjust as needed to fit the content */
+}
+
+.stripe-element {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.payment-methods ion-button.selected {
+  background-color: var(--ion-color-primary) !important;
+  color: #fff;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}
+
+.provider-logo {
+  height: 24px;
+  margin-right: 10px;
+}
+

@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" (click)="goBack()">
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>My Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="user; else loading">
+    <div class="preview">
+      <ion-avatar (click)="presentImageSourceActionSheet()">
+        <img *ngIf="user.photoURL; else placeholder_avatar;" [src]="user.photoURL" />
+        <ng-template #placeholder_avatar>
+          <div class="fallback">
+            <p>Select avatar</p>
+          </div>
+        </ng-template>
+      </ion-avatar>
+    </div>
+
+    <form [formGroup]="profileForm">
+      <ion-item class="ion-margin">
+        <ion-icon name="call" color="primary" slot="start"></ion-icon>
+        <ion-label>
+          {{ user.phoneNumber || 'No phone number' }}
+        </ion-label>
+      </ion-item>
+
+      <ion-item class="ion-margin">
+        <ion-icon name="person" color="primary" slot="start"></ion-icon>
+        <ion-input formControlName="displayName" placeholder="Name"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin">
+        <ion-icon name="mail" color="primary" slot="start"></ion-icon>
+        <ion-label>
+          {{ user.email || 'No email' }}
+        </ion-label>
+      </ion-item>
+    </form>
+
+    <ion-label color="primary" class="ion-text-center ion-padding-top">
+      <p>Ride receipts will be sent to your email.</p>
+    </ion-label>
+  </div>
+
+  <ng-template #loading>
+    <ion-spinner></ion-spinner>
+    <p>Loading profile...</p>
+  </ng-template>
+</ion-content>

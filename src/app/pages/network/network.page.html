@@ -1,0 +1,24 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-button color="primary">
+        <ion-back-button></ion-back-button>
+      </ion-button> -->
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-img src="../assets/imgs/No connection-pana.svg"></ion-img>
+
+  <ion-list-header class="ion-padding" >
+    <ion-label color="primary" class="ion-text-center">
+      <h1>Network Error, Please Check Your Network and Try again.</h1>
+    </ion-label>
+</ion-list-header>
+
+<ion-button size="large" shape="round" type="submit" color="primary" (click)="CheckNetwork()" expand="block">
+  <ion-label *ngIf="!approve">Try Again</ion-label> 
+  <ion-progress-bar *ngIf="approve"color='light' type="indeterminate"></ion-progress-bar>
+</ion-button>
+</ion-content>

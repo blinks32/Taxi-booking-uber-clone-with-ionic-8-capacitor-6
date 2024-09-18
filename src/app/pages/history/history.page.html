@@ -1,0 +1,55 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Skeleton loaders while data is loading -->
+  <ion-list *ngIf="loading; else loadedContent">
+    <ion-item *ngFor="let item of [1, 2, 3, 4, 5]">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h2><ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text></h2>
+        <p><ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text></p>
+        <p><ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Loaded content after data fetching is complete -->
+  <ng-template #loadedContent>
+    <ion-list *ngIf="histories.length > 0; else noData">
+      <ion-item *ngFor="let history of histories">
+        <ion-avatar slot="start">
+          <ion-img [src]="history.Driver_imgUrl"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ history.Driver_name }}</h2>
+          <p>{{ history.Driver_car }} - {{ history.Driver_plate }}</p>
+          <p>Rating: {{ history.Driver_rating }}</p>
+          <p>{{ history.time?.toDate() | date: 'short' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+
+  <!-- No Data - show SVG when there is no history -->
+  <ng-template #noData>
+    <ion-img src="../assets/imgs/empty.svg"></ion-img>
+    <ion-list-header style="margin-top: 10%">
+      <ion-label color="primary" class="ion-text-center">
+        <h1>No Data</h1>
+        <p>Book a ride to see History</p>
+      </ion-label>
+    </ion-list-header>
+  </ng-template>
+</ion-content>

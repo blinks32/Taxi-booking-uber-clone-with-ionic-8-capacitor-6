@@ -1,0 +1,42 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu *ngIf="user" contentId="main-content" type="overlay">
+      <ion-content>
+        <ion-list id="inbox-list" lines="none">
+          <ion-menu-toggle>
+            <ion-item (click)="gotoProfile()">
+              <ion-avatar *ngIf="user.photoURL">
+                <ion-img [src]="user.photoURL"></ion-img>
+              </ion-avatar>
+              <ion-avatar *ngIf="!user.photoURL">
+                <ion-img src="../assets/icon/favicon.png"></ion-img>
+              </ion-avatar>
+              <ion-label class="ion-margin">
+                <h1>{{ user.displayName || 'Unknown' }}</h1>
+                <p>{{ user.phoneNumber || '987654687976' }}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item *ngIf="!user">
+              <ion-avatar>
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-avatar>
+              <ion-label class="ion-margin">
+                <h1><ion-skeleton-text [animated]="true" style="width: 100px"></ion-skeleton-text></h1>
+                <p><ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text></p>
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item class="allItems" (click)="gotoPage(p.url)" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="p.icon" [md]="p.icon" [color]="p.color"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
