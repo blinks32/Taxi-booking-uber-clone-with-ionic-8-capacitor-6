@@ -14,7 +14,7 @@ This repository contains the open-source rider app for our RideBooking system, a
 - Payment integration (demo only)
 
 ### Installation
-[Documentation](https://chndth.gitbook.io/ionic-taxi-app-setup-doc/v/initial-version/~/changes/Bf7zJSLdMAsMHOKY6eZG/introduction)
+[Documentation](https://chndth.gitbook.io/ionic-taxi-app-setup-doc/v/initial-version/~/changes/Bf7zJSLdMAsMHOKY6eZG)
 
 ## Full RideBooking System (Commercial)
 For businesses looking to implement a complete ride-booking solution, we offer a full system including:
