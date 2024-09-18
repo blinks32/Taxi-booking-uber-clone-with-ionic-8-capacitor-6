@@ -3,16 +3,22 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  firebase: {
-    apiKey: 'AIzaSyC3VpqBmNqCUe1_g_ELb-LASUYR98s9h5k',
-    authDomain: 'reboot-22979.firebaseapp.com',
-    projectId: 'reboot-22979',
-    storageBucket: 'reboot-22979.appspot.com',
-    messagingSenderId: '1033966813085',
-    appId: 'AIzaSyC3VpqBmNqCUe1_g_ELb-LASUYR98s9h5k',
-  },
-  production: true,
-  apiKey: "AIzaSyC2VPPqUJdOaeOW8VpNA3Y1iswP_uJ_wrY",
+    firebase: {
+      apiKey: 'XXXXXXXXX',
+      authDomain: 'XXXXXX',
+      projectId: 'XXXXX',
+      storageBucket: 'XXXXXX.appspot.com',
+      messagingSenderId: 'XXXXXX',
+      appId: 'XXXXXXX',
+    },
+    onesignal: {
+      appId: 'XXXXXX',
+      restApiKey: 'XXXXXXX',
+      android_channel_id: ''
+    },
+    production: true,
+    apiKey: "XXXXXXXXXXXXXX",
+    serverUrl: "XXXXXXXXXXX",
   CountryJson: [
     {
         "name": "Afghanistan",

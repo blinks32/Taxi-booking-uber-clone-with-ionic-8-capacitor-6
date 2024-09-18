@@ -4,21 +4,21 @@
 
 export const environment = {
   firebase: {
-    apiKey: 'AIzaSyAM7UJdVZo95dz00IKQz_p0uI8Bse5KnZ8',
-    authDomain: 'reboot-22979.firebaseapp.com',
-    projectId: 'reboot-22979',
-    storageBucket: 'reboot-22979.appspot.com',
-    messagingSenderId: '1033966813085',
-    appId: 'AIzaSyC3VpqBmNqCUe1_g_ELb-LASUYR98s9h5k',
+    apiKey: 'XXXXXXXXX',
+    authDomain: 'XXXXXX',
+    projectId: 'XXXXX',
+    storageBucket: 'XXXXXX.appspot.com',
+    messagingSenderId: 'XXXXXX',
+    appId: 'XXXXXXX',
   },
   onesignal: {
-    appId: 'ba7d77ed-1525-416c-9ac5-7b5d36e68740',
-    restApiKey: 'YTM3ODgyMzQtNjg1ZC00YTQwLWJmNjItNTA4M2VkMmY3MDdl',
+    appId: 'XXXXXX',
+    restApiKey: 'XXXXXXX',
     android_channel_id: ''
   },
   production: false,
-  apiKey: "AIzaSyC2VPPqUJdOaeOW8VpNA3Y1iswP_uJ_wrY",
-  serverUrl: "https://payment-server-wheat.vercel.app/",
+  apiKey: "XXXXXXXXXXXXXX",
+  serverUrl: "XXXXXXXXXXX",
   CountryJson: [
     {
         "name": "Afghanistan",
