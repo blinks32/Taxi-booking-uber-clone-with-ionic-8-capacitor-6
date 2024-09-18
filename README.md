@@ -1,8 +1,4 @@
-<a href="https://youtu.be/qkymCs6F2f8" target="_blank">
- <img src="https://user-images.githubusercontent.com/7928001/188144579-62391f1e-27a4-438d-8574-e98df9c71ea5.png" alt="Watch the video" width="auto" height="auto" border="10" />
-</a>
-
-# RideBooking: Complete Taxi Booking Solution
+# Taxibooking Clone: Complete Taxi Booking Solution
 
 <p align="center">
   <a href="https://youtu.be/qkymCs6F2f8" target="_blank">
@@ -12,7 +8,7 @@
 
 ## 🚀 The Future of Ride-Hailing
 
-RideBooking is a comprehensive taxi booking system, rivaling Uber and Bolt. Our modular approach lets you start with our open-source rider app and seamlessly upgrade to the full ecosystem.
+Taxibooking Clone is a comprehensive taxi booking system, rivaling Uber and Bolt. Our modular approach lets you start with our open-source rider app and seamlessly upgrade to the full ecosystem.
 
 ### 🌟 System Components
 
@@ -68,13 +64,13 @@ Upgrade to our full system for a complete ride-hailing solution:
 
 ## 🧪 Try It Out
 
-Experience the full potential of RideBooking:
+Experience the full potential of Taxibooking Clone:
 
 1. **Rider Demo**: [Try Here](https://voluble-crisp-805982.netlify.app)
 2. **Driver Demo**: [Contact for Access](#contact-us)
 3. **Admin Demo**: [Contact for Access](#contact-us)
 
-## 💼 Why Choose RideBooking?
+## 💼 Why Choose Taxibooking Clone?
 
 - Start with our open-source rider app
 - Seamlessly upgrade to the full system as you grow
