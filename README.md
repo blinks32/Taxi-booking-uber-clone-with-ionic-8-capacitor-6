@@ -13,7 +13,7 @@ Taxibooking App is a comprehensive taxi booking system, rivaling Uber and Bolt. 
 3. **Admin Dashboard** (Premium)
 
 <p align="center">
-  <a href="#try-it-out" target="_blank">
+  <a href="https://drive.google.com/drive/folders/1HQkCURnn-Gs8Q1RHNbFZnZcdUzNLgkU2?usp=sharing" target="_blank">
     <img src="https://img.shields.io/badge/Try%20Demo-FF5722?style=for-the-badge&logo=google-play&logoColor=white" alt="Try Demo" width="150" />
   </a>
   <a href="https://your-landing-page-url.com" target="_blank">
@@ -62,9 +62,9 @@ Upgrade to our full system for a complete ride-hailing solution:
 
 Experience the full potential of Taxibooking App:
 
-1. **Rider Demo**: [Try Here](https://voluble-crisp-805982.netlify.app)
-2. **Driver Demo**: [Contact for Access](#contact-us)
-3. **Admin Demo**: [Contact for Access](#contact-us)
+1. **Rider Demo**: [Try Here](https://drive.google.com/drive/folders/1HQkCURnn-Gs8Q1RHNbFZnZcdUzNLgkU2?usp=sharing)
+2. **Driver Demo**: [Contact for Access](https://drive.google.com/drive/folders/1HQkCURnn-Gs8Q1RHNbFZnZcdUzNLgkU2?usp=sharing)
+3. **Admin Demo**: [Contact for Access](https://drive.google.com/drive/folders/1HQkCURnn-Gs8Q1RHNbFZnZcdUzNLgkU2?usp=sharing)
 
 ## 💼 Why Choose Taxibooking App?
 
