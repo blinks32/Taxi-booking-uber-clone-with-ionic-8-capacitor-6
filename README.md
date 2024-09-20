@@ -14,10 +14,13 @@ Taxibooking App is a comprehensive taxi booking system, rivaling Uber and Bolt. 
 
 <p align="center">
   <a href="https://drive.google.com/drive/folders/1HQkCURnn-Gs8Q1RHNbFZnZcdUzNLgkU2?usp=sharing" target="_blank">
-    <img src="https://img.shields.io/badge/Try%20Demo-FF5722?style=for-the-badge&logo=google-play&logoColor=white" alt="Try Demo" width="150" />
+    <img src="https://img.shields.io/badge/Try%20Demo-FF5722?style=for-the-badge&logo=google-play&logoColor=white" alt="Try Demo" width="200" />
   </a>
-  <a href="https://your-landing-page-url.com" target="_blank">
-    <img src="https://img.shields.io/badge/Get%20Full%20System-4CAF50?style=for-the-badge&logo=shopping-cart&logoColor=white" alt="Get Full System" width="200" />
+</p>
+
+<p align="center">
+  <a href="https://skrill.me/rq/Franklyn/50/USD?key=gjbr0Q9J6cHoIDDGGyDRd7tsRaX" target="_blank">
+    <img src="https://img.shields.io/badge/Get%20Full%20System-4CAF50?style=for-the-badge&logo=shopping-cart&logoColor=white" alt="Get Full System" width="250" />
   </a>
 </p>
 
@@ -37,10 +40,10 @@ Explore and customize our rider app, available as open-source:
 3. Customize and extend as needed
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/7928001/188022294-cb20bb25-989f-4a6d-9b77-de3eb7e13bdb.png" width="24%" />
-  <img src="https://user-images.githubusercontent.com/7928001/188022570-af0d7d47-5761-4c62-a6ed-71326dc28d8e.png" width="24%" />
-  <img src="https://user-images.githubusercontent.com/7928001/188022589-5cd57e42-2550-4149-a4de-029d759ac876.png" width="24%" />
-  <img src="https://user-images.githubusercontent.com/7928001/188022596-b1930f19-394c-4508-9056-52b50c8b9125.png" width="24%" />
+  <img src="https://user-images.githubusercontent.com/7928001/188022294-cb20bb25-989f-4a6d-9b77-de3eb7e13bdb.png" width="60%" />
+  <img src="https://user-images.githubusercontent.com/7928001/188022570-af0d7d47-5761-4c62-a6ed-71326dc28d8e.png" width="60%" />
+  <img src="https://user-images.githubusercontent.com/7928001/188022589-5cd57e42-2550-4149-a4de-029d759ac876.png" width="60%" />
+  <img src="https://user-images.githubusercontent.com/7928001/188022596-b1930f19-394c-4508-9056-52b50c8b9125.png" width="60%" />
 </p>
 
 ## 🚘 Premium Driver App & 🖥️ Admin Dashboard
@@ -53,8 +56,8 @@ Upgrade to our full system for a complete ride-hailing solution:
 - Advanced features like route optimization and analytics
 
 <p align="center">
-  <a href="https://your-landing-page-url.com" target="_blank">
-    <img src="https://img.shields.io/badge/Learn%20More-2196F3?style=for-the-badge&logo=info&logoColor=white" alt="Learn More" width="150" />
+  <a href="https://skrill.me/rq/Franklyn/50/USD?key=gjbr0Q9J6cHoIDDGGyDRd7tsRaX" target="_blank">
+    <img src="https://img.shields.io/badge/Upgrade%20Now-2196F3?style=for-the-badge&logo=rocket&logoColor=white" alt="Upgrade Now" width="200" />
   </a>
 </p>
 
@@ -74,8 +77,8 @@ Experience the full potential of Taxibooking App:
 - Regular updates and dedicated support
 
 <p align="center">
-  <a href="https://your-landing-page-url.com" target="_blank">
-    <img src="https://img.shields.io/badge/Get%20a%20Quote-FF6F00?style=for-the-badge&logo=price-tag&logoColor=white" alt="Get a Quote" width="150" />
+  <a href="https://skrill.me/rq/Franklyn/50/USD?key=gjbr0Q9J6cHoIDDGGyDRd7tsRaX" target="_blank">
+    <img src="https://img.shields.io/badge/Get%20Full%20System-FF6F00?style=for-the-badge&logo=price-tag&logoColor=white" alt="Get Full System" width="250" />
   </a>
 </p>
 
@@ -104,8 +107,8 @@ We're here to help! Reach out through any of these channels:
 </p>
 
 <p align="center">
-  <a href="https://your-landing-page-url.com" target="_blank">
-    <img src="https://img.shields.io/badge/Upgrade%20to%20Full%20System-4CAF50?style=for-the-badge&logo=rocket&logoColor=white" alt="Upgrade to Full System" width="250" />
+  <a href="https://skrill.me/rq/Franklyn/50/USD?key=gjbr0Q9J6cHoIDDGGyDRd7tsRaX" target="_blank">
+    <img src="https://img.shields.io/badge/Upgrade%20to%20Full%20System-4CAF50?style=for-the-badge&logo=rocket&logoColor=white" alt="Upgrade to Full System" width="300" />
   </a>
 </p>
 
