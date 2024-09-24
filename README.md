@@ -16,7 +16,7 @@ Taxibooking App is a comprehensive taxi booking system, rivaling Uber and Bolt. 
   <a href="https://drive.google.com/drive/folders/1HQkCURnn-Gs8Q1RHNbFZnZcdUzNLgkU2?usp=sharing" target="_blank">
     <img src="https://img.shields.io/badge/Try%20Demo-FF5722?style=for-the-badge&logo=google-play&logoColor=white" alt="Try Demo" width="200" />
   </a>
-  <a href="https://skrill.me/rq/Franklyn/50/USD?key=gjbr0Q9J6cHoIDDGGyDRd7tsR" target="_blank">
+  <a href="https://wa.me/2347089930308" target="_blank">
     <img src="https://img.shields.io/badge/Get%20Full%20System-4CAF50?style=for-the-badge&logo=shopping-cart&logoColor=white" alt="Get Full System" width="200" />
   </a>
 </p>
@@ -53,7 +53,7 @@ Upgrade to our full system for a complete ride-hailing solution:
 - Advanced features like route optimization and analytics
 
 <p align="center">
-  <a href="https://skrill.me/rq/Franklyn/50/USD?key=gjbr0Q9J6cHoIDDGGyDRd7tsRaX" target="_blank">
+  <a href="https://wa.me/2347089930308" target="_blank">
     <img src="https://img.shields.io/badge/Upgrade%20Now-2196F3?style=for-the-badge&logo=rocket&logoColor=white" alt="Upgrade Now" width="200" />
   </a>
 </p>
@@ -74,7 +74,7 @@ Experience the full potential of Taxibooking App:
 - Regular updates and dedicated support
 
 <p align="center">
-  <a href="https://skrill.me/rq/Franklyn/50/USD?key=gjbr0Q9J6cHoIDDGGyDRd7tsRaX" target="_blank">
+  <a href="https://wa.me/2347089930308" target="_blank">
     <img src="https://img.shields.io/badge/Get%20Full%20System-FF6F00?style=for-the-badge&logo=price-tag&logoColor=white" alt="Get Full System" width="250" />
   </a>
 </p>
