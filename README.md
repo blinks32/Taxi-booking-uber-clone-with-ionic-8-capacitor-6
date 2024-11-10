@@ -29,6 +29,14 @@ Explore and customize our rider app, available as open-source:
 - Ride booking interface
 - Real-time ride tracking
 - Demo payment integration
+- Driver registration and login
+- adjustable fare
+- Admin Dashboard to track realtime rides
+- Stripe Payment using both plugin and api
+- Highly Customizeable UI
+- Driver Accepts Ride and can rate the ride
+- Rider can rate the ride
+- Admin dashboard can add car types create prices and more.
 
 ### Getting Started
 
