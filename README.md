@@ -36,6 +36,7 @@ Taxibooking App is a comprehensive taxi booking system, rivaling Uber and Bolt. 
 - Driver Accepts Ride and can rate the ride
 - Rider can rate the ride
 - Admin dashboard can add car types create prices and more.
+- Phone Number Authentication and email authentication.
 
 ### Getting Started
 
