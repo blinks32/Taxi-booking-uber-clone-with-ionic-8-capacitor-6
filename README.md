@@ -21,9 +21,8 @@ Taxibooking App is a comprehensive taxi booking system, rivaling Uber and Bolt. 
   </a>
 </p>
 
-## 📱 Open Source Rider App
+## 📱 Complete Project Features
 
-Explore and customize our rider app, available as open-source:
 
 - User registration and login
 - Ride booking interface
