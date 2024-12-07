@@ -4,6 +4,9 @@
 
 ## 🚀 Welcome to the Future of Ride-Hailing!
 
+![WhatsAppVideo2024-12-07at4 15 54PMonline-video-cutter com-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/ae62e39c-40d5-421c-88f3-23273ab9657a)
+
+
 Hey there! We've created something special - a complete taxi booking system that's as powerful as Uber or Bolt, but built just for you! Start small with our free rider app and grow bigger whenever you're ready. 
 
 ### 🌟 What's in the Box?
